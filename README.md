@@ -17,6 +17,17 @@ Of note, you should:
 
 For VS Code, install the Dart and Flutter plugin. Set your editor to format on save. https://flutter.dev/docs/development/tools/formatting#automatically-formatting-code-in-vs-code
 
+## Architecture
+
+The goal with this architecture is to ensure a clean separation of concerns for readability, maintainability, and reusability. It also simplifies unit testing business logic and allows for re-skinning the application without changing the underlying business logic. The following are the general guidelines for the architecture:
+
+- `screen`: A screen widget is a top level widget that is loaded via a route.
+- `widget`: A widget is considered a view and should only contain the necessary logic to construct the widget hierarchy statically or in response to changes in application state. It also facilitates passing events from user input to the View Model.
+- `view model`: The view model is the brains of each widget. It manages changes in localized state and communicates with services. The properties exposed by the model should strive to be semantic and the view should determine how to translate them into user interaction.
+- `service`: Services contain shared business logic and network communication.
+
+A good bit of the architecture is influenced by this post: https://www.filledstacks.com/post/flutter-provider-v3-architecture/
+
 ## Folder Structure
 
 The following is the folder structure under the `/lib` folder:
@@ -106,6 +117,28 @@ To run the linter, run the following command:
 
 ```
 flutter analyze
+```
+
+## Code Signing
+
+### Android
+
+Get the debug certificate:
+
+```
+keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+```
+
+Create the release certificate:
+
+```
+keytool -genkey -v -keystore ~/.android/release.keystore -alias teamtemp -keyalg RSA -keysize 2048 -validity 10000
+```
+
+Get the release certificate:
+
+```
+keytool -exportcert -list -v -alias teamtemp -keystore ~/.android/release.keystore
 ```
 
 ## Common Errors
