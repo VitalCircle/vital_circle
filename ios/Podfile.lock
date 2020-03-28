@@ -170,42 +170,50 @@ PODS:
     - Flutter
   - cloud_firestore_web (0.1.0):
     - Flutter
-  - Firebase/Core (6.15.0):
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
+  - Firebase/Core (6.21.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.2.1)
-  - Firebase/CoreOnly (6.15.0):
-    - FirebaseCore (= 6.6.0)
-  - Firebase/Firestore (6.15.0):
+    - FirebaseAnalytics (= 6.4.0)
+  - Firebase/CoreOnly (6.21.0):
+    - FirebaseCore (= 6.6.5)
+  - Firebase/Firestore (6.21.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 1.9.0)
+    - FirebaseFirestore (~> 1.11.2)
   - firebase_core (0.0.1):
     - Firebase/Core
     - Flutter
   - firebase_core_web (0.1.0):
     - Flutter
-  - FirebaseAnalytics (6.2.1):
+  - firebase_crashlytics (0.0.1):
+    - Crashlytics
+    - Fabric
+    - Firebase/Core
+    - Flutter
+  - FirebaseAnalytics (6.4.0):
     - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
-    - GoogleAppMeasurement (= 6.2.1)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleAppMeasurement (= 6.4.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
-  - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (6.6.0):
+  - FirebaseAuthInterop (1.1.0)
+  - FirebaseCore (6.6.5):
     - FirebaseCoreDiagnostics (~> 1.2)
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.0):
+  - FirebaseCoreDiagnostics (1.2.2):
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleDataTransportCCTSupport (~> 1.3)
+    - GoogleDataTransportCCTSupport (~> 2.0)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseFirestore (1.9.0):
+  - FirebaseFirestore (1.11.2):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
     - abseil/memory (= 0.20190808)
@@ -218,43 +226,38 @@ PODS:
     - "gRPC-C++ (= 0.0.9)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 0.3.901)
-  - FirebaseInstallations (1.1.0):
+  - FirebaseInstallations (1.1.1):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.0):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.0)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/UserDefaults (~> 6.5)
   - Flutter (1.0.0)
-  - GoogleAppMeasurement (6.2.1):
+  - GoogleAppMeasurement (6.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
-  - GoogleDataTransport (3.3.0)
-  - GoogleDataTransportCCTSupport (1.3.0):
-    - GoogleDataTransport (~> 3.3)
+  - GoogleDataTransport (5.1.0)
+  - GoogleDataTransportCCTSupport (2.0.1):
+    - GoogleDataTransport (~> 5.1)
     - nanopb (~> 0.3.901)
-  - GoogleUtilities/AppDelegateSwizzler (6.5.0):
+  - GoogleUtilities/AppDelegateSwizzler (6.5.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.5.0)
-  - GoogleUtilities/Logger (6.5.0):
+  - GoogleUtilities/Environment (6.5.2)
+  - GoogleUtilities/Logger (6.5.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.5.0):
+  - GoogleUtilities/MethodSwizzler (6.5.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.5.0):
+  - GoogleUtilities/Network (6.5.2):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.5.0)"
-  - GoogleUtilities/Reachability (6.5.0):
+  - "GoogleUtilities/NSData+zlib (6.5.2)"
+  - GoogleUtilities/Reachability (6.5.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.5.0):
+  - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
   - "gRPC-C++ (0.0.9)":
     - "gRPC-C++/Implementation (= 0.0.9)"
@@ -285,12 +288,15 @@ DEPENDENCIES:
   - cloud_firestore_web (from `.symlinks/plugins/cloud_firestore_web/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
+  - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
   - Flutter (from `Flutter`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - abseil
     - BoringSSL-GRPC
+    - Crashlytics
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
@@ -299,7 +305,6 @@ SPEC REPOS:
     - FirebaseCoreDiagnosticsInterop
     - FirebaseFirestore
     - FirebaseInstallations
-    - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -319,6 +324,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_core_web:
     :path: ".symlinks/plugins/firebase_core_web/ios"
+  firebase_crashlytics:
+    :path: ".symlinks/plugins/firebase_crashlytics/ios"
   Flutter:
     :path: Flutter
 
@@ -327,28 +334,30 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   cloud_firestore: 31454d48df21f3e1a900015e36143c0d46a304b7
   cloud_firestore_web: 9ec3dc7f5f98de5129339802d491c1204462bfec
-  Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  Firebase: 8dc1790d6e68fdac95f1c24ef1156ff5bd864c63
   firebase_core: 0d8be0e0d14c4902953aeb5ac5d7316d1fe4b978
   firebase_core_web: d501d8b946b60c8af265428ce483b0fff5ad52d1
-  FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
-  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 4aeb81ff53dcd9a3634ca725dc1fb8c2a4622046
-  FirebaseCoreDiagnostics: 5e78803ab276bc5b50340e3c539c06c3de35c649
-  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseFirestore: b7e6adda31974dbd259fc25b541e8850420c92ed
-  FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 6668efc1655a4052c083f287a7141f1ead12f9c2
+  firebase_crashlytics: bd8c58df07f107cb7e1a20cb190b9a468e0a69fd
+  FirebaseAnalytics: 6c2f636d3adf910e2d15078f4c0d079faebc74fa
+  FirebaseAuthInterop: 95d8cad6ea2339875cf54349749ca064a6ef8bc2
+  FirebaseCore: 2d579f8dd56879bd175c386c59f4558f3d9d5fc0
+  FirebaseCoreDiagnostics: efff9434b7bde0d51bcd5f9587b5fc0e2ccae7b5
+  FirebaseCoreDiagnosticsInterop: 19db8603e2681f266ee1f15c6c7a31553bffd75f
+  FirebaseFirestore: 367009c635162b2db95aca781b55c42e771b18f2
+  FirebaseInstallations: a899cfa7db572941ed71f148a6962621c42a8a78
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  GoogleAppMeasurement: a08a43b8677b95ed51fcef880e36737334d804fd
-  GoogleDataTransport: 574a983e829327d7c18f2627f65d9e80164ea8a4
-  GoogleDataTransportCCTSupport: cad3cd6cdbdbad6b5c2c9206ec413402755faaaa
-  GoogleUtilities: f8de7ddf8c706f58e9b405d53e38bbdaa2731e5a
+  GoogleAppMeasurement: 2cb3b93f878ad66790dd1d68d2abc91d1dc60f80
+  GoogleDataTransport: 26fdb9cdd578f3b388bc441ba5e71f9804ce39ed
+  GoogleDataTransportCCTSupport: 695887e9a75d6ea572a5933e394e14fe9253d11c
+  GoogleUtilities: 6f9c895854d14ce5f1cdf0251a21699bff373296
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
 
-PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+PODFILE CHECKSUM: bef5303375467ec1a1b00c13033ac3b0e40d04bf
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.6.1

@@ -99,3 +99,16 @@ To run the app on a specific device then you can run the following command:
 ```
 flutter run -d <part of the device name or id>
 ```
+
+## Common Errors
+
+### I try to run the app on my iOS simulator but get this error: `Error running pod install`
+
+Change to your iOS directory and run a pod update
+
+```
+cd ios
+pod update
+```
+
+Grab a snickers... it will take a while...
