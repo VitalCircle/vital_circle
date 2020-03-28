@@ -38,7 +38,6 @@ Future main() async {
 
   // catch application errors
   runZoned<Future<void>>(() async {
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     runApp(Main());
   }, onError: (dynamic error, StackTrace stack) {
     log.error(error, stack);
