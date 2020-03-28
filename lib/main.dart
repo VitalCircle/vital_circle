@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +49,7 @@ class Main extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final _analytics = FirebaseAnalytics();
     final _logRouteObserver = LogRouteObserver();
     var _streamTest =
         Firestore.instance.collection('test').document('document').snapshots().map((v) => ModelTest.fromJson(v.data));
@@ -56,7 +59,7 @@ class Main extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: MaterialThemeModule.build(),
-        navigatorObservers: <NavigatorObserver>[_logRouteObserver],
+        navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
         home: HomeScreen(),
       ),
     );
