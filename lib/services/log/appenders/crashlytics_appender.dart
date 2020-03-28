@@ -16,7 +16,7 @@ class CrashlyticsAppender implements LogAppender {
     if (logMessage.level != LogLevel.Error || logMessage.exception == null || logMessage.stack == null) {
       return;
     }
-
+    print(logMessage.exception);
     if (logMessage.informationCollector != null) {
       final FlutterErrorDetails details = FlutterErrorDetails(
           exception: logMessage.exception,

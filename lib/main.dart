@@ -63,7 +63,7 @@ class Main extends StatelessWidget {
         theme: MaterialThemeModule.build(),
         debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
-        initialRoute: RouteName.Home,
+        initialRoute: RouteName.Boot,
         routes: RouteModule.routes,
       ),
     );

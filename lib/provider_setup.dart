@@ -1,4 +1,7 @@
+import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+
+import 'services/services.dart';
 
 class ProviderModule {
   static final List<SingleChildWidget> providers = [
@@ -9,7 +12,9 @@ class ProviderModule {
 
   static final List<SingleChildWidget> _independentServices = <SingleChildWidget>[];
 
-  static final List<SingleChildWidget> _dependentServices = <SingleChildWidget>[];
+  static final List<SingleChildWidget> _dependentServices = <SingleChildWidget>[
+    Provider.value(value: GoogleAuthService()),
+  ];
 
   static final List<SingleChildWidget> _uiConsumableProviders = <SingleChildWidget>[];
 }

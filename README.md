@@ -119,6 +119,28 @@ To run the linter, run the following command:
 flutter analyze
 ```
 
+## Code Signing
+
+### Android
+
+Get the debug certificate:
+
+```
+keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
+```
+
+Create the release certificate:
+
+```
+keytool -genkey -v -keystore ~/.android/release.keystore -alias teamtemp -keyalg RSA -keysize 2048 -validity 10000
+```
+
+Get the release certificate:
+
+```
+keytool -exportcert -list -v -alias teamtemp -keystore ~/.android/release.keystore
+```
+
 ## Common Errors
 
 ### I try to run the app on my iOS simulator but get this error: `Error running pod install`
