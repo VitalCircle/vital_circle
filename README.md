@@ -100,6 +100,14 @@ To run the app on a specific device then you can run the following command:
 flutter run -d <part of the device name or id>
 ```
 
+## Lint
+
+To run the linter, run the following command:
+
+```
+flutter analyze
+```
+
 ## Common Errors
 
 ### I try to run the app on my iOS simulator but get this error: `Error running pod install`
