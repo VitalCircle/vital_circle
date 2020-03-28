@@ -12,6 +12,9 @@ import 'package:teamtemp/screens/screens.dart';
 import 'package:teamtemp/services/services.dart';
 import 'package:teamtemp/themes/material_theme.dart';
 
+import 'provider_setup.dart';
+import 'routes.dart';
+
 Future main() async {
   // https://stackoverflow.com/questions/57689492/flutter-unhandled-exception-servicesbinding-defaultbinarymessenger-was-accesse
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,21 +49,22 @@ Future main() async {
 }
 
 class Main extends StatelessWidget {
-  // This widget is the root of your application.
+  final _analytics = FirebaseAnalytics();
+  final _logRouteObserver = LogRouteObserver();
+  var _streamTest =
+      Firestore.instance.collection('test').document('document').snapshots().map((v) => ModelTest.fromJson(v.data));
+
   @override
   Widget build(BuildContext context) {
-    final _analytics = FirebaseAnalytics();
-    final _logRouteObserver = LogRouteObserver();
-    var _streamTest =
-        Firestore.instance.collection('test').document('document').snapshots().map((v) => ModelTest.fromJson(v.data));
-
     return MultiProvider(
-      providers: [StreamProvider<ModelTest>.value(value: _streamTest)],
+      providers: [...ProviderModule.providers, StreamProvider<ModelTest>.value(value: _streamTest)],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Team Temp',
         theme: MaterialThemeModule.build(),
+        debugShowCheckedModeBanner: false,
         navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
-        home: HomeScreen(),
+        initialRoute: RouteName.Home,
+        routes: RouteModule.routes,
       ),
     );
   }
