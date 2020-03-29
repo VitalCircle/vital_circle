@@ -21,14 +21,14 @@ Widget bottomNav(BuildContext context) {
     selectedItemColor: AppColors.primaryTextColor,
     unselectedItemColor: AppColors.whiteHighEmphasis,
     type: BottomNavigationBarType.fixed,
-    items: [
-      const BottomNavigationBarItem(
+    items: const [
+      BottomNavigationBarItem(
           title: Text('Home'), icon: Icon(FontAwesomeIcons.home)),
-      const BottomNavigationBarItem(
+      BottomNavigationBarItem(
           title: Text('Entries'), icon: Icon(FontAwesomeIcons.edit)),
-      const BottomNavigationBarItem(
+      BottomNavigationBarItem(
           title: Text('Stats'), icon: Icon(FontAwesomeIcons.chartBar)),
-      const BottomNavigationBarItem(
+      BottomNavigationBarItem(
           title: Text('Calendar'), icon: Icon(FontAwesomeIcons.calendarAlt)),
     ],
     currentIndex: 0,

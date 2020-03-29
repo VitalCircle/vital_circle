@@ -17,8 +17,14 @@ class MaterialThemeModule {
 
       // Text settings
       textTheme: const TextTheme(
-          display3: TextStyle(color: AppColors.primaryTextColor, fontSize: 36),
-          body1: TextStyle(fontSize: 32)),
+        display3: TextStyle(color: AppColors.primaryTextColor, fontSize: 36),
+        body1: TextStyle(fontSize: 32),
+        body2: TextStyle(
+            color: AppColors.darkMediumEmphasis,
+            fontSize: 22,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.normal),
+      ),
     );
   }
 }
