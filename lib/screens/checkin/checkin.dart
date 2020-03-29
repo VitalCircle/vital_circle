@@ -31,7 +31,7 @@ class CheckinScreen extends StatelessWidget {
                 const SizedBox(height: Spacers.sm),
                 Text(
                   'Today, Mar 28, 3:14 PM',
-                  style: Theme.of(context).textTheme.body2,
+                  style: Theme.of(context).textTheme.display1,
                 ),
                 SizedBox(height: Spacers.lg),
                 Row(
@@ -56,18 +56,14 @@ class CheckinScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckinResponse(String s, IconData i,
-      [bool isSelected = false]) {
+  Widget _buildCheckinResponse(String s, IconData i, [bool isSelected = false]) {
     return InkWell(
       onTap: () {
         // todo: implement for each button
       },
       child: Container(
-          decoration: BoxDecoration(
-              color: AppColors.buttonColorInactive,
-              borderRadius: BorderRadius.circular(10)),
-          padding: EdgeInsets.symmetric(
-              vertical: Spacers.md, horizontal: Spacers.md),
+          decoration: BoxDecoration(color: AppColors.buttonColorInactive, borderRadius: BorderRadius.circular(10)),
+          padding: EdgeInsets.symmetric(vertical: Spacers.md, horizontal: Spacers.md),
           child: Column(
             children: <Widget>[
               Text(s),

@@ -22,12 +22,13 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          model.user.displayName == null ? _drawAnonymousHeader(context) : _drawSocialHeader(model.user),
+          model.user.isAnonymous ? _drawAnonymousHeader(context) : _drawSocialHeader(model.user),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () async {
-              await showDialog<bool>(context: context, builder: (context) => ConfirmSignOutDialog());
+              await showDialog<bool>(
+                  context: context, builder: (context) => ConfirmSignOutDialog(isAnonymous: model.user.isAnonymous));
             },
           ),
         ],
@@ -37,8 +38,8 @@ class DrawerWidget extends StatelessWidget {
 
   Widget _drawSocialHeader(FirebaseUser user) {
     return UserAccountsDrawerHeader(
-      accountName: Text(user.displayName),
-      accountEmail: Text(user.email),
+      accountName: Text(user.displayName ?? ''),
+      accountEmail: Text(user.email ?? ''),
       currentAccountPicture: CircleAvatar(backgroundImage: user.photoUrl != null ? NetworkImage(user.photoUrl) : null),
     );
   }

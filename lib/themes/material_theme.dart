@@ -10,16 +10,14 @@ class MaterialThemeModule {
       primaryColor: AppColors.primary,
 
       // App bar settings
-      appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: AppColors.whiteHighEmphasis)),
-      primaryTextTheme:
-          const TextTheme(title: TextStyle(color: AppColors.whiteHighEmphasis)),
+      appBarTheme: const AppBarTheme(iconTheme: IconThemeData(color: AppColors.whiteHighEmphasis)),
+      primaryTextTheme: const TextTheme(title: TextStyle(color: AppColors.whiteHighEmphasis)),
 
       // Text settings
       textTheme: const TextTheme(
         display3: TextStyle(color: AppColors.primaryTextColor, fontSize: 36),
-        body1: TextStyle(fontSize: 32),
-        body2: TextStyle(
+        display2: TextStyle(fontSize: 32),
+        display1: TextStyle(
             color: AppColors.darkMediumEmphasis,
             fontSize: 22,
             fontStyle: FontStyle.italic,

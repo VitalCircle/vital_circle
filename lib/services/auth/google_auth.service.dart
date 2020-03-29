@@ -13,11 +13,6 @@ class GoogleAuthService implements AuthProviderService {
   }
 
   @override
-  Future<bool> signUp() {
-    return _signIn(false);
-  }
-
-  @override
   Future<bool> signIn() {
     return _signIn(false);
   }
