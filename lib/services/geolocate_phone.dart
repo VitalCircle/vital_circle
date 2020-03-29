@@ -13,15 +13,15 @@ StreamSubscription<Position> positionStream = geolocator.getPositionStream(locat
     });
 
 // Insert into database
-Future<bool> insertLocationRow(Location location) async {
+Future<bool> insertLocationRow(Position position) async {
     
-    Position myLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    final coordinates = new Coordinates(myLocation.latitude, myLocation.longitude);
+    Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    final coordinates = new Coordinates(position.latitude, position.longitude);
     
     if (myLocation != null)
         databaseReference.child("Locations").set({
-            'latitude': myLocation.latitude,
-            'longitude': myLocation.longitude
+            'latitude': position.latitude,
+            'longitude': position.longitude
         });
     
     
