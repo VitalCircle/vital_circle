@@ -11,16 +11,8 @@ Future<bool> insertLocationRow(Location location) async {
     Position myLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     final coordinates = new Coordinates(myLocation.latitude, myLocation.longitude);
     
-    await _database
-        .reference()
-        .child("Locations")
-        .child(Location.location)
-        .set(<String, Object>{
-            "latitude": Location.latitude,
-            "longitude": Location.longitude
-        }).then((onValue) {
-            return true;
-        }).catchError((onError) {
-            return false;
-        });
-        
+    databaseReference.child("Locations").set({
+        'latitude': myLocation.latitude,
+        'longitude': myLocation.longitude
+    });
+    
