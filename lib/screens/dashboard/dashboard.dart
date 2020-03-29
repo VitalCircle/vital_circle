@@ -8,7 +8,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: appBarLeadingAction(context),
+        // leading: appBarLeadingAction(context),
         title: const Text('VitalCircle'),
       ),
       body: Column(
@@ -19,6 +19,11 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
       endDrawer: DrawerWidget(),
+
+      // Bottom Nav
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: fab(context),
+      bottomNavigationBar: bottomNav(context),
     );
   }
 
