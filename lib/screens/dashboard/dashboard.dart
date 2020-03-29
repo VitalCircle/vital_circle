@@ -9,6 +9,7 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // leading: appBarLeadingAction(context),
+        automaticallyImplyLeading: false,
         title: const Text('VitalCircle'),
       ),
       body: Column(
@@ -37,8 +38,7 @@ class DashboardScreen extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           decoration: BoxDecoration(
-              image: const DecorationImage(
-                  image: AssetImage('assets/how-are-you-feeling.png')),
+              image: const DecorationImage(image: AssetImage('assets/how-are-you-feeling.png')),
               borderRadius: BorderRadius.circular(10),
               color: AppColors.accentBlue),
           child: Container(
@@ -60,9 +60,7 @@ class DashboardScreen extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: AppColors.accentGreen),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppColors.accentGreen),
           child: Center(
             child: _display3Text(context, 'Record Your Temperature'),
           ),
@@ -81,15 +79,13 @@ class DashboardScreen extends StatelessWidget {
         child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: AssetImage('assets/personal-threat-level.png')),
+                image: const DecorationImage(image: AssetImage('assets/personal-threat-level.png')),
                 borderRadius: BorderRadius.circular(10),
                 color: AppColors.accentBlue),
             child: Container(
               margin: const EdgeInsets.all(12),
               alignment: Alignment.topLeft,
-              child:
-                  _display3Text(context, 'Personal\nExposure\nThreat\nLevel'),
+              child: _display3Text(context, 'Personal\nExposure\nThreat\nLevel'),
             )),
       ),
     );
