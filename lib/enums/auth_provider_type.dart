@@ -1,0 +1,1 @@
+enum AuthProviderType { anonymous, google }

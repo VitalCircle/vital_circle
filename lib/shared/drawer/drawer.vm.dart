@@ -8,9 +8,9 @@ import 'package:teamtemp/routes.dart';
 import 'package:teamtemp/services/services.dart';
 
 class DrawerViewModel extends ChangeNotifier {
-  DrawerViewModel.of(BuildContext context) : _googleAuthService = Provider.of(context);
+  DrawerViewModel.of(BuildContext context) : _authService = Provider.of(context);
 
-  final GoogleAuthService _googleAuthService;
+  final AuthService _authService;
 
   bool _isReady = false;
   bool get isReady => _isReady;
@@ -19,13 +19,13 @@ class DrawerViewModel extends ChangeNotifier {
   FirebaseUser get user => _user;
 
   Future init() async {
-    _user = await _googleAuthService.user;
+    _user = await _authService.user;
     _isReady = true;
     notifyListeners();
   }
 
   Future signOut(BuildContext context) async {
-    await _googleAuthService.signOut();
-    Navigator.pushNamedAndRemoveUntil(context, RouteName.Welcome, (_) => true);
+    await _authService.signOut(context);
+    Navigator.pushNamedAndRemoveUntil(context, RouteName.Welcome, (_) => false);
   }
 }
