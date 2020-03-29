@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:teamtemp/services/services.dart';
 import 'package:teamtemp/shared/shared.dart';
 
-class HomeScreen extends StatelessWidget {
+import 'drawer/drawer.dart';
+
+class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _test = Provider.of<ModelTest>(context);
@@ -11,11 +13,12 @@ class HomeScreen extends StatelessWidget {
     if (_test != null) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Title'),
+          title: const Text('Welcome!'),
         ),
         body: Center(
           child: Text('${_test.title}'),
         ),
+        drawer: DrawerWidget(),
       );
     }
     return Loading();
