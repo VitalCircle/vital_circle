@@ -7,7 +7,7 @@ class MaterialThemeModule {
     return ThemeData(
       errorColor: AppColors.error,
       fontFamily: 'Roboto',
-      primaryColor: AppColors.primary,
+      primaryColor: AppColors.primary200,
 
       // App bar settings
       appBarTheme: const AppBarTheme(iconTheme: IconThemeData(color: AppColors.whiteHighEmphasis)),
