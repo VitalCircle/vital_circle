@@ -7,15 +7,16 @@ import 'package:teamtemp/routes.dart';
 import 'package:teamtemp/services/services.dart';
 
 class BootViewModel extends ChangeNotifier {
-  BootViewModel.of(BuildContext context) : _googleAuthService = Provider.of(context);
+  BootViewModel.of(BuildContext context)
+      : _googleAuthService = Provider.of(context);
 
   final GoogleAuthService _googleAuthService;
 
   Future onInit(BuildContext context) async {
     if (await _googleAuthService.signInSilently()) {
-      Navigator.pushNamedAndRemoveUntil(context, RouteName.Dashboard, (_) => true);
+      Navigator.pushReplacementNamed(context, RouteName.Dashboard);
     } else {
-      Navigator.pushNamedAndRemoveUntil(context, RouteName.Welcome, (_) => true);
+      Navigator.pushReplacementNamed(context, RouteName.Welcome);
     }
   }
 }

@@ -11,7 +11,8 @@ class DrawerWidget extends StatelessWidget {
       onModelReady: (model) {
         model.init();
       },
-      builder: (context, model, child) => model.isReady ? _buildDrawer(context, model) : Container(),
+      builder: (context, model, child) =>
+          model.isReady ? _buildDrawer(context, model) : Container(),
     );
   }
 
