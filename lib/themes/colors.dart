@@ -9,6 +9,7 @@ class AppColors {
   static const Color error = Colors.red;
 
   static const Color secondary100 = Color(0xFFDCEAF9);
+  static const Color secondary800 = Color(0xFF022628);
 
   static const Color brandPrimary = primary200;
   static const Color brandSecondary = Color(0xFFCC8700);

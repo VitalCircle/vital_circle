@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:teamtemp/constants/images.dart';
 import 'package:teamtemp/shared/shared.dart';
 import 'package:teamtemp/themes/theme.dart';
 
@@ -17,19 +18,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: ModalProgressHUD(
         inAsyncCall: _isBusy,
         color: AppColors.modalBackground,
-        child: Center(
-          child: Column(
+        child: Container(
+          decoration: const BoxDecoration(color: AppColors.secondary800),
+          child: Stack(
             children: [
-              Text('Welcome!', style: Theme.of(context).textTheme.display1),
-              const SizedBox(height: Spacers.lg),
-              AuthButtons(onBusyToggle: (bool isBusy) {
-                setState(() {
-                  _isBusy = isBusy;
-                });
-              })
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Image(image: AssetImage(Images.WELCOME_WORLD), fit: BoxFit.fitWidth),
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    LogoHeader(),
+                    const SizedBox(height: Spacers.xl),
+                    Container(
+                      child: Text(
+                        'Are you ready to save the world?',
+                        style: Theme.of(context).textTheme.display3.copyWith(color: AppColors.whiteHighEmphasis),
+                        textAlign: TextAlign.center,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: Spacers.lg),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: AuthButtons(onBusyToggle: (bool isBusy) {
+                          setState(() {
+                            _isBusy = isBusy;
+                          });
+                        }),
+                      ),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                ),
+              ),
             ],
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
           ),
         ),
       ),

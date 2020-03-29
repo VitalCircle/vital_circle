@@ -17,7 +17,7 @@ class AnonymousSignInButton extends SignInButton {
                 FontAwesomeIcons.userLock,
                 color: AppColors.whiteMediumEmphasis,
               )),
-          label: 'Continue Anonymously',
+          label: 'Yes, continue Anonymously',
           backgroundColor: AppColors.anonymousBtnBackground,
           fontColor: AppColors.whiteMediumEmphasis,
         );
