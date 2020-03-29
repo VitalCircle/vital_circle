@@ -10,10 +10,16 @@ class ProviderModule {
     ..._uiConsumableProviders,
   ];
 
-  static final List<SingleChildWidget> _independentServices = <SingleChildWidget>[];
+  static final List<SingleChildWidget> _independentServices = <SingleChildWidget>[
+    Provider.value(value: AnonymousAuthService()),
+    Provider.value(value: GoogleAuthService()),
+    Provider.value(value: LocalStorage())
+  ];
 
   static final List<SingleChildWidget> _dependentServices = <SingleChildWidget>[
-    Provider.value(value: GoogleAuthService()),
+    ProxyProvider3<LocalStorage, GoogleAuthService, AnonymousAuthService, AuthService>(
+        update: (context, localStorage, googleAuthService, anonymousAuthService, _) =>
+            AuthService(localStorage, googleAuthService, anonymousAuthService)),
   ];
 
   static final List<SingleChildWidget> _uiConsumableProviders = <SingleChildWidget>[];

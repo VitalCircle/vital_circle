@@ -18,15 +18,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         inAsyncCall: _isBusy,
         color: AppColors.modalBackground,
         child: Center(
-          child: SizedBox(
-            width: 250,
-            child: GoogleSignInButton(
-              onBusyToggle: (bool isBusy) {
+          child: Column(
+            children: [
+              Text('Welcome!', style: Theme.of(context).textTheme.display1),
+              const SizedBox(height: Spacers.lg),
+              AuthButtons(onBusyToggle: (bool isBusy) {
                 setState(() {
                   _isBusy = isBusy;
                 });
-              },
-            ),
+              })
+            ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
           ),
         ),
       ),

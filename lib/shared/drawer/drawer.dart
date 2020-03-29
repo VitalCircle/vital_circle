@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:teamtemp/shared/drawer/confirm_sign_out.dart';
 import 'package:teamtemp/shared/shared.dart';
 
 import 'drawer.vm.dart';
@@ -11,8 +13,7 @@ class DrawerWidget extends StatelessWidget {
       onModelReady: (model) {
         model.init();
       },
-      builder: (context, model, child) =>
-          model.isReady ? _buildDrawer(context, model) : Container(),
+      builder: (context, model, child) => model.isReady ? _buildDrawer(context, model) : Container(),
     );
   }
 
@@ -21,21 +22,33 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(model.user.displayName),
-            accountEmail: Text(model.user.email),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(model.user.photoUrl),
-            ),
-          ),
+          model.user.displayName == null ? _drawAnonymousHeader(context) : _drawSocialHeader(model.user),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: const Text('Logout'),
-            onTap: () {
-              model.signOut(context);
+            onTap: () async {
+              await showDialog<bool>(context: context, builder: (context) => ConfirmSignOutDialog());
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _drawSocialHeader(FirebaseUser user) {
+    return UserAccountsDrawerHeader(
+      accountName: Text(user.displayName),
+      accountEmail: Text(user.email),
+      currentAccountPicture: CircleAvatar(backgroundImage: user.photoUrl != null ? NetworkImage(user.photoUrl) : null),
+    );
+  }
+
+  Widget _drawAnonymousHeader(BuildContext context) {
+    return UserAccountsDrawerHeader(
+      accountName: const Text('Anonymous'),
+      accountEmail: const Text(''),
+      currentAccountPicture: CircleAvatar(
+        child: Text('A', style: Theme.of(context).textTheme.display1),
       ),
     );
   }
