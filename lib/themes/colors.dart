@@ -10,6 +10,8 @@ class AppColors {
 
   static const Color whiteHighEmphasis = Color(0xFFFFFFFF);
   static const Color primaryTextColor = Color(0xFF006064);
+  static const Color accentBlue = Color(0xFFDCEAF9);
+  static const Color accentGreen = Color(0xFFBCE4EA);
 
   static const Color google = Color.fromARGB(255, 66, 133, 244);
   static const Color modalBackground = Color.fromARGB(255, 0, 0, 0);
