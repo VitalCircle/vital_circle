@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:teamtemp/routes.dart';
-import 'package:teamtemp/shared/app_bar.dart';
 import 'package:teamtemp/shared/shared.dart';
 import 'package:teamtemp/themes/theme.dart';
+
+import 'dashboard.vm.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BaseWidget<DashboardViewModel>(
+      model: DashboardViewModel.of(context),
+      onModelReady: (model) {
+        model.onInit();
+      },
+      builder: (context, model, child) {
+        return _buildScreen(context);
+      },
+    );
+  }
+
+  Widget _buildScreen(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         // leading: appBarLeadingAction(context),
