@@ -23,8 +23,3 @@ Future<bool> insertLocationRow(Position position) async {
             'latitude': position.latitude,
             'longitude': position.longitude
         });
-    
-    
-
-
-
