@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:teamtemp/routes.dart';
 import 'package:teamtemp/shared/app_bar.dart';
 import 'package:teamtemp/shared/shared.dart';
 import 'package:teamtemp/themes/theme.dart';
@@ -33,7 +34,7 @@ class DashboardScreen extends StatelessWidget {
       flex: 2,
       child: InkWell(
         onTap: () {
-          // todo: How Are You Feeling Screen
+          Navigator.pushNamed(context, RouteName.Checkin);
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
