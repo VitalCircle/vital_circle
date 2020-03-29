@@ -20,6 +20,7 @@ class ProviderModule {
     ProxyProvider3<LocalStorage, GoogleAuthService, AnonymousAuthService, AuthService>(
         update: (context, localStorage, googleAuthService, anonymousAuthService, _) =>
             AuthService(localStorage, googleAuthService, anonymousAuthService)),
+    ProxyProvider<AuthService, GeoService>(update: (context, authService, _) => GeoService(authService)),
   ];
 
   static final List<SingleChildWidget> _uiConsumableProviders = <SingleChildWidget>[];

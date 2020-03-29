@@ -1,17 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:teamtemp/services/geolocate_phone.dart';
 
 class DashboardViewModel extends ChangeNotifier {
-  DashboardViewModel.of(BuildContext context);
+  DashboardViewModel.of(BuildContext context) : _geoService = Provider.of(context);
+
+  final GeoService _geoService;
 
   Future onInit() async {
-    // TODO: start polling GPS location
+    _geoService.startPolling();
   }
 
   @override
   void dispose() {
-    // TODO: stop polling GPS location
+    _geoService.stopPolling();
     super.dispose();
   }
 }

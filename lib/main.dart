@@ -50,13 +50,11 @@ Future main() async {
 class Main extends StatelessWidget {
   final _analytics = FirebaseAnalytics();
   final _logRouteObserver = LogRouteObserver();
-  var _streamTest =
-      Firestore.instance.collection('test').document('document').snapshots().map((v) => ModelTest.fromJson(v.data));
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [...ProviderModule.providers, StreamProvider<ModelTest>.value(value: _streamTest)],
+      providers: ProviderModule.providers,
       child: MaterialApp(
         title: 'Team Temp',
         theme: MaterialThemeModule.build(),

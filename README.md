@@ -111,6 +111,14 @@ To run the app on a specific device then you can run the following command:
 flutter run -d <part of the device name or id>
 ```
 
+## Model Generation
+
+All models are created in the `services/models.dart` file. They are annotated using the `json_annotation` package and a corresponding code file is generated using `json_serializable`. To generate the file, run the following command:
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
 ## Lint
 
 To run the linter, run the following command:
