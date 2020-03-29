@@ -21,6 +21,7 @@ class AppColors {
   static const Color accentBlue = Color(0xFFDCEAF9);
   static const Color accentGreen = Color(0xFFBCE4EA);
 
-  static const Color google = Color.fromARGB(255, 66, 133, 244);
+  static const Color googleBtnBackground = Color.fromARGB(255, 66, 133, 244);
+  static const Color anonymousBtnBackground = Color.fromARGB(255, 61, 61, 61);
   static const Color modalBackground = Color.fromARGB(255, 0, 0, 0);
 }
