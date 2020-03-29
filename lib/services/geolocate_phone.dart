@@ -1,6 +1,5 @@
-import 'package:tuple/tuple.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:firebase_database/firebase_database.dart';t
+import 'package:firebase_database/firebase_database.dart';
 import 'models.location.dart'
 
 final databaseReference = FirebaseDatabase.instance.reference();
