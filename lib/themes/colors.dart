@@ -3,10 +3,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF54B7C3);
+  static const Color primary200 = Color(0xFF54B7C3);
   static const Color accent = Colors.pinkAccent;
   static const Color warn = Colors.amber;
   static const Color error = Colors.red;
+
+  static const Color secondary100 = Color(0xFFDCEAF9);
+  static const Color secondary800 = Color(0xFF022628);
+
+  static const Color brandPrimary = primary200;
+  static const Color brandSecondary = Color(0xFFCC8700);
+  static const Color buttonBackground = Color(0xFFCFD8DC);
 
   static const Color whiteHighEmphasis = Color(0xFFFFFFFF);
   static const Color whiteMediumEmphasis = Color(0xB3FFFFFF);

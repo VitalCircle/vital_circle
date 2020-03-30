@@ -18,7 +18,7 @@ class GoogleSignInButton extends SignInButton {
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4.0)),
             padding: const EdgeInsets.all(8),
           ),
-          label: 'Continue with Google',
+          label: 'Yes, continue with Google',
           backgroundColor: AppColors.googleBtnBackground,
         );
 }

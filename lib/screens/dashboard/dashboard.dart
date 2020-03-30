@@ -37,7 +37,7 @@ class DashboardScreen extends StatelessWidget {
 
       // Bottom Nav
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: fab(context),
+      floatingActionButton: fabAdd(context),
       bottomNavigationBar: bottomNav(context),
     );
   }
@@ -47,7 +47,7 @@ class DashboardScreen extends StatelessWidget {
       flex: 2,
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, RouteName.Checkin);
+          Navigator.pushNamed(context, RouteName.Checkup);
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),

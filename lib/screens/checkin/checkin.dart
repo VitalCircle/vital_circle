@@ -51,7 +51,7 @@ class CheckinScreen extends StatelessWidget {
 
       // Bottom Nav
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: fab(context),
+      floatingActionButton: fabAdd(context),
       bottomNavigationBar: bottomNav(context),
     );
   }

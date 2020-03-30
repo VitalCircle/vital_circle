@@ -32,6 +32,7 @@ class AuthButtons extends StatelessWidget {
                       onPressed: () async => _signIn(context, AuthProviderType.anonymous, model),
                     ))
               ],
+              mainAxisSize: MainAxisSize.min,
             ));
   }
 
