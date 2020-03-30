@@ -4,15 +4,16 @@ import 'package:teamtemp/themes/theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-Widget fab(BuildContext context) {
+Widget fabAdd(BuildContext context) {
+  return fab(context, Icons.add, () {});
+}
+
+Widget fab(BuildContext context, IconData icon, Function onPressed) {
   return FloatingActionButton(
-    backgroundColor: AppColors.whiteHighEmphasis,
-    child: Icon(Icons.add, color: Colors.black),
-    shape: const CircleBorder(side: BorderSide(width: 2)),
-    onPressed: () {
-      //todo: add
-    },
-  );
+      backgroundColor: AppColors.whiteHighEmphasis,
+      child: Icon(icon, color: Colors.black),
+      shape: const CircleBorder(side: BorderSide(width: 2)),
+      onPressed: onPressed);
 }
 
 Widget bottomNav(BuildContext context) {

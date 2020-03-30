@@ -1,4 +1,4 @@
 export './boot/boot.dart';
+export './checkup/checkup.dart';
 export './dashboard/dashboard.dart';
-export './checkin/checkin.dart';
 export 'welcome.dart';

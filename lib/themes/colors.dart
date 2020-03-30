@@ -13,6 +13,7 @@ class AppColors {
 
   static const Color brandPrimary = primary200;
   static const Color brandSecondary = Color(0xFFCC8700);
+  static const Color buttonBackground = Color(0xFFCFD8DC);
 
   static const Color whiteHighEmphasis = Color(0xFFFFFFFF);
   static const Color whiteMediumEmphasis = Color(0xB3FFFFFF);

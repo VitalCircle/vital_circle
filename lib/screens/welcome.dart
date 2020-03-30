@@ -24,7 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Image(image: AssetImage(Images.WELCOME_WORLD), fit: BoxFit.fitWidth),
+                child: const Image(image: AssetImage(Images.WELCOME_WORLD), fit: BoxFit.fitWidth),
               ),
               Center(
                 child: Column(
