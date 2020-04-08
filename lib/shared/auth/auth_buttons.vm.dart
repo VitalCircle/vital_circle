@@ -18,7 +18,7 @@ class AuthButtonsViewModel extends ChangeNotifier {
   Future<bool> signIn(BuildContext context, AuthProviderType providerType) async {
     try {
       if (await _authService.socialSignIn(providerType)) {
-        Navigator.pushNamedAndRemoveUntil(context, RouteName.Dashboard, (_) => false);
+        Navigator.pushNamedAndRemoveUntil(context, RouteName.Onboarding, (_) => false);
         return true;
         // don't reset busy so that the spinner remains till the page transitions
       }
