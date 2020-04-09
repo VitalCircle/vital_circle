@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:teamtemp/screens/onboarding/location-agreement.dart';
-import 'package:teamtemp/screens/onboarding/privacy-agreement.dart';
-import 'package:teamtemp/screens/onboarding/tos-agreement.dart';
-import 'package:teamtemp/shared/shared.dart';
+import 'package:vital_circle/screens/onboarding/location-agreement.dart';
+import 'package:vital_circle/screens/onboarding/privacy-agreement.dart';
+import 'package:vital_circle/screens/onboarding/tos-agreement.dart';
+import 'package:vital_circle/shared/shared.dart';
 
 import 'onboarding.vm.dart';
 

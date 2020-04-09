@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teamtemp/constants/images.dart';
-import 'package:teamtemp/shared/shared.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/constants/images.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 import 'checkup.vm.dart';
 
@@ -59,7 +59,8 @@ class _CheckupScreenState extends State<CheckupScreen> {
 
   Widget _buildTemp(BuildContext context, CheckupViewModel model) {
     return TextFormField(
-        decoration: const InputDecoration(labelText: 'Temperature', hintText: 'Temperature (Fahrenheit)'),
+        decoration: const InputDecoration(
+            labelText: 'Temperature', hintText: 'Temperature (Fahrenheit)'),
         keyboardType: TextInputType.number,
         initialValue: '',
         onSaved: (value) {
@@ -72,46 +73,60 @@ class _CheckupScreenState extends State<CheckupScreen> {
     return GridView.count(
       crossAxisCount: 3,
       children: [
-        _buildSymptom(context, model, 'Fever', Images.FEVER, model.checkup.febrile, (value) {
+        _buildSymptom(
+            context, model, 'Fever', Images.FEVER, model.checkup.febrile,
+            (value) {
           model.checkup.febrile = value;
         }),
-        _buildSymptom(context, model, 'Cough', Images.COUGH, model.checkup.cough, (value) {
+        _buildSymptom(
+            context, model, 'Cough', Images.COUGH, model.checkup.cough,
+            (value) {
           model.checkup.cough = value;
         }),
-        _buildSymptom(context, model, 'Short of Breath', Images.SHORT_OF_BREATH, model.checkup.shortnessOfBreath,
-            (value) {
+        _buildSymptom(context, model, 'Short of Breath', Images.SHORT_OF_BREATH,
+            model.checkup.shortnessOfBreath, (value) {
           model.checkup.shortnessOfBreath = value;
         }),
-        _buildSymptom(context, model, 'Feeling Ill', Images.FEELING_ILL, model.checkup.feelingIll, (value) {
+        _buildSymptom(context, model, 'Feeling Ill', Images.FEELING_ILL,
+            model.checkup.feelingIll, (value) {
           model.checkup.feelingIll = value;
         }),
-        _buildSymptom(context, model, 'Headache', Images.HEADACHE, model.checkup.headache, (value) {
+        _buildSymptom(
+            context, model, 'Headache', Images.HEADACHE, model.checkup.headache,
+            (value) {
           model.checkup.headache = value;
         }),
-        _buildSymptom(context, model, 'Body Aches', Images.BODY_ACHES, model.checkup.bodyAches, (value) {
+        _buildSymptom(context, model, 'Body Aches', Images.BODY_ACHES,
+            model.checkup.bodyAches, (value) {
           model.checkup.bodyAches = value;
         }),
-        _buildSymptom(context, model, 'Weird/No Taste', Images.ODD_TASTE, model.checkup.oddTaste, (value) {
+        _buildSymptom(context, model, 'Weird/No Taste', Images.ODD_TASTE,
+            model.checkup.oddTaste, (value) {
           model.checkup.oddTaste = value;
         }),
-        _buildSymptom(context, model, 'Weird/No Smell', Images.ODD_SMELL, model.checkup.oddSmell, (value) {
+        _buildSymptom(context, model, 'Weird/No Smell', Images.ODD_SMELL,
+            model.checkup.oddSmell, (value) {
           model.checkup.oddSmell = value;
         }),
-        _buildSymptom(context, model, 'Sneezing/Runny Nose', Images.SNEEZE, model.checkup.sneezingOrRunnyNose, (value) {
+        _buildSymptom(context, model, 'Sneezing/Runny Nose', Images.SNEEZE,
+            model.checkup.sneezingOrRunnyNose, (value) {
           model.checkup.sneezingOrRunnyNose = value;
         }),
-        _buildSymptom(context, model, 'Sore Throat', Images.SORE_THROAT, model.checkup.soreThroat, (value) {
+        _buildSymptom(context, model, 'Sore Throat', Images.SORE_THROAT,
+            model.checkup.soreThroat, (value) {
           model.checkup.soreThroat = value;
         }),
-        _buildSymptom(context, model, 'Other', Images.OTHER, model.checkup.other, (value) {
+        _buildSymptom(
+            context, model, 'Other', Images.OTHER, model.checkup.other,
+            (value) {
           model.checkup.other = value;
         }),
       ],
     );
   }
 
-  Widget _buildSymptom(
-      BuildContext context, CheckupViewModel model, String label, String image, int value, Function(int) setValue) {
+  Widget _buildSymptom(BuildContext context, CheckupViewModel model,
+      String label, String image, int value, Function(int) setValue) {
     return InkWell(
       onTap: () async {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -142,7 +157,9 @@ class _CheckupScreenState extends State<CheckupScreen> {
           ),
           padding: EdgeInsets.all(Spacers.md),
         ),
-        color: value > 0 ? AppColors.buttonColorSelectedBad : AppColors.buttonBackground,
+        color: value > 0
+            ? AppColors.buttonColorSelectedBad
+            : AppColors.buttonBackground,
       ),
     );
   }
@@ -177,7 +194,8 @@ class _CheckupScreenState extends State<CheckupScreen> {
         0;
   }
 
-  Widget _buildDay(BuildContext context, String label, int value, int selectedValue) {
+  Widget _buildDay(
+      BuildContext context, String label, int value, int selectedValue) {
     return InkWell(
       onTap: () {
         Navigator.pop(context, value);
@@ -190,7 +208,9 @@ class _CheckupScreenState extends State<CheckupScreen> {
             textAlign: TextAlign.center,
           ),
         ),
-        color: value == selectedValue ? AppColors.buttonColorSelectedBad : AppColors.buttonBackground,
+        color: value == selectedValue
+            ? AppColors.buttonColorSelectedBad
+            : AppColors.buttonBackground,
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
