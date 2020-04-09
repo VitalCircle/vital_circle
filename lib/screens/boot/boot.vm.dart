@@ -13,7 +13,7 @@ class BootViewModel extends ChangeNotifier {
 
   Future onInit(BuildContext context) async {
     if (await _authService.signInSilently()) {
-      Navigator.pushReplacementNamed(context, RouteName.Dashboard);
+      Navigator.pushReplacementNamed(context, RouteName.Onboarding);
     } else {
       Navigator.pushReplacementNamed(context, RouteName.Welcome);
     }
