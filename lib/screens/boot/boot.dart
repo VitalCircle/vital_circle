@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teamtemp/constants/images.dart';
-import 'package:teamtemp/shared/shared.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/constants/images.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 import 'boot.vm.dart';
 

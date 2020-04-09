@@ -1,5 +1,5 @@
-import 'package:teamtemp/constants/local_storage_key.dart';
-import 'package:teamtemp/enums/auth_provider_type.dart';
+import 'package:vital_circle/constants/local_storage_key.dart';
+import 'package:vital_circle/enums/auth_provider_type.dart';
 
 import '../local_storage.service.dart';
 
@@ -15,7 +15,8 @@ class AuthProviderTypeCache {
   }
 
   Future<AuthProviderType> getAuthProviderType() async {
-    final int valueIndex = await _localStorage.getInt(LocalStorageKey.AUTH_PROVIDER_TYPE);
+    final int valueIndex =
+        await _localStorage.getInt(LocalStorageKey.AUTH_PROVIDER_TYPE);
     if (valueIndex == null) {
       return null;
     }

@@ -1,4 +1,4 @@
-# Team Temp
+# Vital Circle
 
 ## Style Guide
 
@@ -140,13 +140,13 @@ keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore
 Create the release certificate:
 
 ```
-keytool -genkey -v -keystore ~/.android/release.keystore -alias teamtemp -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkey -v -keystore ~/.android/release.keystore -alias vital_circle -keyalg RSA -keysize 2048 -validity 10000
 ```
 
 Get the release certificate:
 
 ```
-keytool -exportcert -list -v -alias teamtemp -keystore ~/.android/release.keystore
+keytool -exportcert -list -v -alias vital_circle -keystore ~/.android/release.keystore
 ```
 
 ## Common Errors

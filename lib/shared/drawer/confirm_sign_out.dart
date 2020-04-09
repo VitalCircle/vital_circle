@@ -1,11 +1,12 @@
-import 'package:teamtemp/shared/base_widget.dart';
+import 'package:vital_circle/shared/base_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:teamtemp/themes/spacers.dart';
+import 'package:vital_circle/themes/spacers.dart';
 
 import 'confirm_sign_out.vm.dart';
 
 class ConfirmSignOutDialog extends StatelessWidget {
-  const ConfirmSignOutDialog({@required bool isAnonymous}) : _isAnonymous = isAnonymous;
+  const ConfirmSignOutDialog({@required bool isAnonymous})
+      : _isAnonymous = isAnonymous;
 
   final bool _isAnonymous;
 
@@ -46,7 +47,8 @@ class ConfirmSignOutDialog extends StatelessWidget {
       widgets.addAll([
         const SizedBox(height: Spacers.md),
         Text('Since you are anonymous you will lose all of your data.',
-            style: Theme.of(context).textTheme.body1.copyWith(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold))
+            style: Theme.of(context).textTheme.body1.copyWith(
+                fontStyle: FontStyle.italic, fontWeight: FontWeight.bold))
       ]);
     }
     return widgets;

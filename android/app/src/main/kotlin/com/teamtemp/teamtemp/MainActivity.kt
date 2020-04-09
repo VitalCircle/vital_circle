@@ -1,4 +1,4 @@
-package com.teamtemp.teamtemp
+package com.vitalcircle.vital_circle
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

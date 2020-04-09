@@ -1,6 +1,6 @@
-import 'package:teamtemp/constants/sign_in_exception_type.dart';
-import 'package:teamtemp/enums/auth_provider_type.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/constants/sign_in_exception_type.dart';
+import 'package:vital_circle/enums/auth_provider_type.dart';
+import 'package:vital_circle/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,19 +24,23 @@ class AuthButtons extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                     width: SOCIAL_BUTTON_WIDTH,
-                    child: GoogleSignInButton(onPressed: () async => _signIn(context, AuthProviderType.google, model))),
+                    child: GoogleSignInButton(
+                        onPressed: () async =>
+                            _signIn(context, AuthProviderType.google, model))),
                 const SizedBox(height: Spacers.sm),
                 SizedBox(
                     width: SOCIAL_BUTTON_WIDTH,
                     child: AnonymousSignInButton(
-                      onPressed: () async => _signIn(context, AuthProviderType.anonymous, model),
+                      onPressed: () async =>
+                          _signIn(context, AuthProviderType.anonymous, model),
                     ))
               ],
               mainAxisSize: MainAxisSize.min,
             ));
   }
 
-  Future<void> _signIn(BuildContext context, AuthProviderType providerType, AuthButtonsViewModel model) async {
+  Future<void> _signIn(BuildContext context, AuthProviderType providerType,
+      AuthButtonsViewModel model) async {
     try {
       onBusyToggle(true);
       if (!await model.signIn(context, providerType)) {
@@ -46,7 +50,9 @@ class AuthButtons extends StatelessWidget {
       onBusyToggle(false);
       String message = 'Failed to sign in.';
       if (error is PlatformException &&
-          error.code == SignInExceptionType.ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL) {
+          error.code ==
+              SignInExceptionType
+                  .ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL) {
         message = 'Account exists for a different sign in method.';
       }
       Scaffold.of(context).showSnackBar(SnackBar(

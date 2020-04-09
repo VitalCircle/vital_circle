@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:provider/provider.dart';
-import 'package:teamtemp/routes.dart';
-import 'package:teamtemp/services/services.dart';
+import 'package:vital_circle/routes.dart';
+import 'package:vital_circle/services/services.dart';
 
 class OnboardingViewModel extends ChangeNotifier {
-  OnboardingViewModel.of(BuildContext context) : _authService = Provider.of(context);
+  OnboardingViewModel.of(BuildContext context)
+      : _authService = Provider.of(context);
 
   final AuthService _authService;
 

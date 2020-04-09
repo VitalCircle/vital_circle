@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,10 +23,14 @@ Widget bottomNav(BuildContext context) {
     unselectedItemColor: AppColors.whiteHighEmphasis,
     type: BottomNavigationBarType.fixed,
     items: const [
-      BottomNavigationBarItem(title: Text('Home'), icon: Icon(FontAwesomeIcons.home)),
-      BottomNavigationBarItem(title: Text('Entries'), icon: Icon(FontAwesomeIcons.edit)),
-      BottomNavigationBarItem(title: Text('Stats'), icon: Icon(FontAwesomeIcons.chartBar)),
-      BottomNavigationBarItem(title: Text('Calendar'), icon: Icon(FontAwesomeIcons.calendarAlt)),
+      BottomNavigationBarItem(
+          title: Text('Home'), icon: Icon(FontAwesomeIcons.home)),
+      BottomNavigationBarItem(
+          title: Text('Entries'), icon: Icon(FontAwesomeIcons.edit)),
+      BottomNavigationBarItem(
+          title: Text('Stats'), icon: Icon(FontAwesomeIcons.chartBar)),
+      BottomNavigationBarItem(
+          title: Text('Calendar'), icon: Icon(FontAwesomeIcons.calendarAlt)),
     ],
     currentIndex: 0,
   );

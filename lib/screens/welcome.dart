@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:teamtemp/constants/images.dart';
-import 'package:teamtemp/shared/shared.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/constants/images.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -24,7 +24,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: [
               Align(
                 alignment: Alignment.bottomCenter,
-                child: const Image(image: AssetImage(Images.WELCOME_WORLD), fit: BoxFit.fitWidth),
+                child: const Image(
+                    image: AssetImage(Images.WELCOME_WORLD),
+                    fit: BoxFit.fitWidth),
               ),
               Center(
                 child: Column(
@@ -34,10 +36,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Container(
                       child: Text(
                         'Are you ready to save the world?',
-                        style: Theme.of(context).textTheme.display3.copyWith(color: AppColors.whiteHighEmphasis),
+                        style: Theme.of(context)
+                            .textTheme
+                            .display3
+                            .copyWith(color: AppColors.whiteHighEmphasis),
                         textAlign: TextAlign.center,
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: Spacers.lg),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: Spacers.lg),
                     ),
                     Expanded(
                       child: Center(

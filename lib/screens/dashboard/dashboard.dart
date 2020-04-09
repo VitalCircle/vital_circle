@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teamtemp/routes.dart';
-import 'package:teamtemp/shared/shared.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/routes.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 import 'dashboard.vm.dart';
 
@@ -52,7 +52,8 @@ class DashboardScreen extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
           decoration: BoxDecoration(
-              image: const DecorationImage(image: AssetImage('assets/how-are-you-feeling.png')),
+              image: const DecorationImage(
+                  image: AssetImage('assets/how-are-you-feeling.png')),
               borderRadius: BorderRadius.circular(10),
               color: AppColors.accentBlue),
           child: Container(
@@ -74,7 +75,9 @@ class DashboardScreen extends StatelessWidget {
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppColors.accentGreen),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.accentGreen),
           child: Center(
             child: _display3Text(context, 'Record Your Temperature'),
           ),
@@ -93,13 +96,15 @@ class DashboardScreen extends StatelessWidget {
         child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             decoration: BoxDecoration(
-                image: const DecorationImage(image: AssetImage('assets/personal-threat-level.png')),
+                image: const DecorationImage(
+                    image: AssetImage('assets/personal-threat-level.png')),
                 borderRadius: BorderRadius.circular(10),
                 color: AppColors.accentBlue),
             child: Container(
               margin: const EdgeInsets.all(12),
               alignment: Alignment.topLeft,
-              child: _display3Text(context, 'Personal\nExposure\nThreat\nLevel'),
+              child:
+                  _display3Text(context, 'Personal\nExposure\nThreat\nLevel'),
             )),
       ),
     );

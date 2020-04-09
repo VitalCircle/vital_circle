@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:teamtemp/shared/shared.dart';
-import 'package:teamtemp/themes/theme.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 class CheckinScreen extends StatelessWidget {
   @override
@@ -56,14 +56,18 @@ class CheckinScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckinResponse(String s, IconData i, [bool isSelected = false]) {
+  Widget _buildCheckinResponse(String s, IconData i,
+      [bool isSelected = false]) {
     return InkWell(
       onTap: () {
         // todo: implement for each button
       },
       child: Container(
-          decoration: BoxDecoration(color: AppColors.buttonColorInactive, borderRadius: BorderRadius.circular(10)),
-          padding: EdgeInsets.symmetric(vertical: Spacers.md, horizontal: Spacers.md),
+          decoration: BoxDecoration(
+              color: AppColors.buttonColorInactive,
+              borderRadius: BorderRadius.circular(10)),
+          padding: EdgeInsets.symmetric(
+              vertical: Spacers.md, horizontal: Spacers.md),
           child: Column(
             children: <Widget>[
               Text(s),

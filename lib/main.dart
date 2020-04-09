@@ -8,9 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:teamtemp/screens/screens.dart';
-import 'package:teamtemp/services/services.dart';
-import 'package:teamtemp/themes/material_theme.dart';
+import 'package:vital_circle/screens/screens.dart';
+import 'package:vital_circle/services/services.dart';
+import 'package:vital_circle/themes/material_theme.dart';
 
 import 'provider_setup.dart';
 import 'routes.dart';
@@ -36,7 +36,8 @@ Future main() async {
   // catch framework errors
   FlutterError.onError = (FlutterErrorDetails details) {
     log.error(details.exception, details.stack,
-        context: details.context, informationCollector: details.informationCollector);
+        context: details.context,
+        informationCollector: details.informationCollector);
   };
 
   // catch application errors
@@ -56,10 +57,13 @@ class Main extends StatelessWidget {
     return MultiProvider(
       providers: ProviderModule.providers,
       child: MaterialApp(
-        title: 'Team Temp',
+        title: 'Vital Circle',
         theme: MaterialThemeModule.build(),
         debugShowCheckedModeBanner: false,
-        navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
+        navigatorObservers: <NavigatorObserver>[
+          FirebaseAnalyticsObserver(analytics: _analytics),
+          _logRouteObserver
+        ],
         initialRoute: RouteName.Boot,
         routes: RouteModule.routes,
       ),

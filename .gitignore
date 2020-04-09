@@ -77,8 +77,8 @@
 .flutter-plugins-dependencies
 
 # Uncomment for open-source projects
-# android/app/google-services.json
-# ios/Runner/GoogleService-Info.plist
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
 
 **/build
 **/fastlane/report.xml
