@@ -15,42 +15,27 @@ class User {
 }
 
 class AgreementsProperty {
-  static const CONSENT = 'consent';
-  static const LOCATION_SHARING = 'locationSharing';
-  static const PRIVACY = 'privacy';
-  static const TERMS_OF_SERVICE = 'termsOfService';
+  static const ACCEPTED_LOCATION_SHARING = 'acceptedLocationSharing';
+  static const LOCATION_SHARING_DATE = 'locationSharingDate';
+  static const PRIVACY_POLICY_DATE = 'privacyPolicyDate';
+  static const TERMS_OF_SERVICE_DATE = 'termsOfServiceDate';
 }
 
 class Agreements {
-  Agreements(this.consent, this.locationSharing, this.privacy, this.termsOfService);
+  Agreements(this.acceptedLocationSharing, this.locationSharing, this.privacyPolicy, this.termsOfService);
 
   Agreements.fromFirestore(Map<String, dynamic> agreements)
-      : consent = _toDateTime(agreements[AgreementsProperty.CONSENT]),
-        locationSharing = _toDateTime(agreements[AgreementsProperty.LOCATION_SHARING]),
-        privacy = _toDateTime(agreements[AgreementsProperty.PRIVACY]),
-        termsOfService = _toDateTime(agreements[AgreementsProperty.TERMS_OF_SERVICE]);
-
-  Map<String, dynamic> toFirestore() {
-    return <String, dynamic>{
-      UserProperty.AGREEMENTS: <String, dynamic>{
-        AgreementsProperty.CONSENT: _fromDateTime(consent),
-        AgreementsProperty.LOCATION_SHARING: _fromDateTime(locationSharing),
-        AgreementsProperty.PRIVACY: _fromDateTime(privacy),
-        AgreementsProperty.TERMS_OF_SERVICE: _fromDateTime(termsOfService)
-      }
-    };
-  }
+      : acceptedLocationSharing = agreements[AgreementsProperty.ACCEPTED_LOCATION_SHARING] ?? false,
+        locationSharing = _toDateTime(agreements[AgreementsProperty.LOCATION_SHARING_DATE]),
+        privacyPolicy = _toDateTime(agreements[AgreementsProperty.PRIVACY_POLICY_DATE]),
+        termsOfService = _toDateTime(agreements[AgreementsProperty.TERMS_OF_SERVICE_DATE]);
 
   static DateTime _toDateTime(Timestamp timestamp) {
     return timestamp != null ? timestamp.toDate() : null;
   }
 
-  static Timestamp _fromDateTime(DateTime dateTime) {
-    return dateTime != null ? Timestamp.fromDate(dateTime) : null;
-  }
-
-  DateTime consent;
+  bool acceptedLocationSharing;
   DateTime locationSharing;
-  DateTime privacy;
+  DateTime privacyPolicy;
   DateTime termsOfService;
 }

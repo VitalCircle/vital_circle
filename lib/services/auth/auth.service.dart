@@ -21,8 +21,7 @@ abstract class AuthProviderService {
 
 /// High level facade for interfacing with the various authentication providers.
 class AuthService {
-  AuthService(this._localStorage, GoogleAuthService googleAuthService,
-      AnonymousAuthService anonymousAuthService) {
+  AuthService(this._localStorage, GoogleAuthService googleAuthService, AnonymousAuthService anonymousAuthService) {
     _authTypeCache = AuthProviderTypeCache(_localStorage);
     _authProviderServices[AuthProviderType.google] = googleAuthService;
     _authProviderServices[AuthProviderType.anonymous] = anonymousAuthService;
@@ -35,29 +34,33 @@ class AuthService {
   final LocalStorage _localStorage;
   AuthProviderTypeCache _authTypeCache;
 
-  Future<FirebaseUser> get user async {
+  FirebaseUser _user;
+  FirebaseUser get user {
+    return _user;
+  }
+
+  Future<FirebaseUser> get currentUser async {
     return await _firebaseAuth.currentUser();
   }
 
-  Future<bool> get isAuthenticated async => (await user) != null;
+  Future<bool> get isAuthenticated async => (await currentUser) != null;
 
   /// Attempt to sign in without interacting with the user.
   /// Will not throw an exception.
   Future<bool> signInSilently() async {
-    final AuthProviderType authType =
-        await _authTypeCache.getAuthProviderType();
+    final AuthProviderType authType = await _authTypeCache.getAuthProviderType();
     if (authType == null) {
-      _log.trace(
-          'Silent sign in failed because no auth provider type is specified.');
+      _log.trace('Silent sign in failed because no auth provider type is specified.');
       return false;
     }
     final AuthProviderService authProvider = _authProviderServices[authType];
     final bool didSignIn = await authProvider.signInSilently();
     if (didSignIn) {
+      _user = await currentUser;
       await _initCrashlyticsUserContext();
     }
-    _log.trace('Silent SignIn ${didSignIn ? 'Succeeded' : 'Failed'}.',
-        <String, String>{'authType': authType.toString()});
+    _log.trace(
+        'Silent SignIn ${didSignIn ? 'Succeeded' : 'Failed'}.', <String, String>{'authType': authType.toString()});
     return didSignIn;
   }
 
@@ -65,17 +68,15 @@ class AuthService {
   /// Return false if the user abandoned the process or true if it succeeded.
   /// Throws exceptions for failures.
   Future<bool> socialSignIn(AuthProviderType authType) async {
-    _log.trace(
-        'Attempt sign-in', <String, String>{'authType': authType.toString()});
+    _log.trace('Attempt sign-in', <String, String>{'authType': authType.toString()});
     final AuthProviderService authProvider = _authProviderServices[authType];
     if (!await authProvider.signIn()) {
-      _analytics.logEvent(
-          name: AnalyticsEvent.ABANDONED_SIGN_IN,
-          parameters: <String, dynamic>{'type': authType.toString()});
-      _log.trace('SignIn abandoned.',
-          <String, String>{'authType': authType.toString()});
+      _analytics
+          .logEvent(name: AnalyticsEvent.ABANDONED_SIGN_IN, parameters: <String, dynamic>{'type': authType.toString()});
+      _log.trace('SignIn abandoned.', <String, String>{'authType': authType.toString()});
       return false;
     }
+    _user = await currentUser;
     await _initCrashlyticsUserContext();
     await _registerSignIn(authType);
     return true;
@@ -84,27 +85,22 @@ class AuthService {
   Future _registerSignIn(AuthProviderType authType) async {
     await _authTypeCache.setAuthProviderType(authType);
     _analytics.logLogin(loginMethod: authType.toString());
-    _log.trace(
-        'SignIn succeeded.', <String, String>{'authType': authType.toString()});
+    _log.trace('SignIn succeeded.', <String, String>{'authType': authType.toString()});
   }
 
   Future signOut(BuildContext context) async {
-    final AuthProviderType authType =
-        await _authTypeCache.getAuthProviderType();
+    final AuthProviderType authType = await _authTypeCache.getAuthProviderType();
     if (authType == null) {
-      _log.trace(
-          'SignOut abandoned because no auth provider type is specified.');
+      _log.trace('SignOut abandoned because no auth provider type is specified.');
       return;
     }
     await _authProviderServices[authType].signOut();
     await _authTypeCache.removeAuthProviderType();
+    _user = null;
     _clearCrashlyticsUserContext();
-    _analytics.logEvent(
-        name: AnalyticsEvent.SIGN_OUT,
-        parameters: <String, dynamic>{'type': authType.toString()});
+    _analytics.logEvent(name: AnalyticsEvent.SIGN_OUT, parameters: <String, dynamic>{'type': authType.toString()});
     Navigator.pushNamedAndRemoveUntil(context, RouteName.Welcome, (_) => false);
-    _log.trace('SignOut succeeded.',
-        <String, String>{'authType': authType.toString()});
+    _log.trace('SignOut succeeded.', <String, String>{'authType': authType.toString()});
   }
 
   Future _initCrashlyticsUserContext() async {

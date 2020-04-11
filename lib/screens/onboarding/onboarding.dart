@@ -24,39 +24,55 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         model.onInit(context);
       },
       builder: (context, model, child) {
-        return _buildScreen(context);
+        return model.isReady ? _buildScreen(context, model) : _buildLoader();
       },
     );
   }
 
-  Widget _buildScreen(BuildContext context) {
+  Widget _buildLoader() {
+    return Container(
+      color: Colors.white,
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _buildScreen(BuildContext context, OnboardingViewModel model) {
     return WillPopScope(
       onWillPop: () async {
         if (_pageController.page.round() == _pageController.initialPage) {
           return true;
         }
-        _previous();
+        _toPrevious();
         return false;
       },
       child: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
-          TermsOfServiceAgreementScreen(onNext: _next),
-          PrivacyAgreementScreen(onNext: _next),
-          LocationAgreementScreen(onNext: _next),
+          if (model.steps.contains(OnboardingSteps.PrivacyPolicy)) PrivacyAgreementScreen(onNext: () => _toNext(model)),
+          if (model.steps.contains(OnboardingSteps.TermsOfService))
+            TermsOfServiceAgreementScreen(onNext: () => _toNext(model)),
+          if (model.steps.contains(OnboardingSteps.LocationSharing))
+            LocationAgreementScreen(onNext: () => _toNext(model)),
         ],
       ),
     );
   }
 
-  Future<void> _previous() async {
+  Future<void> _toPrevious() async {
     await _pageController.previousPage(
       duration: _animationDuration,
       curve: _animationCurve,
     );
   }
 
-  Future<void> _next() async {
+  Future<void> _toNext(OnboardingViewModel model) async {
+    if (_pageController.page == model.steps.length - 1) {
+      await model.onDone(context);
+      return;
+    }
     await _pageController.nextPage(
       duration: _animationDuration,
       curve: _animationCurve,

@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:vital_circle/screens/screens.dart';
 import 'package:vital_circle/services/services.dart';
 import 'package:vital_circle/themes/material_theme.dart';
 
