@@ -35,7 +35,7 @@ class Checkup {
         sneezingOrRunnyNose = int.tryParse(location[CheckupProperty.SNEEZING_RUNNY_NOSE]),
         soreThroat = int.tryParse(location[CheckupProperty.SORE_THROAT]),
         other = int.tryParse(location[CheckupProperty.OTHER]),
-        timestamp = (location[CheckupProperty.TIMESTAMP] as Timestamp).toDate();
+        timestamp = _toDateTime(location[CheckupProperty.TIMESTAMP]);
 
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
@@ -52,6 +52,10 @@ class Checkup {
       CheckupProperty.SORE_THROAT: soreThroat,
       CheckupProperty.TIMESTAMP: FieldValue.serverTimestamp()
     };
+  }
+
+  static DateTime _toDateTime(Timestamp timestamp) {
+    return timestamp != null ? timestamp.toDate() : null;
   }
 
   String id;

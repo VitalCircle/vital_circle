@@ -12,14 +12,22 @@ class Location {
   Location.fromFirestore(this.id, Map<String, dynamic> location)
       : lat = double.tryParse(location[LocationProperty.LATITUDE]),
         long = double.tryParse(location[LocationProperty.LONGITUDE]),
-        timestamp = (location[LocationProperty.TIMESTAMP] as Timestamp).toDate();
+        timestamp = _toDateTime(location[LocationProperty.TIMESTAMP]);
 
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
       LocationProperty.LATITUDE: lat,
       LocationProperty.LONGITUDE: long,
-      LocationProperty.TIMESTAMP: Timestamp.fromDate(timestamp)
+      LocationProperty.TIMESTAMP: _fromDateTime(timestamp)
     };
+  }
+
+  static DateTime _toDateTime(Timestamp timestamp) {
+    return timestamp != null ? timestamp.toDate() : null;
+  }
+
+  static Timestamp _fromDateTime(DateTime dateTime) {
+    return dateTime != null ? Timestamp.fromDate(dateTime) : null;
   }
 
   String id;

@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:vital_circle/screens/screens.dart';
 import 'package:vital_circle/services/services.dart';
 import 'package:vital_circle/themes/material_theme.dart';
 
@@ -36,12 +35,12 @@ Future main() async {
   // catch framework errors
   FlutterError.onError = (FlutterErrorDetails details) {
     log.error(details.exception, details.stack,
-        context: details.context,
-        informationCollector: details.informationCollector);
+        context: details.context, informationCollector: details.informationCollector);
   };
 
   // catch application errors
   runZoned<Future<void>>(() async {
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     runApp(Main());
   }, onError: (dynamic error, StackTrace stack) {
     log.error(error, stack);
@@ -60,10 +59,7 @@ class Main extends StatelessWidget {
         title: 'Vital Circle',
         theme: MaterialThemeModule.build(),
         debugShowCheckedModeBanner: false,
-        navigatorObservers: <NavigatorObserver>[
-          FirebaseAnalyticsObserver(analytics: _analytics),
-          _logRouteObserver
-        ],
+        navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
         initialRoute: RouteName.Boot,
         routes: RouteModule.routes,
       ),

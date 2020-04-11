@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:vital_circle/services/geolocate_phone.dart';
+
+import '../../services/services.dart';
 
 class DashboardViewModel extends ChangeNotifier {
-  DashboardViewModel.of(BuildContext context)
-      : _geoService = Provider.of(context);
+  DashboardViewModel.of(BuildContext context) : _geoService = Provider.of(context);
 
   final GeoService _geoService;
 
