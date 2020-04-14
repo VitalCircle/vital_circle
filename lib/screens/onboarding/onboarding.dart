@@ -4,6 +4,7 @@ import 'package:vital_circle/screens/onboarding/privacy-agreement.dart';
 import 'package:vital_circle/screens/onboarding/tos-agreement.dart';
 import 'package:vital_circle/shared/shared.dart';
 
+import '../../routes.dart';
 import 'onboarding.vm.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: <Widget>[
           TermsOfServiceAgreementScreen(onNext: _next),
           PrivacyAgreementScreen(onNext: _next),
-          LocationAgreementScreen(onNext: _next),
+          LocationAgreementScreen(onNext: _validate),
         ],
       ),
     );
@@ -61,6 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       duration: _animationDuration,
       curve: _animationCurve,
     );
+  }
+
+  Future<void> _validate() async{
+    Navigator.pushReplacementNamed(context, RouteName.Dashboard);
   }
 
   @override

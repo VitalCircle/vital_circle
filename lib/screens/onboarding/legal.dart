@@ -14,19 +14,20 @@ abstract class LegalAgreementScreen extends StatelessWidget {
     return Scaffold(
       body: Builder(builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(title),
-              SingleChildScrollView(child: Text(content)),
-              RaisedButton(
-                onPressed: onAccept,
-                child: const Text('Accept'),
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(title),
+                  SingleChildScrollView(child: Text(content)),
+                  RaisedButton(
+                    onPressed: onAccept,
+                    child: const Text('Accept'),
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
+            ));
       }),
     );
   }
