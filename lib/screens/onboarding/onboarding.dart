@@ -65,6 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _validate() async{
+    // TODO: Persist
     Navigator.pushReplacementNamed(context, RouteName.Dashboard);
   }
 

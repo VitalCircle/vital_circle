@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class LocationAgreementScreen extends StatelessWidget {
   const LocationAgreementScreen({@required this.onNext});
-
   final VoidCallback onNext;
 
   @override
