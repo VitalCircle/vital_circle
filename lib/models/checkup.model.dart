@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vital_circle/utils/parse_util.dart';
 
 class CheckupProperty {
   static const TEMPERATURE = 'temp';
@@ -23,19 +24,19 @@ class Checkup {
   Checkup.empty();
 
   Checkup.fromFirestore(this.id, Map<String, dynamic> location)
-      : temp = double.tryParse(location[CheckupProperty.TEMPERATURE]),
-        febrile = int.tryParse(location[CheckupProperty.FEBRILE]),
-        cough = int.tryParse(location[CheckupProperty.COUGH]),
-        shortnessOfBreath = int.tryParse(location[CheckupProperty.SHORTNESS_OF_BREATH]),
-        feelingIll = int.tryParse(location[CheckupProperty.FEELING_ILL]),
-        headache = int.tryParse(location[CheckupProperty.HEADACHE]),
-        bodyAches = int.tryParse(location[CheckupProperty.BODY_ACHES]),
-        oddTaste = int.tryParse(location[CheckupProperty.ODD_TASTE]),
-        oddSmell = int.tryParse(location[CheckupProperty.ODD_SMELL]),
-        sneezingOrRunnyNose = int.tryParse(location[CheckupProperty.SNEEZING_RUNNY_NOSE]),
-        soreThroat = int.tryParse(location[CheckupProperty.SORE_THROAT]),
-        other = int.tryParse(location[CheckupProperty.OTHER]),
-        timestamp = _toDateTime(location[CheckupProperty.TIMESTAMP]);
+      : temp = ParseUtil.tryParseDouble(location[CheckupProperty.TEMPERATURE]),
+        febrile = ParseUtil.tryParseInt(location[CheckupProperty.FEBRILE]),
+        cough = ParseUtil.tryParseInt(location[CheckupProperty.COUGH]),
+        shortnessOfBreath = ParseUtil.tryParseInt(location[CheckupProperty.SHORTNESS_OF_BREATH]),
+        feelingIll = ParseUtil.tryParseInt(location[CheckupProperty.FEELING_ILL]),
+        headache = ParseUtil.tryParseInt(location[CheckupProperty.HEADACHE]),
+        bodyAches = ParseUtil.tryParseInt(location[CheckupProperty.BODY_ACHES]),
+        oddTaste = ParseUtil.tryParseInt(location[CheckupProperty.ODD_TASTE]),
+        oddSmell = ParseUtil.tryParseInt(location[CheckupProperty.ODD_SMELL]),
+        sneezingOrRunnyNose = ParseUtil.tryParseInt(location[CheckupProperty.SNEEZING_RUNNY_NOSE]),
+        soreThroat = ParseUtil.tryParseInt(location[CheckupProperty.SORE_THROAT]),
+        other = ParseUtil.tryParseInt(location[CheckupProperty.OTHER]),
+        timestamp = ParseUtil.tryParseDateTime(location[CheckupProperty.TIMESTAMP]);
 
   Map<String, dynamic> toFirestore() {
     return <String, dynamic>{
@@ -52,10 +53,6 @@ class Checkup {
       CheckupProperty.SORE_THROAT: soreThroat,
       CheckupProperty.TIMESTAMP: FieldValue.serverTimestamp()
     };
-  }
-
-  static DateTime _toDateTime(Timestamp timestamp) {
-    return timestamp != null ? timestamp.toDate() : null;
   }
 
   String id;
