@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../shared/shared.dart';
-import '../../themes/colors.dart';
-import '../../themes/colors.dart';
 import '../../themes/theme.dart';
 
 const LOREM_IPSUM =
@@ -36,7 +34,7 @@ class LegalAgreementScreen extends StatelessWidget {
               SizedBox(height: Spacers.md),
               SizedBox(
                 child: ProgressButton(
-                  color: AppColors.buttonColorSelectedGood,
+                  color: AppColors.buttonColorPrimary,
                   label: const Text('Accept'),
                   isProcessing: isProcessing,
                   onPressed: onAccept,

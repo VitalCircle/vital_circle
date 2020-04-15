@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/utils/parse_util.dart';
 
 class CheckupProperty {
@@ -69,4 +70,39 @@ class Checkup {
   int soreThroat = 0;
   int other = 0;
   DateTime timestamp;
+
+  Set<Symptom> get symptoms {
+    final symptoms = <Symptom>{};
+    if (febrile > 0) {
+      symptoms.add(Symptom.Fever);
+    }
+    if (cough > 0) {
+      symptoms.add(Symptom.Cough);
+    }
+    if (shortnessOfBreath > 0) {
+      symptoms.add(Symptom.ShortOfBreath);
+    }
+    if (feelingIll > 0) {
+      symptoms.add(Symptom.FeelingIll);
+    }
+    if (headache > 0) {
+      symptoms.add(Symptom.Headache);
+    }
+    if (bodyAches > 0) {
+      symptoms.add(Symptom.BodyAches);
+    }
+    if (oddTaste > 0) {
+      symptoms.add(Symptom.OddTaste);
+    }
+    if (oddSmell > 0) {
+      symptoms.add(Symptom.OddSmell);
+    }
+    if (sneezingOrRunnyNose > 0) {
+      symptoms.add(Symptom.SneezingRunnyNose);
+    }
+    if (soreThroat > 0) {
+      symptoms.add(Symptom.SoreThroat);
+    }
+    return symptoms;
+  }
 }
