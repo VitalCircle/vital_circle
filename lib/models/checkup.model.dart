@@ -12,15 +12,32 @@ class CheckupProperty {
   static const BODY_ACHES = 'bodyAches';
   static const ODD_TASTE = 'oddTaste';
   static const ODD_SMELL = 'oddSmell';
-  static const SNEEZING_RUNNY_NOSE = 'sneezingOrRunnyNose';
+  static const SNEEZING = 'sneezing';
+  static const RUNNY_NOSE = 'runnyNose';
   static const SORE_THROAT = 'soreThroat';
+  static const NAUSEA_VOMITING = 'nauseaVomiting';
+  static const DIARRHEA = 'diarrhea';
   static const OTHER = 'other';
   static const TIMESTAMP = 'timestamp';
 }
 
 class Checkup {
-  Checkup(this.id, this.febrile, this.shortnessOfBreath, this.feelingIll, this.headache, this.bodyAches, this.oddTaste,
-      this.oddSmell, this.sneezingOrRunnyNose, this.soreThroat, this.other, this.timestamp);
+  Checkup(
+      this.id,
+      this.febrile,
+      this.shortnessOfBreath,
+      this.feelingIll,
+      this.headache,
+      this.bodyAches,
+      this.oddTaste,
+      this.oddSmell,
+      this.sneezing,
+      this.runnyNose,
+      this.soreThroat,
+      this.nauseaVomiting,
+      this.diarrhea,
+      this.other,
+      this.timestamp);
 
   Checkup.empty();
 
@@ -34,8 +51,11 @@ class Checkup {
         bodyAches = ParseUtil.tryParseInt(location[CheckupProperty.BODY_ACHES]),
         oddTaste = ParseUtil.tryParseInt(location[CheckupProperty.ODD_TASTE]),
         oddSmell = ParseUtil.tryParseInt(location[CheckupProperty.ODD_SMELL]),
-        sneezingOrRunnyNose = ParseUtil.tryParseInt(location[CheckupProperty.SNEEZING_RUNNY_NOSE]),
+        sneezing = ParseUtil.tryParseInt(location[CheckupProperty.SNEEZING]),
+        runnyNose = ParseUtil.tryParseInt(location[CheckupProperty.RUNNY_NOSE]),
         soreThroat = ParseUtil.tryParseInt(location[CheckupProperty.SORE_THROAT]),
+        nauseaVomiting = ParseUtil.tryParseInt(location[CheckupProperty.NAUSEA_VOMITING]),
+        diarrhea = ParseUtil.tryParseInt(location[CheckupProperty.DIARRHEA]),
         other = ParseUtil.tryParseInt(location[CheckupProperty.OTHER]),
         timestamp = ParseUtil.tryParseDateTime(location[CheckupProperty.TIMESTAMP]);
 
@@ -50,8 +70,11 @@ class Checkup {
       CheckupProperty.BODY_ACHES: bodyAches,
       CheckupProperty.ODD_TASTE: oddTaste,
       CheckupProperty.ODD_SMELL: oddSmell,
-      CheckupProperty.SNEEZING_RUNNY_NOSE: sneezingOrRunnyNose,
+      CheckupProperty.SNEEZING: sneezing,
+      CheckupProperty.RUNNY_NOSE: runnyNose,
       CheckupProperty.SORE_THROAT: soreThroat,
+      CheckupProperty.NAUSEA_VOMITING: nauseaVomiting,
+      CheckupProperty.DIARRHEA: diarrhea,
       CheckupProperty.TIMESTAMP: FieldValue.serverTimestamp()
     };
   }
@@ -66,41 +89,53 @@ class Checkup {
   int bodyAches = 0;
   int oddTaste = 0;
   int oddSmell = 0;
-  int sneezingOrRunnyNose = 0;
+  int sneezing = 0;
+  int runnyNose = 0;
   int soreThroat = 0;
+  int nauseaVomiting = 0;
+  int diarrhea = 0;
   int other = 0;
   DateTime timestamp;
 
   Set<Symptom> get symptoms {
     final symptoms = <Symptom>{};
-    if (febrile > 0) {
+    if (febrile != null && febrile > 0) {
       symptoms.add(Symptom.Fever);
     }
-    if (cough > 0) {
+    if (cough != null && cough > 0) {
       symptoms.add(Symptom.Cough);
     }
-    if (shortnessOfBreath > 0) {
+    if (shortnessOfBreath != null && shortnessOfBreath > 0) {
       symptoms.add(Symptom.ShortOfBreath);
     }
-    if (feelingIll > 0) {
+    if (feelingIll != null && feelingIll > 0) {
       symptoms.add(Symptom.FeelingIll);
     }
-    if (headache > 0) {
+    if (headache != null && headache > 0) {
       symptoms.add(Symptom.Headache);
     }
-    if (bodyAches > 0) {
+    if (bodyAches != null && bodyAches > 0) {
       symptoms.add(Symptom.BodyAches);
     }
-    if (oddTaste > 0) {
+    if (oddTaste != null && oddTaste > 0) {
       symptoms.add(Symptom.OddTaste);
     }
-    if (oddSmell > 0) {
+    if (oddSmell != null && oddSmell > 0) {
       symptoms.add(Symptom.OddSmell);
     }
-    if (sneezingOrRunnyNose > 0) {
-      symptoms.add(Symptom.SneezingRunnyNose);
+    if (sneezing != null && sneezing > 0) {
+      symptoms.add(Symptom.Sneezing);
     }
-    if (soreThroat > 0) {
+    if (runnyNose != null && runnyNose > 0) {
+      symptoms.add(Symptom.RunnyNose);
+    }
+    if (nauseaVomiting != null && nauseaVomiting > 0) {
+      symptoms.add(Symptom.NauseaVomiting);
+    }
+    if (diarrhea != null && diarrhea > 0) {
+      symptoms.add(Symptom.Diarrhea);
+    }
+    if (soreThroat != null && soreThroat > 0) {
       symptoms.add(Symptom.SoreThroat);
     }
     return symptoms;
