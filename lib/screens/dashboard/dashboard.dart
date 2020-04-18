@@ -19,35 +19,52 @@ class DashboardScreen extends StatelessWidget {
             title: const Text('Vital Circle'),
           ),
           body: Builder(builder: (BuildContext context) {
-            return Container(
-              child: Column(
-                children: [
-                  _buildGreeting(),
-                  const SizedBox(height: Spacers.lg),
-                  _buildCard(
-                    context,
-                    Icons.check_circle_outline,
-                    'Check-in',
-                    'Log your symptoms and temperature.',
-                    RouteName.Checkup,
-                  ),
-                  const SizedBox(height: Spacers.md),
-                  _buildCard(
-                    context,
-                    Icons.calendar_today,
-                    'History',
-                    'Look at your previous symptoms and edit records.',
-                    RouteName.CheckupHistory,
-                  )
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-              ),
-              padding: const EdgeInsets.all(24),
-            );
+            return _buildScreen(context, model);
           }),
           drawer: DrawerWidget(),
         );
       },
+    );
+  }
+
+  Widget _buildScreen(BuildContext context, DashboardViewModel model) {
+    if (!model.isReady) {
+      return _buildLoading();
+    }
+    return _buildDashboard(context, model);
+  }
+
+  Widget _buildLoading() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildDashboard(BuildContext context, DashboardViewModel model) {
+    return Container(
+      child: Column(
+        children: [
+          _buildGreeting(),
+          const SizedBox(height: Spacers.lg),
+          model.hasCheckedInToday
+              ? _buildCard(context, Icons.check_circle, 'Thank you for checking in today!')
+              : _buildCard(
+                  context,
+                  Icons.check_circle_outline,
+                  'Check-in',
+                  'Log your symptoms and temperature.',
+                  RouteName.Checkup,
+                ),
+          const SizedBox(height: Spacers.md),
+          _buildCard(
+            context,
+            Icons.calendar_today,
+            'History',
+            'Look at your previous symptoms and edit records.',
+            RouteName.CheckupHistory,
+          )
+        ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+      ),
+      padding: const EdgeInsets.all(24),
     );
   }
 
@@ -58,7 +75,7 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, IconData icon, String title, String subtitle, String routeName) {
+  Widget _buildCard(BuildContext context, IconData icon, String title, [String subtitle, String routeName]) {
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -77,7 +94,7 @@ class DashboardScreen extends StatelessWidget {
                 children: <Widget>[
                   Text(title, style: AppTypography.bodyBold),
                   const SizedBox(height: 4),
-                  WrappedText(child: Text(subtitle)),
+                  if (subtitle != null) WrappedText(child: Text(subtitle)),
                 ],
               ),
             )
@@ -85,9 +102,11 @@ class DashboardScreen extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       ),
-      onTap: () {
-        Navigator.of(context).pushNamed(routeName);
-      },
+      onTap: routeName == null
+          ? null
+          : () {
+              Navigator.of(context).pushNamed(routeName);
+            },
     );
   }
 }
