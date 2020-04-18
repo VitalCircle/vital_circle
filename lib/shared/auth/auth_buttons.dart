@@ -9,7 +9,7 @@ import 'anonymous_sign_in.dart';
 import 'auth_buttons.vm.dart';
 import 'google_sign_in.dart';
 
-const double SOCIAL_BUTTON_WIDTH = 250;
+const double SOCIAL_BUTTON_WIDTH = 275;
 
 class AuthButtons extends StatelessWidget {
   const AuthButtons({@required this.onBusyToggle});
@@ -24,23 +24,19 @@ class AuthButtons extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                     width: SOCIAL_BUTTON_WIDTH,
-                    child: GoogleSignInButton(
-                        onPressed: () async =>
-                            _signIn(context, AuthProviderType.google, model))),
+                    child: GoogleSignInButton(onPressed: () async => _signIn(context, AuthProviderType.google, model))),
                 const SizedBox(height: Spacers.sm),
                 SizedBox(
                     width: SOCIAL_BUTTON_WIDTH,
                     child: AnonymousSignInButton(
-                      onPressed: () async =>
-                          _signIn(context, AuthProviderType.anonymous, model),
+                      onPressed: () async => _signIn(context, AuthProviderType.anonymous, model),
                     ))
               ],
               mainAxisSize: MainAxisSize.min,
             ));
   }
 
-  Future<void> _signIn(BuildContext context, AuthProviderType providerType,
-      AuthButtonsViewModel model) async {
+  Future<void> _signIn(BuildContext context, AuthProviderType providerType, AuthButtonsViewModel model) async {
     try {
       onBusyToggle(true);
       if (!await model.signIn(context, providerType)) {
@@ -50,9 +46,7 @@ class AuthButtons extends StatelessWidget {
       onBusyToggle(false);
       String message = 'Failed to sign in.';
       if (error is PlatformException &&
-          error.code ==
-              SignInExceptionType
-                  .ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL) {
+          error.code == SignInExceptionType.ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL) {
         message = 'Account exists for a different sign in method.';
       }
       Scaffold.of(context).showSnackBar(SnackBar(

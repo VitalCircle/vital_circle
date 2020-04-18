@@ -18,49 +18,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: ModalProgressHUD(
         inAsyncCall: _isBusy,
         color: AppColors.modalBackground,
-        child: Container(
-          decoration: const BoxDecoration(color: AppColors.secondary800),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: const Image(
-                    image: AssetImage(Images.WELCOME_WORLD),
-                    fit: BoxFit.fitWidth),
+        child: Column(
+          children: [
+            LogoHeader(),
+            const SizedBox(height: Spacers.xl),
+            Expanded(
+              child: Center(
+                child: AuthButtons(onBusyToggle: (bool isBusy) {
+                  setState(() {
+                    _isBusy = isBusy;
+                  });
+                }),
               ),
-              Center(
-                child: Column(
-                  children: [
-                    LogoHeader(),
-                    const SizedBox(height: Spacers.xl),
-                    Container(
-                      child: Text(
-                        'Are you ready to save the world?',
-                        style: Theme.of(context)
-                            .textTheme
-                            .display3
-                            .copyWith(color: AppColors.whiteHighEmphasis),
-                        textAlign: TextAlign.center,
-                      ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: Spacers.lg),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: AuthButtons(onBusyToggle: (bool isBusy) {
-                          setState(() {
-                            _isBusy = isBusy;
-                          });
-                        }),
-                      ),
-                    ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

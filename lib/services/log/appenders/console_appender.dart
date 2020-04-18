@@ -15,7 +15,17 @@ class ConsoleAppender implements LogAppender {
   void write(LogMessage logMessage) {
     if (logMessage.level == LogLevel.Error) {
       // errors will be logged to the console by the Crashlytics appender
-      // else we would use FlutterError.dumpErrorToConsole
+      // but sometimes it doesn't spit out the message to the console
+      if (logMessage.exception != null) {
+        final FlutterErrorDetails details = FlutterErrorDetails(
+            exception: logMessage.exception,
+            stack: logMessage.stack,
+            context: logMessage.context,
+            informationCollector: logMessage.informationCollector,
+            silent: true,
+        );
+        FlutterError.dumpErrorToConsole(details);
+      }
       return;
     }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/themes/typography.dart';
 
 import '../../shared/shared.dart';
 import '../../themes/theme.dart';
@@ -21,17 +22,17 @@ class LocationAgreementScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  child: Text('Location Sharing', style: Theme.of(context).textTheme.display2),
+                  child: Text('Location Sharing', style: AppTypography.h1),
                   padding: EdgeInsets.symmetric(vertical: Spacers.lg),
                 ),
                 const Expanded(
                     child: Center(child: Text('TODO: some graphic and text explaining why to share their location.'))),
-                SizedBox(height: Spacers.md),
+                const SizedBox(height: Spacers.md),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: ProgressButton(
-                        label: const Text('Skip'),
+                        label: 'Skip',
                         isProcessing: model.isSaving,
                         onPressed: () => model.onSelect(false),
                         type: ProgressButtonType.Flat,
@@ -39,8 +40,7 @@ class LocationAgreementScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: ProgressButton(
-                        color: AppColors.buttonColorSelectedGood,
-                        label: const Text('Accept'),
+                        label: 'Accept',
                         isProcessing: model.isSaving,
                         onPressed: () => model.onSelect(true),
                         type: ProgressButtonType.Raised,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 enum ProgressButtonType {
   Raised,
@@ -6,20 +7,24 @@ enum ProgressButtonType {
   Outline,
 }
 
-class ProgressButton extends StatelessWidget {
-  const ProgressButton(
-      {this.height = 40,
-      @required this.type,
-      @required this.label,
-      @required this.isProcessing,
-      @required this.onPressed,
-      this.color});
+const double BUTTON_HEIGHT = 53.0;
+const double BUTTON_BORDER_RADIUS = BUTTON_HEIGHT / 2;
 
-  final Color color;
+class ProgressButton extends StatelessWidget {
+  const ProgressButton({
+    this.height = BUTTON_HEIGHT,
+    @required this.type,
+    @required this.label,
+    this.isFullWidth = false,
+    this.isProcessing = false,
+    @required this.onPressed,
+  });
+
   final double height;
-  final Widget label;
+  final String label;
+  final bool isFullWidth;
   final bool isProcessing;
-  final Future<dynamic> Function() onPressed;
+  final VoidCallback onPressed;
   final ProgressButtonType type;
 
   @override
@@ -27,47 +32,63 @@ class ProgressButton extends StatelessWidget {
     return SizedBox(
       child: _buildButton(context),
       height: height,
+      width: isFullWidth ? double.infinity : null,
     );
   }
 
   Widget _buildButton(BuildContext context) {
+    final color = onPressed == null ? AppColors.buttonDisabled : AppColors.button;
+
     switch (type) {
       case ProgressButtonType.Raised:
         return RaisedButton(
           color: color,
-          child: _buildContent(),
+          child: _buildContent(context),
           onPressed: isProcessing
               ? null
-              : () async {
-                  await onPressed();
+              : () {
+                  onPressed();
                 },
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
         );
       case ProgressButtonType.Flat:
         return FlatButton(
-          color: color,
-          child: _buildContent(),
+          child: _buildContent(context),
           onPressed: isProcessing
               ? null
-              : () async {
-                  await onPressed();
+              : () {
+                  onPressed();
                 },
         );
       case ProgressButtonType.Outline:
         return OutlineButton(
-          color: color,
-          child: _buildContent(),
+          child: _buildContent(context),
           onPressed: isProcessing
               ? null
-              : () async {
-                  await onPressed();
+              : () {
+                  onPressed();
                 },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS),
+            side: BorderSide(color: color),
+          ),
         );
       default:
         throw Exception('Invalid button type: $type');
     }
   }
 
-  Widget _buildContent() {
-    return isProcessing ? const CircularProgressIndicator() : label;
+  Widget _buildContent(BuildContext context) {
+    return isProcessing ? _buildProgressIndicator() : _buildLabel(context);
+  }
+
+  Widget _buildProgressIndicator() {
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : AppColors.primary;
+    return CircularProgressIndicator(backgroundColor: color);
+  }
+
+  Widget _buildLabel(BuildContext context) {
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : AppColors.primary;
+    return Text(label, style: Theme.of(context).textTheme.button.copyWith(color: color));
   }
 }

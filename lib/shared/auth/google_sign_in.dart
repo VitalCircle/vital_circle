@@ -1,3 +1,4 @@
+import 'package:vital_circle/constants/images.dart';
 import 'package:vital_circle/themes/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,10 @@ class GoogleSignInButton extends SignInButton {
           onPressed: onPressed,
           icon: Container(
             child: const Image(
-              image: AssetImage('assets/google_logo.png'),
+              image: AssetImage(Images.GOOGLE),
               height: 18,
             ),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(4.0)),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4.0)),
             padding: const EdgeInsets.all(8),
           ),
           label: 'Yes, continue with Google',

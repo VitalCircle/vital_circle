@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vital_circle/shared/drawer/confirm_sign_out.dart';
 import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 import 'drawer.vm.dart';
 
@@ -13,8 +14,7 @@ class DrawerWidget extends StatelessWidget {
       onModelReady: (model) {
         model.init();
       },
-      builder: (context, model, child) =>
-          model.isReady ? _buildDrawer(context, model) : Container(),
+      builder: (context, model, child) => model.isReady ? _buildDrawer(context, model) : Container(),
     );
   }
 
@@ -23,17 +23,13 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          model.user.isAnonymous
-              ? _drawAnonymousHeader(context)
-              : _drawSocialHeader(model.user),
+          model.user.isAnonymous ? _drawAnonymousHeader(context) : _drawSocialHeader(model.user),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () async {
               await showDialog<bool>(
-                  context: context,
-                  builder: (context) => ConfirmSignOutDialog(
-                      isAnonymous: model.user.isAnonymous));
+                  context: context, builder: (context) => ConfirmSignOutDialog(isAnonymous: model.user.isAnonymous));
             },
           ),
         ],
@@ -45,9 +41,7 @@ class DrawerWidget extends StatelessWidget {
     return UserAccountsDrawerHeader(
       accountName: Text(user.displayName ?? ''),
       accountEmail: Text(user.email ?? ''),
-      currentAccountPicture: CircleAvatar(
-          backgroundImage:
-              user.photoUrl != null ? NetworkImage(user.photoUrl) : null),
+      currentAccountPicture: CircleAvatar(backgroundImage: user.photoUrl != null ? NetworkImage(user.photoUrl) : null),
     );
   }
 
@@ -56,7 +50,7 @@ class DrawerWidget extends StatelessWidget {
       accountName: const Text('Anonymous'),
       accountEmail: const Text(''),
       currentAccountPicture: CircleAvatar(
-        child: Text('A', style: Theme.of(context).textTheme.display1),
+        child: Text('A', style: AppTypography.h1.copyWith(color: AppColors.textLight)),
       ),
     );
   }

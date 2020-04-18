@@ -8,8 +8,7 @@ import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/services/services.dart';
 
 class DrawerViewModel extends ChangeNotifier {
-  DrawerViewModel.of(BuildContext context)
-      : _authService = Provider.of(context);
+  DrawerViewModel.of(BuildContext context) : _authService = Provider.of(context);
 
   final AuthService _authService;
 
@@ -20,7 +19,7 @@ class DrawerViewModel extends ChangeNotifier {
   FirebaseUser get user => _user;
 
   Future init() async {
-    _user = await _authService.user;
+    _user = _authService.user;
     _isReady = true;
     notifyListeners();
   }

@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vital_circle/utils/parse_util.dart';
 
 class UserProperty {
   static const AGREEMENTS = 'agreements';
@@ -26,13 +26,9 @@ class Agreements {
 
   Agreements.fromFirestore(Map<String, dynamic> agreements)
       : acceptedLocationSharing = agreements[AgreementsProperty.ACCEPTED_LOCATION_SHARING] ?? false,
-        locationSharing = _toDateTime(agreements[AgreementsProperty.LOCATION_SHARING_DATE]),
-        privacyPolicy = _toDateTime(agreements[AgreementsProperty.PRIVACY_POLICY_DATE]),
-        termsOfService = _toDateTime(agreements[AgreementsProperty.TERMS_OF_SERVICE_DATE]);
-
-  static DateTime _toDateTime(Timestamp timestamp) {
-    return timestamp != null ? timestamp.toDate() : null;
-  }
+        locationSharing = ParseUtil.tryParseDateTime(agreements[AgreementsProperty.LOCATION_SHARING_DATE]),
+        privacyPolicy = ParseUtil.tryParseDateTime(agreements[AgreementsProperty.PRIVACY_POLICY_DATE]),
+        termsOfService = ParseUtil.tryParseDateTime(agreements[AgreementsProperty.TERMS_OF_SERVICE_DATE]);
 
   bool acceptedLocationSharing;
   DateTime locationSharing;

@@ -15,10 +15,10 @@ class AnonymousSignInButton extends SignInButton {
               padding: const EdgeInsets.all(4),
               child: const Icon(
                 FontAwesomeIcons.userLock,
-                color: AppColors.whiteMediumEmphasis,
+                color: AppColors.textLight,
               )),
           label: 'Yes, continue Anonymously',
           backgroundColor: AppColors.anonymousBtnBackground,
-          fontColor: AppColors.whiteMediumEmphasis,
+          fontColor: AppColors.textLight,
         );
 }

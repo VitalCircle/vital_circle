@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/themes/typography.dart';
 
 import '../../shared/shared.dart';
-import '../../themes/colors.dart';
-import '../../themes/colors.dart';
 import '../../themes/theme.dart';
 
 const LOREM_IPSUM =
@@ -27,7 +26,7 @@ class LegalAgreementScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                child: Text(title, style: Theme.of(context).textTheme.display2),
+                child: Text(title, style: AppTypography.h1),
                 padding: EdgeInsets.symmetric(vertical: Spacers.lg),
               ),
               Expanded(
@@ -36,8 +35,7 @@ class LegalAgreementScreen extends StatelessWidget {
               SizedBox(height: Spacers.md),
               SizedBox(
                 child: ProgressButton(
-                  color: AppColors.buttonColorSelectedGood,
-                  label: const Text('Accept'),
+                  label: 'Accept',
                   isProcessing: isProcessing,
                   onPressed: onAccept,
                   type: ProgressButtonType.Raised,
