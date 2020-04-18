@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/themes/theme.dart';
 
 class SignInButton extends StatelessWidget {
   const SignInButton({Key key, this.onPressed, this.icon, this.label, this.backgroundColor, this.fontColor})
@@ -12,34 +13,33 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      splashColor: Colors.grey,
-      onPressed: () {
-        onPressed();
-      },
-      padding: const EdgeInsets.all(2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      highlightElevation: 0,
-      color: backgroundColor,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          icon,
-          const Spacer(
-            flex: 1,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Text(
-              label,
-              style: Theme.of(context).textTheme.button.copyWith(color: fontColor),
+    return SizedBox(
+      height: BUTTON_HEIGHT,
+      child: RaisedButton(
+        splashColor: Colors.grey,
+        onPressed: () {
+          onPressed();
+        },
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
+        highlightElevation: 0,
+        color: backgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 48,
+              child: Center(child: icon),
             ),
-          ),
-          const Spacer(
-            flex: 1,
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.button.copyWith(color: fontColor),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

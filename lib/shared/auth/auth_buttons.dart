@@ -9,7 +9,7 @@ import 'anonymous_sign_in.dart';
 import 'auth_buttons.vm.dart';
 import 'google_sign_in.dart';
 
-const double SOCIAL_BUTTON_WIDTH = 275;
+const double SOCIAL_BUTTON_WIDTH = 300;
 
 class AuthButtons extends StatelessWidget {
   const AuthButtons({@required this.onBusyToggle});

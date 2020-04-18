@@ -21,5 +21,6 @@ class GoogleSignInButton extends SignInButton {
           ),
           label: 'Yes, continue with Google',
           backgroundColor: AppColors.googleBtnBackground,
+          fontColor: AppColors.textLight,
         );
 }
