@@ -27,7 +27,7 @@ class CheckinListScreen extends StatelessWidget {
   }
 
   Widget _buildCheckinListItem(BuildContext context, Checkin checkin) {
-    final symptoms = checkin.symptoms.map((x) => symptomLabelMap[x]);
+    final symptoms = checkin.symptoms.toList().map((x) => symptomLabelMap[x]);
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(Spacers.lg),
