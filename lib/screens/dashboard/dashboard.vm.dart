@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +17,8 @@ class DashboardViewModel extends ChangeNotifier {
   final CheckupApi _checkupApi;
   final GeoService _geoService;
 
+  StreamSubscription _dailyCheckupSubscription;
+
   bool _isReady = false;
   bool get isReady => _isReady;
 
@@ -23,23 +27,28 @@ class DashboardViewModel extends ChangeNotifier {
 
   Future onInit() async {
     _geoService.startPolling();
-    _hasCheckedInToday = await _hasCheckupForToday();
-    _isReady = true;
-    notifyListeners();
+    await _subscribeToDailyCheckups();
   }
 
-  Future<bool> _hasCheckupForToday() async {
+  Future _subscribeToDailyCheckups() async {
     final now = DateTime.now();
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
-    final checkups = await _checkupApi.getCheckupsForTimeRange(user.uid, start, end);
-    return checkups.isNotEmpty;
+    _dailyCheckupSubscription = _checkupApi.getCheckupsForTimeRange(user.uid, start, end).listen((checkups) {
+      _hasCheckedInToday = checkups.isNotEmpty;
+      _isReady = true;
+      notifyListeners();
+    });
   }
 
   @override
   void dispose() {
     _geoService.stopPolling();
+
+    if (_dailyCheckupSubscription != null) {
+      _dailyCheckupSubscription.cancel();
+    }
     super.dispose();
   }
 }

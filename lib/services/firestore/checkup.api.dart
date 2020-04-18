@@ -20,6 +20,21 @@ class CheckupApi {
     });
   }
 
+  Stream<List<Checkup>> getCheckupsForTimeRange(String userId, DateTime start, DateTime end) {
+    final path = FirestorePath.checkupsPath(userId);
+    return Firestore.instance
+        .collection(path)
+        .where(CheckupProperty.TIMESTAMP, isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end)
+        .snapshots()
+        .map((query) {
+      _log.debug('getCheckupsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
+      return query.documents
+          .where((doc) => doc.data != null)
+          .map((doc) => Checkup.fromFirestore(doc.documentID, doc.data))
+          .toList();
+    });
+  }
+
   Future<Checkup> getCheckup(String userId, String checkupId) async {
     final path = FirestorePath.checkupPath(userId, checkupId);
     final doc = await Firestore.instance.document(path).get();
@@ -29,19 +44,6 @@ class CheckupApi {
     final checkup = Checkup.fromFirestore(doc.documentID, doc.data);
     _log.debug('getCheckup', <String, dynamic>{'userId': userId, 'checkupId': checkupId, 'Checkup': doc.data});
     return checkup;
-  }
-
-  Future<List<Checkup>> getCheckupsForTimeRange(String userId, DateTime start, DateTime end) async {
-    final path = FirestorePath.checkupsPath(userId);
-    final query = await Firestore.instance
-        .collection(path)
-        .where(CheckupProperty.TIMESTAMP, isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end)
-        .getDocuments();
-    _log.debug('getCheckupsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
-    return query.documents
-        .where((doc) => doc.data != null)
-        .map((doc) => Checkup.fromFirestore(doc.documentID, doc.data))
-        .toList();
   }
 
   String addCheckup(String userId, Checkup checkup) {
