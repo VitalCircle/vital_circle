@@ -9,6 +9,9 @@ final symptomLabelMap = <Symptom, String>{
   Symptom.BodyAches: 'Body Aches',
   Symptom.OddTaste: 'Weird/NoTaste',
   Symptom.OddSmell: 'Weird/NoSmell',
-  Symptom.SneezingRunnyNose: 'Sneezing Runny Nose',
+  Symptom.Sneezing: 'Sneezing',
+  Symptom.RunnyNose: 'Runny Nose',
   Symptom.SoreThroat: 'Sore Throat',
+  Symptom.NauseaVomiting: 'Nausea/Vomiting',
+  Symptom.Diarrhea: 'Diarrhea',
 };

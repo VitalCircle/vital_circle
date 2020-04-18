@@ -7,6 +7,9 @@ enum Symptom {
   BodyAches,
   OddTaste,
   OddSmell,
-  SneezingRunnyNose,
-  SoreThroat
+  Sneezing,
+  RunnyNose,
+  SoreThroat,
+  NauseaVomiting,
+  Diarrhea
 }

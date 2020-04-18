@@ -45,8 +45,11 @@ class CheckupViewModel extends ChangeNotifier {
     checkup.bodyAches = _selectedSymptoms.contains(Symptom.BodyAches) ? 1 : 0;
     checkup.oddTaste = _selectedSymptoms.contains(Symptom.OddTaste) ? 1 : 0;
     checkup.oddSmell = _selectedSymptoms.contains(Symptom.OddSmell) ? 1 : 0;
-    checkup.sneezingOrRunnyNose = _selectedSymptoms.contains(Symptom.SneezingRunnyNose) ? 1 : 0;
+    checkup.sneezing = _selectedSymptoms.contains(Symptom.Sneezing) ? 1 : 0;
+    checkup.runnyNose = _selectedSymptoms.contains(Symptom.RunnyNose) ? 1 : 0;
     checkup.soreThroat = _selectedSymptoms.contains(Symptom.SoreThroat) ? 1 : 0;
+    checkup.nauseaVomiting = _selectedSymptoms.contains(Symptom.NauseaVomiting) ? 1 : 0;
+    checkup.diarrhea = _selectedSymptoms.contains(Symptom.Diarrhea) ? 1 : 0;
     return checkup;
   }
 
