@@ -5,7 +5,7 @@ import 'typography.dart';
 
 class MaterialThemeModule {
   static ThemeData build() {
-    final textTheme = _buildTextThem();
+    final textTheme = _buildTextTheme();
     return ThemeData(
       appBarTheme: _buildAppBarTheme(textTheme),
       fontFamily: 'HKGrotesk',
@@ -17,7 +17,6 @@ class MaterialThemeModule {
   static AppBarTheme _buildAppBarTheme(TextTheme textTheme) {
     return AppBarTheme(
       actionsIconTheme: const IconThemeData(color: AppColors.primary),
-      //color: Colors.transparent,
       iconTheme: const IconThemeData(color: AppColors.primary),
       textTheme: textTheme.copyWith(
         title: textTheme.title.copyWith(
@@ -27,7 +26,7 @@ class MaterialThemeModule {
     );
   }
 
-  static TextTheme _buildTextThem() {
+  static TextTheme _buildTextTheme() {
     return const TextTheme(
       // Set all font-sizes to 1 so they must be intentionally styled
       display4: TextStyle(fontSize: 1),

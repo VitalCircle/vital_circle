@@ -35,7 +35,7 @@ class DashboardViewModel extends ChangeNotifier {
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
-    _dailyCheckupSubscription = _checkupApi.getCheckupsForTimeRange(user.uid, start, end).listen((checkups) {
+    _dailyCheckupSubscription = _checkupApi.streamCheckupsForTimeRange(user.uid, start, end).listen((checkups) {
       _hasCheckedInToday = checkups.isNotEmpty;
       _isReady = true;
       notifyListeners();

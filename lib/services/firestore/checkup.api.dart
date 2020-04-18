@@ -20,14 +20,14 @@ class CheckupApi {
     });
   }
 
-  Stream<List<Checkup>> getCheckupsForTimeRange(String userId, DateTime start, DateTime end) {
+  Stream<List<Checkup>> streamCheckupsForTimeRange(String userId, DateTime start, DateTime end) {
     final path = FirestorePath.checkupsPath(userId);
     return Firestore.instance
         .collection(path)
         .where(CheckupProperty.TIMESTAMP, isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end)
         .snapshots()
         .map((query) {
-      _log.debug('getCheckupsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
+      _log.debug('streamCheckupsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
       return query.documents
           .where((doc) => doc.data != null)
           .map((doc) => Checkup.fromFirestore(doc.documentID, doc.data))
