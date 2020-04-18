@@ -34,16 +34,11 @@ class AuthService {
   final LocalStorage _localStorage;
   AuthProviderTypeCache _authTypeCache;
 
-  FirebaseUser _user;
-  FirebaseUser get user {
-    return _user;
-  }
-
-  Future<FirebaseUser> get currentUser async {
+  Future<FirebaseUser> get user async {
     return await _firebaseAuth.currentUser();
   }
 
-  Future<bool> get isAuthenticated async => (await currentUser) != null;
+  Future<bool> get isAuthenticated async => (await user) != null;
 
   /// Attempt to sign in without interacting with the user.
   /// Will not throw an exception.
@@ -56,7 +51,6 @@ class AuthService {
     final AuthProviderService authProvider = _authProviderServices[authType];
     final bool didSignIn = await authProvider.signInSilently();
     if (didSignIn) {
-      _user = await currentUser;
       await _initCrashlyticsUserContext();
     }
     _log.trace(
@@ -76,7 +70,6 @@ class AuthService {
       _log.trace('SignIn abandoned.', <String, String>{'authType': authType.toString()});
       return false;
     }
-    _user = await currentUser;
     await _initCrashlyticsUserContext();
     await _registerSignIn(authType);
     return true;
@@ -96,7 +89,6 @@ class AuthService {
     }
     await _authProviderServices[authType].signOut();
     await _authTypeCache.removeAuthProviderType();
-    _user = null;
     _clearCrashlyticsUserContext();
     _analytics.logEvent(name: AnalyticsEvent.SIGN_OUT, parameters: <String, dynamic>{'type': authType.toString()});
     Navigator.pushNamedAndRemoveUntil(context, RouteName.Welcome, (_) => false);

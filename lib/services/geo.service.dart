@@ -24,7 +24,7 @@ class GeoService {
       return;
     }
     _log.trace('Start polling geo location.');
-    final user = _authService.user;
+    final user = await _authService.user;
     _sub = _geolocator.getPositionStream(_locationOptions).listen((Position position) {
       _insertPosition(position, user.uid);
     });

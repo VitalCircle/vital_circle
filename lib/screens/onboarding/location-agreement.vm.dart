@@ -33,7 +33,7 @@ class LocationAgreementViewModel extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final user = _authService.user;
+      final user = await _authService.user;
       await _userApi.updateLocationSharingAgreement(user.uid, didAccept);
       onNext();
       return;

@@ -26,7 +26,7 @@ class PrivacyViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final user = _authService.user;
+      final user = await _authService.user;
       await _userApi.updatePrivacyAgreement(user.uid);
       onNext();
       return;

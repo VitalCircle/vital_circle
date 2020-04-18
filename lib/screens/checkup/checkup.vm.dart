@@ -53,7 +53,7 @@ class CheckupViewModel extends ChangeNotifier {
     return checkup;
   }
 
-  void submit(BuildContext context) {
+  Future submit(BuildContext context) async {
     if (_isSaving) {
       return;
     }
@@ -61,7 +61,7 @@ class CheckupViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final user = _authService.user;
+      final user = await _authService.user;
       final checkup = _getModel();
       _checkupApi.addCheckup(user.uid, checkup);
       Navigator.of(context).pop();

@@ -1,4 +1,5 @@
 class LogZone {
+  static const String START_UP = 'START_UP';
   static const String AUTH = 'AUTH';
   static const String CHECKUP = 'CHECKUP';
   static const String FIRESTORE = 'FIRESTORE';

@@ -26,7 +26,7 @@ class TermsOfServiceViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final user = _authService.user;
+      final user = await _authService.user;
       await _userApi.updateTermsOfServiceAgreement(user.uid);
       onNext();
       return;

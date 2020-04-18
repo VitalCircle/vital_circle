@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:location_permissions/location_permissions.dart';
 
 import 'package:provider/provider.dart';
 import 'package:vital_circle/services/services.dart';
@@ -26,7 +25,7 @@ class OnboardingViewModel extends ChangeNotifier {
   Set<OnboardingSteps> get steps => _steps;
 
   Future<void> onInit(BuildContext context) async {
-    final fbUser = _authService.user;
+    final fbUser = await _authService.user;
     final user = await _userApi.getUser(fbUser.uid);
     _steps = _getSteps(user);
     if (_steps.isEmpty) {

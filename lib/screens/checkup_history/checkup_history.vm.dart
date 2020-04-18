@@ -25,8 +25,8 @@ class CheckupHistoryViewModel extends ChangeNotifier {
   List<Checkup> get checkups => _checkups;
 
   Future onInit() async {
-    final userId = _authService.user.uid;
-    _checkupSub = _checkupApi.streamCheckups(userId).where((x) => x != null).listen((checkups) {
+    final user = await _authService.user;
+    _checkupSub = _checkupApi.streamCheckups(user.uid).where((x) => x != null).listen((checkups) {
       _isReady = true;
       _checkups = checkups;
       notifyListeners();

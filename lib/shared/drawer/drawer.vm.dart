@@ -19,7 +19,7 @@ class DrawerViewModel extends ChangeNotifier {
   FirebaseUser get user => _user;
 
   Future init() async {
-    _user = _authService.user;
+    _user = await _authService.user;
     _isReady = true;
     notifyListeners();
   }

@@ -32,7 +32,7 @@ class LegalAgreementScreen extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(child: Text(content)),
               ),
-              SizedBox(height: Spacers.md),
+              SizedBox(height: Spacers.lg),
               SizedBox(
                 child: ProgressButton(
                   label: 'Accept',
