@@ -39,7 +39,7 @@ class LocationAgreementScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: ProgressButton(
-                        color: AppColors.buttonColorSelectedGood,
+                        color: AppColors.buttonColorPrimary,
                         label: const Text('Accept'),
                         isProcessing: model.isSaving,
                         onPressed: () => model.onSelect(true),
