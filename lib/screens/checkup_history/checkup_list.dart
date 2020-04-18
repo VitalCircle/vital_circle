@@ -6,11 +6,6 @@ import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/extensions/index.dart';
 import 'package:vital_circle/utils/symptom_label.dart';
 
-const double PLAY_BUTTON_SIZE = 48;
-const double PAUSE_BUTTON_BORDER_SIZE = 3;
-// Not really sure why we don't need to double the border here.
-const double PAUSE_BUTTON_SIZE = PLAY_BUTTON_SIZE - (PAUSE_BUTTON_BORDER_SIZE / 2);
-
 class CheckupListScreen extends StatelessWidget {
   const CheckupListScreen({@required List<Checkup> checkups}) : _checkups = checkups;
 
@@ -56,7 +51,7 @@ class CheckupListScreen extends StatelessWidget {
   }
 
   Widget _buildCheckupListItem(BuildContext context, Checkup checkup) {
-    var symptoms = checkup.symptoms.map((x) => symptomLabelMap[x]);
+    final symptoms = checkup.symptoms.map((x) => symptomLabelMap[x]);
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(Spacers.lg),

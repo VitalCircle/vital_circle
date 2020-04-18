@@ -3,4 +3,3 @@ export 'base_widget.dart';
 export 'drawer/drawer.dart';
 export 'logo_header.dart';
 export 'progress_button.dart';
-export 'screen_wrap.dart';
