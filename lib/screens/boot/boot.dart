@@ -12,7 +12,7 @@ class BootScreen extends StatelessWidget {
         model.onInit(context);
       },
       builder: (context, model, child) {
-        return LogoHeader();
+        return Container(decoration: BoxDecoration(color: Colors.white), child: Column(children: [LogoHeader()]));
       },
     );
   }
