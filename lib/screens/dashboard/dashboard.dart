@@ -51,7 +51,7 @@ class DashboardScreen extends StatelessWidget {
                   Icons.check_circle_outline,
                   'Check-in',
                   'Log your symptoms and temperature.',
-                  RouteName.Checkup,
+                  RouteName.Checkin,
                 ),
           const SizedBox(height: Spacers.md),
           _buildCard(
@@ -59,7 +59,7 @@ class DashboardScreen extends StatelessWidget {
             Icons.calendar_today,
             'History',
             'Look at your previous symptoms and edit records.',
-            RouteName.CheckupHistory,
+            RouteName.CheckinHistory,
           )
         ],
         crossAxisAlignment: CrossAxisAlignment.start,

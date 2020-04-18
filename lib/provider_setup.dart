@@ -12,7 +12,7 @@ class ProviderModule {
 
   static final List<SingleChildWidget> _independentServices = <SingleChildWidget>[
     Provider.value(value: AnonymousAuthService()),
-    Provider.value(value: CheckupApi()),
+    Provider.value(value: CheckinApi()),
     Provider.value(value: GoogleAuthService()),
     Provider.value(value: LocalStorage()),
     Provider.value(value: UserApi()),

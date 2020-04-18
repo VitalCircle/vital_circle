@@ -10,14 +10,14 @@ import '../../services/services.dart';
 class DashboardViewModel extends ChangeNotifier {
   DashboardViewModel.of(BuildContext context)
       : _authService = Provider.of(context),
-        _checkupApi = Provider.of(context),
+        _checkinApi = Provider.of(context),
         _geoService = Provider.of(context);
 
   final AuthService _authService;
-  final CheckupApi _checkupApi;
+  final CheckinApi _checkinApi;
   final GeoService _geoService;
 
-  StreamSubscription _dailyCheckupSubscription;
+  StreamSubscription _dailyCheckinSubscription;
 
   bool _isReady = false;
   bool get isReady => _isReady;
@@ -27,16 +27,16 @@ class DashboardViewModel extends ChangeNotifier {
 
   Future onInit() async {
     _geoService.startPolling();
-    await _subscribeToDailyCheckups();
+    await _subscribeToDailyCheckins();
   }
 
-  Future _subscribeToDailyCheckups() async {
+  Future _subscribeToDailyCheckins() async {
     final now = DateTime.now();
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
-    _dailyCheckupSubscription = _checkupApi.streamCheckupsForTimeRange(user.uid, start, end).listen((checkups) {
-      _hasCheckedInToday = checkups.isNotEmpty;
+    _dailyCheckinSubscription = _checkinApi.streamCheckinsForTimeRange(user.uid, start, end).listen((checkins) {
+      _hasCheckedInToday = checkins.isNotEmpty;
       _isReady = true;
       notifyListeners();
     });
@@ -46,8 +46,8 @@ class DashboardViewModel extends ChangeNotifier {
   void dispose() {
     _geoService.stopPolling();
 
-    if (_dailyCheckupSubscription != null) {
-      _dailyCheckupSubscription.cancel();
+    if (_dailyCheckinSubscription != null) {
+      _dailyCheckinSubscription.cancel();
     }
     super.dispose();
   }

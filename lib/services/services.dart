@@ -1,7 +1,7 @@
 export './auth/anonymous_auth.service.dart';
 export './auth/auth.service.dart';
 export './auth/google_auth.service.dart';
-export './firestore/checkup.api.dart';
+export './firestore/checkin.api.dart';
 export './firestore/user.api.dart';
 export './log/index.dart';
 export 'geo.service.dart';

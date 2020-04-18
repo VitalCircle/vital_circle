@@ -1,7 +1,7 @@
 class FirestorePathSegment {
   static const String USERS = 'users';
   static const String LOCATIONS = 'locations';
-  static const String CHECKUPS = 'checkups';
+  static const String CHECKUPS = 'checkins';
 }
 
 class FirestorePath {
@@ -13,11 +13,11 @@ class FirestorePath {
     return '${userPath(userId)}/${FirestorePathSegment.LOCATIONS}';
   }
 
-  static String checkupsPath(String userId) {
+  static String checkinsPath(String userId) {
     return '${userPath(userId)}/${FirestorePathSegment.CHECKUPS}';
   }
 
-  static String checkupPath(String userId, String checkupId) {
-    return '${checkupsPath(userId)}/$checkupId';
+  static String checkinPath(String userId, String checkinId) {
+    return '${checkinsPath(userId)}/$checkinId';
   }
 }

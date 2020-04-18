@@ -8,35 +8,35 @@ import 'package:vital_circle/models/index.dart';
 
 import '../../services/services.dart';
 
-class CheckupHistoryViewModel extends ChangeNotifier {
-  CheckupHistoryViewModel.of(BuildContext context)
+class CheckinHistoryViewModel extends ChangeNotifier {
+  CheckinHistoryViewModel.of(BuildContext context)
       : _authService = Provider.of(context),
-        _checkupApi = Provider.of(context);
+        _checkinApi = Provider.of(context);
 
   final AuthService _authService;
-  final CheckupApi _checkupApi;
+  final CheckinApi _checkinApi;
 
-  StreamSubscription _checkupSub;
+  StreamSubscription _checkinSub;
 
   bool _isReady = false;
   bool get isReady => _isReady;
 
-  List<Checkup> _checkups;
-  List<Checkup> get checkups => _checkups;
+  List<Checkin> _checkins;
+  List<Checkin> get checkins => _checkins;
 
   Future onInit() async {
     final user = await _authService.user;
-    _checkupSub = _checkupApi.streamCheckups(user.uid).where((x) => x != null).listen((checkups) {
+    _checkinSub = _checkinApi.streamCheckins(user.uid).where((x) => x != null).listen((checkins) {
       _isReady = true;
-      _checkups = checkups;
+      _checkins = checkins;
       notifyListeners();
     });
   }
 
   @override
   void dispose() {
-    if (_checkupSub != null) {
-      _checkupSub.cancel();
+    if (_checkinSub != null) {
+      _checkinSub.cancel();
     }
     super.dispose();
   }

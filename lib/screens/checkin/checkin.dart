@@ -5,25 +5,25 @@ import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/utils/symptom_label.dart';
 
-import 'checkup.vm.dart';
+import 'checkin.vm.dart';
 
-class CheckupScreen extends StatefulWidget {
+class CheckinScreen extends StatefulWidget {
   @override
-  _CheckupScreenState createState() => _CheckupScreenState();
+  _CheckinScreenState createState() => _CheckinScreenState();
 }
 
-class _CheckupScreenState extends State<CheckupScreen> {
+class _CheckinScreenState extends State<CheckinScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckupViewModel>(
-      model: CheckupViewModel.of(context),
+    return BaseWidget<CheckinViewModel>(
+      model: CheckinViewModel.of(context),
       builder: (context, model, child) {
         return _buildScreen(context, model);
       },
     );
   }
 
-  Widget _buildScreen(BuildContext context, CheckupViewModel model) {
+  Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
         appBar: SharedAppBar(
           title: const Text('Check-in'),
@@ -61,13 +61,13 @@ class _CheckupScreenState extends State<CheckupScreen> {
         }));
   }
 
-  void _submit(BuildContext context, CheckupViewModel model) {
+  void _submit(BuildContext context, CheckinViewModel model) {
     // dismiss keyboard
     FocusScope.of(context).requestFocus(FocusNode());
     model.submit(context);
   }
 
-  Widget _buildTemp(BuildContext context, CheckupViewModel model) {
+  Widget _buildTemp(BuildContext context, CheckinViewModel model) {
     return TextFormField(
       decoration: const InputDecoration(
         labelText: 'Temperature',
@@ -83,7 +83,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
     );
   }
 
-  Widget _buildSymptoms(BuildContext context, CheckupViewModel model) {
+  Widget _buildSymptoms(BuildContext context, CheckinViewModel model) {
     return Column(children: [
       Text('Symptoms', style: AppTypography.h2),
       Text(
@@ -100,7 +100,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
     ]);
   }
 
-  Widget _buildSymptom(BuildContext context, CheckupViewModel model, Symptom symptom) {
+  Widget _buildSymptom(BuildContext context, CheckinViewModel model, Symptom symptom) {
     return ChoiceChip(
       label: Text(symptomLabelMap[symptom]),
       onSelected: (selected) {

@@ -3,17 +3,17 @@ import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
 
-import 'checkup_history.vm.dart';
-import 'checkup_list.dart';
+import 'checkin_history.vm.dart';
+import 'checkin_list.dart';
 
 const double BIG_FAB_ICON_SIZE = 48;
 const double BIG_FAB_SIZE = 94;
 
-class CheckupHistoryScreen extends StatelessWidget {
+class CheckinHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckupHistoryViewModel>(
-      model: CheckupHistoryViewModel.of(context),
+    return BaseWidget<CheckinHistoryViewModel>(
+      model: CheckinHistoryViewModel.of(context),
       onModelReady: (model) {
         model.onInit();
       },
@@ -32,14 +32,14 @@ class CheckupHistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildScreen(BuildContext context, CheckupHistoryViewModel model) {
+  Widget _buildScreen(BuildContext context, CheckinHistoryViewModel model) {
     if (!model.isReady) {
       return _buildLoading();
     }
-    if (model.checkups.isEmpty) {
+    if (model.checkins.isEmpty) {
       return _buildEmptyState(context);
     }
-    return _buildCheckupScreen(context, model);
+    return _buildCheckinScreen(context, model);
   }
 
   Widget _buildLoading() {
@@ -52,12 +52,12 @@ class CheckupHistoryScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text('No checkups yet!'),
+          const Text('No checkins yet!'),
           const SizedBox(height: Spacers.lg),
           SizedBox(
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(context, RouteName.Checkup);
+                Navigator.pushNamed(context, RouteName.Checkin);
               },
               child: const Icon(Icons.add, size: BIG_FAB_ICON_SIZE),
             ),
@@ -71,7 +71,7 @@ class CheckupHistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCheckupScreen(BuildContext context, CheckupHistoryViewModel model) {
-    return CheckupListScreen(checkups: model.checkups);
+  Widget _buildCheckinScreen(BuildContext context, CheckinHistoryViewModel model) {
+    return CheckinListScreen(checkins: model.checkins);
   }
 }
