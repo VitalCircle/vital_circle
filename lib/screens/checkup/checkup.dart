@@ -26,7 +26,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
   Widget _buildScreen(BuildContext context, CheckupViewModel model) {
     return Scaffold(
         appBar: SharedAppBar(
-          title: const Text('How\'s Your Health?'),
+          title: const Text('Check-in'),
         ),
         body: LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
           return SingleChildScrollView(

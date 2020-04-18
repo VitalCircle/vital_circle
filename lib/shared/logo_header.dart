@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/constants/images.dart';
-import 'package:vital_circle/themes/theme.dart';
 
 const LOGO_FONT_SIZE = 48.0;
 

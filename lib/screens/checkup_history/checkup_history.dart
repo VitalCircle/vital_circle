@@ -18,7 +18,16 @@ class CheckupHistoryScreen extends StatelessWidget {
         model.onInit();
       },
       builder: (context, model, child) {
-        return _buildScreen(context, model);
+        return Scaffold(
+          appBar: SharedAppBar(
+            title: const Text('History'),
+          ),
+          body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints viewportConstraints) {
+              return _buildScreen(context, model);
+            },
+          ),
+        );
       },
     );
   }
