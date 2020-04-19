@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../themes/theme.dart';
-import '../shared.dart';
+import 'package:vital_circle/themes/theme.dart';
+import 'package:vital_circle/shared/shared.dart';
 
 class NavigationCard extends StatelessWidget {
   const NavigationCard(

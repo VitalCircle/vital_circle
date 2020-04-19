@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/services.dart';
+import 'package:vital_circle/services/services.dart';
 
 class DashboardViewModel extends ChangeNotifier {
   DashboardViewModel.of(BuildContext context)
@@ -35,7 +35,9 @@ class DashboardViewModel extends ChangeNotifier {
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
-    _dailyCheckinSubscription = _checkinApi.streamCheckinsForTimeRange(user.uid, start, end).listen((checkins) {
+    _dailyCheckinSubscription = _checkinApi
+        .streamCheckinsForTimeRange(user.uid, start, end)
+        .listen((checkins) {
       _hasCheckedInToday = checkins.isNotEmpty;
       _isReady = true;
       notifyListeners();

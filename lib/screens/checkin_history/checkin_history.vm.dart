@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:vital_circle/models/index.dart';
-
-import '../../services/services.dart';
+import 'package:vital_circle/services/services.dart';
 
 class CheckinHistoryViewModel extends ChangeNotifier {
   CheckinHistoryViewModel.of(BuildContext context)
@@ -26,7 +25,10 @@ class CheckinHistoryViewModel extends ChangeNotifier {
 
   Future onInit() async {
     final user = await _authService.user;
-    _checkinSub = _checkinApi.streamCheckins(user.uid).where((x) => x != null).listen((checkins) {
+    _checkinSub = _checkinApi
+        .streamCheckins(user.uid)
+        .where((x) => x != null)
+        .listen((checkins) {
       _isReady = true;
       _checkins = checkins;
       notifyListeners();

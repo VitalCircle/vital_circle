@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:vital_circle/services/services.dart';
 
-import '../../models/index.dart';
-import '../../routes.dart';
+import 'package:vital_circle/models/index.dart';
+import 'package:vital_circle/routes.dart';
 
 enum OnboardingSteps { PrivacyPolicy, TermsOfService, LocationSharing }
 
@@ -41,13 +41,19 @@ class OnboardingViewModel extends ChangeNotifier {
 
   Set<OnboardingSteps> _getSteps(User user) {
     final steps = <OnboardingSteps>{};
-    if (user == null || user.agreements == null || user.agreements.privacyPolicy == null) {
+    if (user == null ||
+        user.agreements == null ||
+        user.agreements.privacyPolicy == null) {
       steps.add(OnboardingSteps.PrivacyPolicy);
     }
-    if (user == null || user.agreements == null || user.agreements.termsOfService == null) {
+    if (user == null ||
+        user.agreements == null ||
+        user.agreements.termsOfService == null) {
       steps.add(OnboardingSteps.TermsOfService);
     }
-    if (user == null || user.agreements == null || user.agreements.locationSharing == null) {
+    if (user == null ||
+        user.agreements == null ||
+        user.agreements.locationSharing == null) {
       steps.add(OnboardingSteps.LocationSharing);
     }
     return steps;

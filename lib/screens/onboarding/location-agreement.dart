@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/themes/typography.dart';
 
-import '../../shared/shared.dart';
-import '../../themes/theme.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 import 'location-agreement.vm.dart';
 
 class LocationAgreementScreen extends StatelessWidget {
@@ -26,7 +26,9 @@ class LocationAgreementScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: Spacers.lg),
                 ),
                 const Expanded(
-                    child: Center(child: Text('TODO: some graphic and text explaining why to share their location.'))),
+                    child: Center(
+                        child: Text(
+                            'TODO: some graphic and text explaining why to share their location.'))),
                 const SizedBox(height: Spacers.md),
                 Row(
                   children: <Widget>[
