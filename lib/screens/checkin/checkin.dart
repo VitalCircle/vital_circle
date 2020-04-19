@@ -28,7 +28,8 @@ class _CheckinScreenState extends State<CheckinScreen> {
         appBar: SharedAppBar(
           title: const Text('Check-in'),
         ),
-        body: LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        body: LayoutBuilder(builder:
+            (BuildContext context, BoxConstraints viewportConstraints) {
           return SingleChildScrollView(
             child: Container(
               constraints: BoxConstraints(
@@ -93,14 +94,17 @@ class _CheckinScreenState extends State<CheckinScreen> {
       ),
       const SizedBox(height: Spacers.md),
       Wrap(
-        children: Symptom.values.map((s) => _buildSymptom(context, model, s)).toList(),
+        children: Symptom.values
+            .map((s) => _buildSymptom(context, model, s))
+            .toList(),
         runSpacing: 0,
         spacing: 12,
       ),
     ]);
   }
 
-  Widget _buildSymptom(BuildContext context, CheckinViewModel model, Symptom symptom) {
+  Widget _buildSymptom(
+      BuildContext context, CheckinViewModel model, Symptom symptom) {
     return ChoiceChip(
       label: Text(symptomLabelMap[symptom]),
       onSelected: (selected) {

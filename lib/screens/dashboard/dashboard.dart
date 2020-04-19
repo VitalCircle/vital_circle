@@ -45,21 +45,22 @@ class DashboardScreen extends StatelessWidget {
           _buildGreeting(),
           const SizedBox(height: Spacers.lg),
           model.hasCheckedInToday
-              ? _buildCard(context, Icons.check_circle, 'Thank you for checking in today!')
-              : _buildCard(
-                  context,
-                  Icons.check_circle_outline,
-                  'Check-in',
-                  'Log your symptoms and temperature.',
-                  RouteName.Checkin,
+              ? NavigationCard(
+                  title: 'Thank you for checking in today!',
+                  icon: Icons.check_circle,
+                )
+              : NavigationCard(
+                  title: 'Check-in',
+                  subtitle: 'Log your symptoms and temperature.',
+                  icon: Icons.check_circle_outline,
+                  routeName: RouteName.Checkin,
                 ),
           const SizedBox(height: Spacers.md),
-          _buildCard(
-            context,
-            Icons.calendar_today,
-            'History',
-            'Look at your previous symptoms and edit records.',
-            RouteName.CheckinHistory,
+          NavigationCard(
+            title: 'History',
+            subtitle: 'Look at your previous symptoms and edit records.',
+            icon: Icons.calendar_today,
+            routeName: RouteName.CheckinHistory,
           )
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,41 +73,6 @@ class DashboardScreen extends StatelessWidget {
     return Text(
       'Good day, Human',
       style: AppTypography.h1,
-    );
-  }
-
-  Widget _buildCard(BuildContext context, IconData icon, String title, [String subtitle, String routeName]) {
-    return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.cardBorder),
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Icon(icon),
-            const SizedBox(width: 16),
-            Expanded(
-              flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(title, style: AppTypography.bodyBold),
-                  const SizedBox(height: 4),
-                  if (subtitle != null) WrappedText(child: Text(subtitle)),
-                ],
-              ),
-            )
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-      ),
-      onTap: routeName == null
-          ? null
-          : () {
-              Navigator.of(context).pushNamed(routeName);
-            },
     );
   }
 }
