@@ -38,7 +38,10 @@ class _CheckinScreenState extends State<CheckinScreen> {
               child: IntrinsicHeight(
                 child: Column(
                   children: <Widget>[
-                    _buildTemp(context, model),
+                    Form(
+                      key: model.formKey,
+                      child: _buildTemp(context, model),
+                    ),
                     const SizedBox(height: Spacers.xl),
                     _buildSymptoms(context, model),
                     const Spacer(flex: 1),

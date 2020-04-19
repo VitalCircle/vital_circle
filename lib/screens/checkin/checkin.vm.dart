@@ -16,6 +16,7 @@ class CheckinViewModel extends ChangeNotifier {
   final CheckinApi _checkinApi;
 
   final _log = LogService.zone(LogZone.CHECKUP);
+  final formKey = GlobalKey<FormState>();
 
   double temperature;
 
@@ -58,6 +59,7 @@ class CheckinViewModel extends ChangeNotifier {
     if (_isSaving) {
       return;
     }
+    formKey.currentState.save();
     _isSaving = true;
     notifyListeners();
 
