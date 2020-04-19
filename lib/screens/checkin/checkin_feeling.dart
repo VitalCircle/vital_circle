@@ -4,6 +4,7 @@ import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/routes.dart';
 
+import '../../themes/spacers.dart';
 import 'checkin.vm.dart';
 
 class CheckinFeeling extends StatefulWidget {
@@ -47,22 +48,32 @@ class _CheckinFeelingState extends State<CheckinFeeling>
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          return Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              const SizedBox(height: Spacers.xl),
-              _buildHeader(context, model),
-              _buildItem(context, model, 0),
-              _buildItem(context, model, 1),
-              _buildItem(context, model, 2),
-              SizedBox(
-                width: double.infinity,
-                child: ProgressButton(
-                    label: 'Continue',
-                    onPressed: () => _continue(context, model),
-                    type: ProgressButtonType.Raised),
-              )
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Spacers.md, vertical: Spacers.md),
+                  children: <Widget>[
+                    _buildHeader(context, model),
+                    _buildItem(context, model, 0),
+                    _buildItem(context, model, 1),
+                    _buildItem(context, model, 2),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Spacers.md, vertical: Spacers.lg),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ProgressButton(
+                      label: 'Continue',
+                      onPressed: () => _continue(context, model),
+                      type: ProgressButtonType.Raised),
+                ),
+              ),
             ],
           );
         },
@@ -94,6 +105,7 @@ class _CheckinFeelingState extends State<CheckinFeeling>
         ),
         onTap: () => setState(
           () {
+            // todo: extract into viewmodel
             feelingCheck[index] = !feelingCheck[index];
           },
         ),

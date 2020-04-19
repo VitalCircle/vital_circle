@@ -5,6 +5,7 @@ import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/routes.dart';
 
 import 'checkin.vm.dart';
+import 'checkin.vm.dart';
 
 class CheckinTemperature extends StatefulWidget {
   @override
@@ -13,6 +14,10 @@ class CheckinTemperature extends StatefulWidget {
 
 class _CheckinTemperatureState extends State<CheckinTemperature>
     with AutomaticKeepAliveClientMixin {
+  //todo: extract into data model
+  List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
+  List<bool> subjectiveTempCheck = [false, false, false];
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -42,20 +47,29 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              _buildHeader(context, model),
-              const SizedBox(height: Spacers.xl),
-              _buildTemp(context, model),
-              const SizedBox(height: Spacers.xl),
-              SizedBox(
-                width: double.infinity,
-                child: ProgressButton(
-                    label: 'Continue',
-                    onPressed: () => _continue(context, model),
-                    type: ProgressButtonType.Raised),
+              Padding(
+                padding: const EdgeInsets.only(top: Spacers.md),
+                child: _buildHeader(context, model),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
+                child: _buildTemp(context, model),
+              ),
+              _buildSubjectiveTemp(context, model),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Spacers.md, vertical: Spacers.lg),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ProgressButton(
+                      label: 'Continue',
+                      onPressed: () => _continue(context, model),
+                      type: ProgressButtonType.Raised),
+                ),
               )
             ],
           );
@@ -91,6 +105,42 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
         model.temperature = double.tryParse(value);
       },
       textInputAction: TextInputAction.done,
+    );
+  }
+
+  Widget _buildSubjectiveTemp(BuildContext context, CheckinViewModel model) {
+    return Column(
+      children: <Widget>[
+        const Text('No thermometer?'),
+        const SizedBox(height: Spacers.sm),
+        Wrap(
+          // crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: <Widget>[
+            _buildItem(context, model, 0),
+            _buildItem(context, model, 1),
+            _buildItem(context, model, 2),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildItem(BuildContext context, CheckinViewModel model, int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        child: SelectionCardSmall(
+          title: subjectiveTemp[index],
+          selected: subjectiveTempCheck[index],
+        ),
+        onTap: () => setState(
+          () {
+            // todo: extract into viewmodel
+            subjectiveTempCheck[index] = !subjectiveTempCheck[index];
+          },
+        ),
+      ),
     );
   }
 

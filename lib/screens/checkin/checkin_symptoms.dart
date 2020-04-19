@@ -43,23 +43,33 @@ class _CheckinSymptomsState extends State<CheckinSymptoms>
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          return Column(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              const SizedBox(height: Spacers.xl),
-              _buildHeader(context, model),
-              ...Symptom.values
-                  .map((s) => _buildSymptom(context, model, s))
-                  .toList(),
-              SizedBox(
-                width: double.infinity,
-                child: ProgressButton(
-                    label: 'Submit',
-                    onPressed: () {
-                      _submit(context, model);
-                    },
-                    type: ProgressButtonType.Raised),
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: Spacers.md, vertical: Spacers.md),
+                  children: <Widget>[
+                    _buildHeader(context, model),
+                    ...Symptom.values
+                        .map((s) => _buildSymptom(context, model, s))
+                        .toList(),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Spacers.md, vertical: Spacers.lg),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ProgressButton(
+                      label: 'Submit',
+                      onPressed: () {
+                        _submit(context, model);
+                      },
+                      type: ProgressButtonType.Raised),
+                ),
               )
             ],
           );
