@@ -27,12 +27,15 @@ class LocationAgreementViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final permission = await LocationPermissions().requestPermissions();
-      if (permission != PermissionStatus.granted) {
-        _isSaving = false;
-        notifyListeners();
-        return;
+      if (didAccept) {
+        final permission = await LocationPermissions().requestPermissions();
+        if (permission != PermissionStatus.granted) {
+          _isSaving = false;
+          notifyListeners();
+          return;
+        }
       }
+
       final user = await _authService.user;
       await _userApi.updateLocationSharingAgreement(user.uid, didAccept);
       onNext();
