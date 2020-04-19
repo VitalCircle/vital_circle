@@ -25,41 +25,35 @@ class _CheckinScreenState extends State<CheckinScreen> {
 
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
-        appBar: SharedAppBar(
-          title: const Text('Check-in'),
-        ),
-        body: LayoutBuilder(builder:
-            (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-                minWidth: viewportConstraints.maxWidth,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: <Widget>[
-                    _buildTemp(context, model),
-                    const SizedBox(height: Spacers.xl),
-                    _buildSymptoms(context, model),
-                    const Spacer(flex: 1),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ProgressButton(
-                          label: 'Submit',
-                          onPressed: () {
-                            _submit(context, model);
-                          },
-                          type: ProgressButtonType.Raised),
-                    )
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              padding: const EdgeInsets.all(16),
-            ),
+      appBar: SharedAppBar(
+        title: const Text('Check-in'),
+      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+          return ListView(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            children: <Widget>[
+              _buildTemp(context, model),
+              const SizedBox(height: Spacers.xl),
+              _buildSymptomTitle(context, model),
+              ...Symptom.values
+                  .map((s) => _buildSymptom(context, model, s))
+                  .toList(),
+              SizedBox(
+                width: double.infinity,
+                child: ProgressButton(
+                    label: 'Submit',
+                    onPressed: () {
+                      _submit(context, model);
+                    },
+                    type: ProgressButtonType.Raised),
+              )
+            ],
           );
-        }));
+        },
+      ),
+    );
   }
 
   void _submit(BuildContext context, CheckinViewModel model) {
@@ -84,33 +78,30 @@ class _CheckinScreenState extends State<CheckinScreen> {
     );
   }
 
-  Widget _buildSymptoms(BuildContext context, CheckinViewModel model) {
+  Widget _buildSymptomTitle(BuildContext context, CheckinViewModel model) {
     return Column(children: [
-      Text('Symptoms', style: AppTypography.h2),
+      Text('Please select your symptoms', style: AppTypography.h2),
       Text(
-        'Please select the symptoms that you are experiencing:',
-        style: AppTypography.bodyBold,
+        //todo: extract prior day's symptoms. adjust padding
+        'Yesterday, you had cough, short of breath,\n and body aches',
+        style: AppTypography.bodyRegular1,
         textAlign: TextAlign.center,
       ),
-      const SizedBox(height: Spacers.md),
-      Wrap(
-        children: Symptom.values
-            .map((s) => _buildSymptom(context, model, s))
-            .toList(),
-        runSpacing: 0,
-        spacing: 12,
-      ),
+      const SizedBox(height: Spacers.lg),
     ]);
   }
 
   Widget _buildSymptom(
       BuildContext context, CheckinViewModel model, Symptom symptom) {
-    return ChoiceChip(
-      label: Text(symptomLabelMap[symptom]),
-      onSelected: (selected) {
-        model.toggleSelected(symptom);
-      },
-      selected: model.selectedSymptoms.contains(symptom),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        child: SelectionCard(
+          title: symptomLabelMap[symptom],
+          selected: model.selectedSymptoms.contains(symptom),
+        ),
+        onTap: () => model.toggleSelected(symptom),
+      ),
     );
   }
 }
