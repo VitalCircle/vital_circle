@@ -11,19 +11,19 @@ class CheckinProperty {
 }
 
 class SymptomsProperty {
-  static const FEBRILE = 'febrile';
+  static const BODY_ACHES = 'bodyAches';
   static const COUGH = 'cough';
-  static const SHORTNESS_OF_BREATH = 'shortnessOfBreath';
+  static const DIARRHEA = 'diarrhea';
+  static const FEBRILE = 'febrile';
   static const FEELING_ILL = 'feelingIll';
   static const HEADACHE = 'headache';
-  static const BODY_ACHES = 'bodyAches';
+  static const NAUSEA_VOMITING = 'nauseaVomiting';
   static const ODD_TASTE = 'oddTaste';
   static const ODD_SMELL = 'oddSmell';
-  static const SNEEZING = 'sneezing';
   static const RUNNY_NOSE = 'runnyNose';
+  static const SHORTNESS_OF_BREATH = 'shortnessOfBreath';
+  static const SNEEZING = 'sneezing';
   static const SORE_THROAT = 'soreThroat';
-  static const NAUSEA_VOMITING = 'nauseaVomiting';
-  static const DIARRHEA = 'diarrhea';
 }
 
 class Checkin {

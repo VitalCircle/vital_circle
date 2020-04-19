@@ -23,7 +23,7 @@ class LocationAgreementScreen extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   child: Text('Location Sharing', style: AppTypography.h1),
-                  padding: EdgeInsets.symmetric(vertical: Spacers.lg),
+                  padding: const EdgeInsets.symmetric(vertical: Spacers.lg),
                 ),
                 const Expanded(
                     child: Center(
