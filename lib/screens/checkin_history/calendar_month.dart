@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vital_circle/extensions/index.dart';
 import 'package:vital_circle/models/index.dart';
+import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/themes/typography.dart';
+
+import 'calendar_month.vm.dart';
 
 enum CalendarDayState { None, Good, Bad }
 
@@ -14,28 +17,37 @@ class CalendarDay {
 }
 
 class CalendarMonth extends StatelessWidget {
-  CalendarMonth({@required this.year, @required this.month, this.checkins, @required this.onSelectDay})
-      : _checkinMap = _generateCheckinMap(checkins),
-        _firstDayOfWeekOffset = (DateTime(year, month).weekday % 7) * -1,
-        _daysInMonth = DateTime(year, month + 1, 0).day;
+  const CalendarMonth({@required this.year, @required this.month, @required this.onSelectDay});
 
   final int year;
   final int month;
-  final List<Checkin> checkins;
-  final Function(DateTime) onSelectDay;
-
-  final Map<int, Checkin> _checkinMap;
-  final int _firstDayOfWeekOffset;
-  final int _daysInMonth;
+  final Function(DateTime, Checkin) onSelectDay;
 
   @override
   Widget build(BuildContext context) {
+    return BaseWidget<CalendarMonthViewModel>(
+      model: CalendarMonthViewModel.of(context),
+      onModelReady: (model) {
+        model.onInit(year, month);
+      },
+      builder: (context, model, child) {
+        return model.isReady ? _buildScreen(context, model) : _buildLoading();
+      },
+    );
+  }
+
+  Widget _buildLoading() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildScreen(BuildContext context, CalendarMonthViewModel model) {
     final weeks = <Widget>[];
-    for (var i = _firstDayOfWeekOffset; i < _daysInMonth; i += 7) {
-      weeks.add(_buildRow(i, i + 7));
+    for (var i = model.firstDayOfWeekOffset; i < model.daysInMonth; i += 7) {
+      final row = _buildRow(model, i, i + 6);
+      weeks.add(row);
     }
 
-    final monthName = DateFormat.MMMM().format(DateTime(year, month));
+    final monthName = _getMonthName();
     const rowSpacer = SizedBox(height: 24);
     return Column(
       children: <Widget>[
@@ -47,23 +59,19 @@ class CalendarMonth extends StatelessWidget {
     );
   }
 
-  static Map<int, Checkin> _generateCheckinMap(List<Checkin> checkins) {
-    if (checkins == null) {
-      return <int, Checkin>{};
+  String _getMonthName() {
+    var monthName = DateFormat.MMMM().format(DateTime(year, month));
+    if (DateTime.now().year != year) {
+      monthName += ' $year';
     }
-    return checkins.fold<Map<int, Checkin>>(<int, Checkin>{}, (a, c) {
-      final key = c.timestamp.day;
-      if (!a.containsKey(key)) {
-        a[c.timestamp.day] = c;
-      }
-      return a;
-    });
+    return monthName;
   }
 
-  Widget _buildRow(int startDay, int endDay) {
+  Widget _buildRow(CalendarMonthViewModel model, int startDayIndex, int endDayIndex) {
     final days = <Widget>[];
-    for (var i = startDay; i < endDay; i++) {
-      days.add(_buildDay(i + 1));
+    for (var i = startDayIndex; i <= endDayIndex; i++) {
+      final day = _buildDay(model, i);
+      days.add(day);
     }
     return Row(
       children: days,
@@ -71,11 +79,13 @@ class CalendarMonth extends StatelessWidget {
     );
   }
 
-  Widget _buildDay(int day) {
-    final title = day > 0 && day <= _daysInMonth ? day.toString() : '';
-    final checkin = _checkinMap[day];
+  Widget _buildDay(CalendarMonthViewModel model, int dayIndex) {
+    final day = dayIndex + 1;
+    final title = day > 0 && day <= model.daysInMonth ? day.toString() : '';
+    final checkin = model.checkinMap[day];
     final dayColor = _getDayColor(day);
     final checkinColor = _getDayCheckinColor(checkin);
+
     return InkWell(
       child: Container(
         width: 32,
@@ -87,7 +97,7 @@ class CalendarMonth extends StatelessWidget {
               height: 32,
               width: 32,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             Container(
               decoration: BoxDecoration(shape: BoxShape.circle, color: checkinColor),
               height: 8,
@@ -98,7 +108,7 @@ class CalendarMonth extends StatelessWidget {
       ),
       onTap: () {
         final date = DateTime(year, month, day);
-        onSelectDay(date);
+        onSelectDay(date, checkin);
       },
     );
   }
