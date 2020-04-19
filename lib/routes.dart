@@ -8,6 +8,7 @@ class RouteName {
   static const String Onboarding = '/onboarding';
   static const String Dashboard = '/dashboard';
   static const String Checkin = '/checkin';
+  static const String CheckinDone = '/checkin-done';
   static const String CheckinHistory = '/checkin-history';
 }
 
@@ -18,6 +19,7 @@ class RouteModule {
     RouteName.Onboarding: (context) => OnboardingScreen(),
     RouteName.Dashboard: (context) => DashboardScreen(),
     RouteName.Checkin: (context) => CheckinScreen(),
+    RouteName.CheckinDone: (context) => CheckinDoneScreen(),
     RouteName.CheckinHistory: (context) => CheckinHistoryScreen(),
   };
 }

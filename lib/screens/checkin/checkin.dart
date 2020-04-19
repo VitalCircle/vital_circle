@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/enums/symptoms.dart';
+import 'package:vital_circle/screens/checkin/checkin_feeling.dart';
+import 'package:vital_circle/screens/checkin/checkin_symptoms.dart';
+import 'package:vital_circle/screens/checkin/checkin_temperature.dart';
 import 'package:vital_circle/shared/shared.dart';
-import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/themes/typography.dart';
-import 'package:vital_circle/utils/symptom_label.dart';
 
 import 'checkin.vm.dart';
 
@@ -13,6 +13,10 @@ class CheckinScreen extends StatefulWidget {
 }
 
 class _CheckinScreenState extends State<CheckinScreen> {
+  static const _animationDuration = Duration(milliseconds: 500);
+  static const _animationCurve = Curves.easeInOut;
+  final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return BaseWidget<CheckinViewModel>(
@@ -23,85 +27,42 @@ class _CheckinScreenState extends State<CheckinScreen> {
     );
   }
 
+  final List<Widget> _pages = [
+    CheckinFeeling(),
+    CheckinTemperature(),
+    CheckinSymptoms()
+  ];
+
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
-    return Scaffold(
-      appBar: SharedAppBar(
-        title: const Text('Check-in'),
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-            children: <Widget>[
-              _buildTemp(context, model),
-              const SizedBox(height: Spacers.xl),
-              _buildSymptomTitle(context, model),
-              ...Symptom.values
-                  .map((s) => _buildSymptom(context, model, s))
-                  .toList(),
-              SizedBox(
-                width: double.infinity,
-                child: ProgressButton(
-                    label: 'Submit',
-                    onPressed: () {
-                      _submit(context, model);
-                    },
-                    type: ProgressButtonType.Raised),
-              )
-            ],
-          );
-        },
-      ),
+    return PageView(
+      controller: _pageController,
+      // physics: const NeverScrollableScrollPhysics(),
+      children: _pages,
     );
   }
 
-  void _submit(BuildContext context, CheckinViewModel model) {
-    // dismiss keyboard
-    FocusScope.of(context).requestFocus(FocusNode());
-    model.submit(context);
-  }
-
-  Widget _buildTemp(BuildContext context, CheckinViewModel model) {
-    return TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Temperature',
-        border: OutlineInputBorder(),
-        suffix: Text('°F'),
-      ),
-      keyboardType: TextInputType.number,
-      initialValue: '',
-      onSaved: (value) {
-        model.temperature = double.tryParse(value);
-      },
-      textInputAction: TextInputAction.done,
+  Future<void> _toPrevious() async {
+    await _pageController.previousPage(
+      duration: _animationDuration,
+      curve: _animationCurve,
     );
   }
 
-  Widget _buildSymptomTitle(BuildContext context, CheckinViewModel model) {
-    return Column(children: [
-      Text('Please select your symptoms', style: AppTypography.h2),
-      Text(
-        //todo: extract prior day's symptoms. adjust padding
-        'Yesterday, you had cough, short of breath,\n and body aches',
-        style: AppTypography.bodyRegular1,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: Spacers.lg),
-    ]);
+  Future<void> _toNext(CheckinViewModel model) async {
+    if (_pageController.page == _pages.length) {
+      await model.submit(context);
+      // Navigator.popAndPushNamed(context, '/checkin_done');
+      return;
+    }
+    await _pageController.nextPage(
+      duration: _animationDuration,
+      curve: _animationCurve,
+    );
   }
 
-  Widget _buildSymptom(
-      BuildContext context, CheckinViewModel model, Symptom symptom) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        child: SelectionCard(
-          title: symptomLabelMap[symptom],
-          selected: model.selectedSymptoms.contains(symptom),
-        ),
-        onTap: () => model.toggleSelected(symptom),
-      ),
-    );
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
