@@ -8,6 +8,9 @@ import 'package:vital_circle/themes/typography.dart';
 
 import 'calendar_month.vm.dart';
 
+const DAY_SIZE = 32.0;
+const CHECKIN_STATUS_SIZE = 8.0;
+
 enum CalendarDayState { None, Good, Bad }
 
 class CalendarDay {
@@ -88,20 +91,20 @@ class CalendarMonth extends StatelessWidget {
 
     return InkWell(
       child: Container(
-        width: 32,
+        width: DAY_SIZE,
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(shape: BoxShape.circle, color: dayColor),
               child: Center(child: Text(title, style: AppTypography.calendarDay)),
-              height: 32,
-              width: 32,
+              height: DAY_SIZE,
+              width: DAY_SIZE,
             ),
             const SizedBox(height: 4),
             Container(
               decoration: BoxDecoration(shape: BoxShape.circle, color: checkinColor),
-              height: 8,
-              width: 8,
+              height: CHECKIN_STATUS_SIZE,
+              width: CHECKIN_STATUS_SIZE,
             )
           ],
         ),

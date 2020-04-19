@@ -7,8 +7,11 @@ enum ProgressButtonType {
   Outline,
 }
 
+enum ProgressButtonFeel { Primary, Secondary }
+
 class ProgressButton extends StatelessWidget {
   const ProgressButton({
+    this.feel = ProgressButtonFeel.Primary,
     this.height = BUTTON_HEIGHT,
     @required this.type,
     @required this.label,
@@ -17,6 +20,7 @@ class ProgressButton extends StatelessWidget {
     @required this.onPressed,
   });
 
+  final ProgressButtonFeel feel;
   final double height;
   final String label;
   final bool isFullWidth;
@@ -34,7 +38,7 @@ class ProgressButton extends StatelessWidget {
   }
 
   Widget _buildButton(BuildContext context) {
-    final color = onPressed == null ? AppColors.buttonDisabled : AppColors.button;
+    final color = onPressed == null ? AppColors.buttonDisabled : _getColor();
 
     switch (type) {
       case ProgressButtonType.Raised:
@@ -80,12 +84,21 @@ class ProgressButton extends StatelessWidget {
   }
 
   Widget _buildProgressIndicator() {
-    final color = type == ProgressButtonType.Raised ? AppColors.textLight : AppColors.primary;
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
     return CircularProgressIndicator(backgroundColor: color);
   }
 
   Widget _buildLabel(BuildContext context) {
-    final color = type == ProgressButtonType.Raised ? AppColors.textLight : AppColors.primary;
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
     return Text(label, style: Theme.of(context).textTheme.button.copyWith(color: color));
+  }
+
+  Color _getColor() {
+    switch (feel) {
+      case ProgressButtonFeel.Primary:
+        return AppColors.primary;
+      case ProgressButtonFeel.Secondary:
+        return AppColors.secondary;
+    }
   }
 }

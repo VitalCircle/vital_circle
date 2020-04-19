@@ -13,7 +13,6 @@ class AppColors {
   static const Color textLight = Color(0xFFFFFFFF);
 
   // Button
-  static const Color button = primary;
   static const Color buttonDisabled = disabled;
 
   // Calendar
