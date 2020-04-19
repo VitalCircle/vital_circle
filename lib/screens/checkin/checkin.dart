@@ -17,6 +17,9 @@ class _CheckinScreenState extends State<CheckinScreen> {
   Widget build(BuildContext context) {
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
+      onModelReady: (model) {
+        model.init(context);
+      },
       builder: (context, model, child) {
         return _buildScreen(context, model);
       },
@@ -78,7 +81,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
         suffix: Text('°F'),
       ),
       keyboardType: TextInputType.number,
-      initialValue: '',
+      initialValue: model.temperature?.toString(),
       onSaved: (value) {
         model.temperature = double.tryParse(value);
       },

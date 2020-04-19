@@ -54,7 +54,7 @@ class _CalendarState extends State<Calendar> {
         context: context,
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 0.7,
+            heightFactor: 0.8,
             widthFactor: 1,
             child: Container(
               padding: const EdgeInsets.all(24),

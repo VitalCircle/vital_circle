@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
+import 'package:vital_circle/screens/checkin/checkin.vm.dart';
 import 'package:vital_circle/shared/progress_button.dart';
 import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/themes/typography.dart';
@@ -24,7 +25,7 @@ class CheckinDetails extends StatelessWidget {
         feel: ProgressButtonFeel.Secondary,
         label: 'Add record',
         onPressed: () {
-          Navigator.of(context).pushNamedAndRemoveUntil(RouteName.Checkin, ModalRoute.withName(RouteName.Dashboard));
+          Navigator.of(context).popAndPushNamed(RouteName.Checkin, arguments: CheckinScreenRouteData(date, null));
         },
         type: ProgressButtonType.Flat,
       ),
@@ -48,7 +49,7 @@ class CheckinDetails extends StatelessWidget {
             label: 'Edit record',
             onPressed: () {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil(RouteName.Checkin, ModalRoute.withName(RouteName.Dashboard));
+                  .popAndPushNamed(RouteName.Checkin, arguments: CheckinScreenRouteData(null, checkin));
             },
             type: ProgressButtonType.Flat,
           ),
