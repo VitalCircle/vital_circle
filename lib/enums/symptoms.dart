@@ -1,15 +1,15 @@
 enum Symptom {
-  Fever,
-  Cough,
-  ShortOfBreath,
-  FeelingIll,
-  Headache,
   BodyAches,
-  OddTaste,
-  OddSmell,
-  Sneezing,
-  RunnyNose,
-  SoreThroat,
+  Cough,
+  Diarrhea,
+  FeelingIll,
+  Fever,
+  Headache,
   NauseaVomiting,
-  Diarrhea
+  OddSmell,
+  OddTaste,
+  RunnyNose,
+  ShortOfBreath,
+  Sneezing,
+  SoreThroat
 }

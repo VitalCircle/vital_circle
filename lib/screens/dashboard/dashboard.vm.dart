@@ -32,6 +32,7 @@ class DashboardViewModel extends ChangeNotifier {
 
   Future _subscribeToDailyCheckins() async {
     final now = DateTime.now();
+    // TODO: stream date and time to handle crossing into mid-night
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
