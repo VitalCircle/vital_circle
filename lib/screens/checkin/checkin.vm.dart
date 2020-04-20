@@ -43,7 +43,8 @@ class CheckinViewModel extends ChangeNotifier {
   void init(BuildContext context) {
     if (_routeData != null && _routeData.checkin != null) {
       temperature = _routeData.checkin.temp;
-      _selectedSymptoms = _routeData.checkin.symptoms.toList();
+      //todo: reimplement
+      // _selectedSymptoms = _routeData.checkin.symptoms.toList();
     }
     if (_steps.isEmpty) {
       initSteps(context);
@@ -62,6 +63,9 @@ class CheckinViewModel extends ChangeNotifier {
   Checkin get getModel => _getModel();
 
   Checkin _getModel() {
+    // todo: reimplement
+    // final checkin = Checkin.fromJson(id, json)
+    /*
     final checkin = Checkin.empty();
     checkin.temp = temperature;
     checkin.symptoms = Symptoms.empty();
@@ -90,7 +94,10 @@ class CheckinViewModel extends ChangeNotifier {
         _selectedSymptoms.contains(Symptom.NauseaVomiting) ? 1 : 0;
     checkin.symptoms.diarrhea =
         _selectedSymptoms.contains(Symptom.Diarrhea) ? 1 : 0;
+        */
 
+//todo: add timestamp
+/*
     if (_routeData != null) {
       if (_routeData.checkin != null) {
         checkin.id = _routeData.checkin.id;
@@ -99,8 +106,8 @@ class CheckinViewModel extends ChangeNotifier {
         checkin.timestamp = _routeData.date;
       }
     }
-
-    return checkin;
+*/
+    // return checkin;
   }
 
   Future submit(BuildContext context) async {
