@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/screens/checkin/checkin_feeling.dart';
+import 'package:vital_circle/screens/checkin/checkin_review.dart';
 import 'package:vital_circle/screens/checkin/checkin_symptoms.dart';
 import 'package:vital_circle/screens/checkin/checkin_temperature.dart';
 import 'package:vital_circle/shared/shared.dart';
@@ -40,7 +41,11 @@ class _CheckinScreenState extends State<CheckinScreen> {
         CheckinSymptoms(
           onNext: () => _toNext(model),
           onPrevious: () => _toPrevious(),
-        )
+        ),
+        CheckinReview(
+          onNext: () => _toNext(model),
+          onPrevious: () => _toPrevious(),
+        ),
       ],
     );
   }

@@ -66,7 +66,7 @@ class CheckinSymptoms extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
-                      label: 'Submit',
+                      label: 'Continue',
                       onPressed: () {
                         _submit(context, model);
                       },

@@ -8,7 +8,12 @@ import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/services/services.dart';
 
-enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms }
+enum CheckinSteps {
+  CheckinFeeling,
+  CheckinTemperature,
+  CheckinSymptoms,
+  CheckinReview
+}
 
 class CheckinScreenRouteData {
   CheckinScreenRouteData(this.date, this.checkin);
@@ -147,6 +152,7 @@ class CheckinViewModel extends ChangeNotifier {
     steps.add(CheckinSteps.CheckinFeeling);
     steps.add(CheckinSteps.CheckinTemperature);
     steps.add(CheckinSteps.CheckinSymptoms);
+    steps.add(CheckinSteps.CheckinReview);
     return steps;
   }
 
