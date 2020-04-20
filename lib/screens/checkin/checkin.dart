@@ -23,12 +23,8 @@ class _CheckinScreenState extends State<CheckinScreen> {
   Widget build(BuildContext context) {
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
-      onModelReady: (model) {
-        model.init(context);
-      },
-      builder: (context, model, child) {
-        return _buildScreenTemp(context, model);
-      },
+      onModelReady: (model) => model.init(context),
+      builder: (context, model, child) => _buildScreen(context, model),
     );
   }
 
@@ -42,7 +38,14 @@ class _CheckinScreenState extends State<CheckinScreen> {
     return PageView(
       controller: _pageController,
       // physics: const NeverScrollableScrollPhysics(),
-      children: _pages,
+      children: [
+        // CheckinFeeling(checkinViewModel: model),
+        // CheckinTemperature(checkinViewModel: model),
+        // CheckinSymptoms(checkinViewModel: model)
+        CheckinFeeling(),
+        CheckinTemperature(),
+        CheckinSymptoms()
+      ],
     );
   }
 

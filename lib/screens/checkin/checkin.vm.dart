@@ -53,6 +53,8 @@ class CheckinViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Checkin get getModel => _getModel();
+
   Checkin _getModel() {
     final checkin = Checkin.empty();
     checkin.temp = temperature;
@@ -112,7 +114,7 @@ class CheckinViewModel extends ChangeNotifier {
         _checkinApi.addCheckin(user.uid, checkin);
       }
       // Navigator.of(context).pop();
-      Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinDone,
+      Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted,
           ModalRoute.withName(RouteName.Dashboard));
     } catch (_) {
       _isSaving = false;

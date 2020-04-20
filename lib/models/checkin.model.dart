@@ -26,6 +26,18 @@ class SymptomsProperty {
   static const SORE_THROAT = 'soreThroat';
 }
 
+class FeelingProperty {
+  static const BETTER = 'Better than ever!';
+  static const SIMILAR = 'Pretty similar to yesterday.';
+  static const WORSE = 'Worse than yesterday.';
+}
+
+class SubjectiveTempProperty {
+  static const HOT = 'Feeling hot';
+  static const FINE = 'Feeling fine';
+  static const UNSURE = 'Unsure';
+}
+
 class Checkin {
   Checkin.empty();
 
@@ -56,13 +68,22 @@ class Checkin {
   DateTime timestamp;
 }
 
+class Feeling {
+  // Feeling.empty();
+
+  // Feeling.fromFirestore(this.id, Map<String, dynamic> data)
+}
+
+class SubjectiveTemp {}
+
 class Symptoms {
   Symptoms.empty();
 
   Symptoms.fromFirestore(Map<String, dynamic> data)
       : febrile = ParseUtil.tryParseInt(data[SymptomsProperty.FEBRILE]),
         cough = ParseUtil.tryParseInt(data[SymptomsProperty.COUGH]),
-        shortnessOfBreath = ParseUtil.tryParseInt(data[SymptomsProperty.SHORTNESS_OF_BREATH]),
+        shortnessOfBreath =
+            ParseUtil.tryParseInt(data[SymptomsProperty.SHORTNESS_OF_BREATH]),
         feelingIll = ParseUtil.tryParseInt(data[SymptomsProperty.FEELING_ILL]),
         headache = ParseUtil.tryParseInt(data[SymptomsProperty.HEADACHE]),
         bodyAches = ParseUtil.tryParseInt(data[SymptomsProperty.BODY_ACHES]),
@@ -71,7 +92,8 @@ class Symptoms {
         sneezing = ParseUtil.tryParseInt(data[SymptomsProperty.SNEEZING]),
         runnyNose = ParseUtil.tryParseInt(data[SymptomsProperty.RUNNY_NOSE]),
         soreThroat = ParseUtil.tryParseInt(data[SymptomsProperty.SORE_THROAT]),
-        nauseaVomiting = ParseUtil.tryParseInt(data[SymptomsProperty.NAUSEA_VOMITING]),
+        nauseaVomiting =
+            ParseUtil.tryParseInt(data[SymptomsProperty.NAUSEA_VOMITING]),
         diarrhea = ParseUtil.tryParseInt(data[SymptomsProperty.DIARRHEA]);
 
   Map<String, dynamic> toFirestore() {

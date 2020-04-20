@@ -24,7 +24,6 @@ class _CheckinFeelingState extends State<CheckinFeeling>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
       builder: (context, model, child) {
