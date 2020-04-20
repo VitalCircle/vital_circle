@@ -8,6 +8,11 @@ import 'package:vital_circle/routes.dart';
 import 'checkin.vm.dart';
 
 class CheckinTemperature extends StatelessWidget {
+  CheckinTemperature({@required this.onNext, @required this.onPrevious});
+
+  final VoidCallback onNext;
+  final VoidCallback onPrevious;
+
   final List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
 
   @override
@@ -25,9 +30,7 @@ class CheckinTemperature extends StatelessWidget {
       appBar: SharedAppBar(
         title: const Text('Check-in'),
         leading: BackButton(
-          onPressed: () {
-            // todo: implement checkin.onPrevious
-          },
+          onPressed: () => onPrevious(),
         ),
         actions: <Widget>[
           IconButton(
@@ -139,6 +142,6 @@ class CheckinTemperature extends StatelessWidget {
   void _continue(BuildContext context, CheckinViewModel model) {
     // dismiss keyboard
     FocusScope.of(context).requestFocus(FocusNode());
-    model.submit(context);
+    onNext();
   }
 }

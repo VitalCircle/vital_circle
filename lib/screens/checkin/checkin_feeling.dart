@@ -8,6 +8,10 @@ import 'package:vital_circle/themes/spacers.dart';
 import 'checkin.vm.dart';
 
 class CheckinFeeling extends StatelessWidget {
+  CheckinFeeling({@required this.onNext});
+
+  final VoidCallback onNext;
+
   final List<String> feeling = [
     'Better than ever!',
     'Pretty similar to yesterday.',
@@ -93,7 +97,8 @@ class CheckinFeeling extends StatelessWidget {
 
   void _continue(BuildContext context, CheckinViewModel model) {
     // dismiss keyboard
-    FocusScope.of(context).requestFocus(FocusNode());
+    // FocusScope.of(context).requestFocus(FocusNode());
+    onNext();
     // todo: implement checkin.onNext
   }
 }

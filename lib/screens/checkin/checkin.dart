@@ -22,29 +22,28 @@ class _CheckinScreenState extends State<CheckinScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      onModelReady: (model) => model.init(context),
-      builder: (context, model, child) => _buildScreen(context, model),
-    );
+        model: CheckinViewModel.of(context),
+        onModelReady: (model) => model.init(context),
+        builder: (context, model, child) {
+          return _buildScreen(context, model);
+        });
   }
-
-  final List<Widget> _pages = [
-    CheckinFeeling(),
-    CheckinTemperature(),
-    CheckinSymptoms()
-  ];
 
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return PageView(
       controller: _pageController,
-      // physics: const NeverScrollableScrollPhysics(),
       children: [
-        // CheckinFeeling(checkinViewModel: model),
-        // CheckinTemperature(checkinViewModel: model),
-        // CheckinSymptoms(checkinViewModel: model)
-        CheckinFeeling(),
-        CheckinTemperature(),
-        CheckinSymptoms()
+        CheckinFeeling(
+          onNext: () => _toNext(model),
+        ),
+        CheckinTemperature(
+          onNext: () => _toNext(model),
+          onPrevious: () => _toPrevious(),
+        ),
+        CheckinSymptoms(
+          onNext: () => _toNext(model),
+          onPrevious: () => _toPrevious(),
+        )
       ],
     );
   }
@@ -57,7 +56,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
   }
 
   Future<void> _toNext(CheckinViewModel model) async {
-    if (_pageController.page == _pages.length) {
+    if (_pageController.page == model.steps.length - 1) {
       await model.submit(context);
       // Navigator.popAndPushNamed(context, '/checkin_done');
       return;

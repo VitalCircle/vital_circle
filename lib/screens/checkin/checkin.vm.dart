@@ -6,8 +6,11 @@ import 'package:vital_circle/constants/log_zone.dart';
 import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
+import 'package:vital_circle/screens/checkin/checkin_feeling.dart';
 import 'package:vital_circle/services/services.dart';
 import 'package:vital_circle/routes.dart';
+
+enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms }
 
 class CheckinScreenRouteData {
   CheckinScreenRouteData(this.date, this.checkin);
@@ -41,6 +44,9 @@ class CheckinViewModel extends ChangeNotifier {
     if (_routeData != null && _routeData.checkin != null) {
       temperature = _routeData.checkin.temp;
       _selectedSymptoms = _routeData.checkin.symptoms.toList();
+    }
+    if (_steps.isEmpty) {
+      initSteps(context);
     }
   }
 
@@ -101,7 +107,7 @@ class CheckinViewModel extends ChangeNotifier {
     if (_isSaving) {
       return;
     }
-    formKey.currentState.save();
+    // formKey.currentState.save(); // causes an error if in multiple pages
     _isSaving = true;
     notifyListeners();
 
@@ -114,6 +120,7 @@ class CheckinViewModel extends ChangeNotifier {
         _checkinApi.addCheckin(user.uid, checkin);
       }
       // Navigator.of(context).pop();
+      // onDone(context);
       Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted,
           ModalRoute.withName(RouteName.Dashboard));
     } catch (_) {
@@ -121,5 +128,25 @@ class CheckinViewModel extends ChangeNotifier {
       notifyListeners();
       rethrow;
     }
+  }
+
+  // Checkin Steps
+  Set<CheckinSteps> _steps = <CheckinSteps>{};
+  Set<CheckinSteps> get steps => _steps;
+
+  Future<void> initSteps(BuildContext context) async {
+    _steps = _getSteps();
+  }
+
+  Set<CheckinSteps> _getSteps() {
+    final steps = <CheckinSteps>{};
+    steps.add(CheckinSteps.CheckinFeeling);
+    steps.add(CheckinSteps.CheckinTemperature);
+    steps.add(CheckinSteps.CheckinSymptoms);
+    return steps;
+  }
+
+  Future<void> onDone(BuildContext context) async {
+    await Navigator.pushReplacementNamed(context, RouteName.CheckinSubmitted);
   }
 }
