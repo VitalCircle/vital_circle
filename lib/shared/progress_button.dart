@@ -50,7 +50,8 @@ class ProgressButton extends StatelessWidget {
               : () {
                   onPressed();
                 },
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
         );
       case ProgressButtonType.Flat:
         return FlatButton(
@@ -84,13 +85,16 @@ class ProgressButton extends StatelessWidget {
   }
 
   Widget _buildProgressIndicator() {
-    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
+    final color =
+        type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
     return CircularProgressIndicator(backgroundColor: color);
   }
 
   Widget _buildLabel(BuildContext context) {
-    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
-    return Text(label, style: Theme.of(context).textTheme.button.copyWith(color: color));
+    final color =
+        type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
+    return Text(label,
+        style: Theme.of(context).textTheme.button.copyWith(color: color));
   }
 
   Color _getColor() {
@@ -100,5 +104,6 @@ class ProgressButton extends StatelessWidget {
       case ProgressButtonFeel.Secondary:
         return AppColors.secondary;
     }
+    return AppColors.disabled;
   }
 }

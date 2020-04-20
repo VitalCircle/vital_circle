@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/utils/symptom_label.dart';

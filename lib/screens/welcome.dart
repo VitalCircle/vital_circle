@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:vital_circle/constants/images.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
 

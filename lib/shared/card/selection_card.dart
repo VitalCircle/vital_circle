@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/shared/shared.dart';
-
-import '../../themes/colors.dart';
 
 class SelectionCard extends StatelessWidget {
   const SelectionCard({@required this.title, this.selected = false});

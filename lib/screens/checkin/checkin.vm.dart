@@ -6,9 +6,7 @@ import 'package:vital_circle/constants/log_zone.dart';
 import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
-import 'package:vital_circle/screens/checkin/checkin_feeling.dart';
 import 'package:vital_circle/services/services.dart';
-import 'package:vital_circle/routes.dart';
 
 enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms }
 

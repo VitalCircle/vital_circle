@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -35,7 +34,8 @@ Future main() async {
   // catch framework errors
   FlutterError.onError = (FlutterErrorDetails details) {
     log.error(details.exception, details.stack,
-        context: details.context, informationCollector: details.informationCollector);
+        context: details.context,
+        informationCollector: details.informationCollector);
   };
 
   // catch application errors
@@ -59,7 +59,10 @@ class Main extends StatelessWidget {
         title: 'Vital Circle',
         theme: MaterialThemeModule.build(),
         debugShowCheckedModeBanner: false,
-        navigatorObservers: <NavigatorObserver>[FirebaseAnalyticsObserver(analytics: _analytics), _logRouteObserver],
+        navigatorObservers: <NavigatorObserver>[
+          FirebaseAnalyticsObserver(analytics: _analytics),
+          _logRouteObserver
+        ],
         initialRoute: RouteName.Boot,
         routes: RouteModule.routes,
       ),

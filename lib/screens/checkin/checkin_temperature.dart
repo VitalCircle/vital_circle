@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/routes.dart';
 
 import 'checkin.vm.dart';
@@ -74,20 +73,6 @@ class CheckinTemperature extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Widget _buildHeader(BuildContext context, CheckinViewModel model) {
-    return Column(children: [
-      Text('What is your temperature?', style: AppTypography.h2),
-      const SizedBox(height: Spacers.sm),
-      Text(
-        //todo: extract prior day's symptoms. adjust padding
-        'Yesterday, you recorded 100.4 °F',
-        style: AppTypography.bodyRegular1,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: Spacers.lg),
-    ]);
   }
 
   Widget _buildTemp(BuildContext context, CheckinViewModel model) {

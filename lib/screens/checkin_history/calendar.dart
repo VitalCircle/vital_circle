@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/screens/checkin_history/checkin_details.dart';
-import 'package:vital_circle/themes/colors.dart';
 import 'package:vital_circle/themes/theme.dart';
 
 import 'calendar_month.dart';
