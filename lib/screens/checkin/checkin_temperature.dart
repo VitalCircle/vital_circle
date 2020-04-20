@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/routes.dart';
 
 import 'checkin.vm.dart';
-import 'checkin.vm.dart';
 
-class CheckinTemperature extends StatefulWidget {
-  @override
-  _CheckinTemperatureState createState() => _CheckinTemperatureState();
-}
-
-class _CheckinTemperatureState extends State<CheckinTemperature>
-    with AutomaticKeepAliveClientMixin {
-  //todo: extract into data model
-  List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
-  List<bool> subjectiveTempCheck = [false, false, false];
+class CheckinTemperature extends StatelessWidget {
+  final List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
       builder: (context, model, child) {
@@ -53,7 +44,11 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: Spacers.md),
-                child: _buildHeader(context, model),
+                child: checkinHeader(
+                    context,
+                    model,
+                    'What is your temperature?',
+                    'Yesterday, you recorded 100.4 °F'),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
@@ -132,14 +127,11 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
       child: InkWell(
         child: SelectionCardSmall(
           title: subjectiveTemp[index],
-          selected: subjectiveTempCheck[index],
+          selected: false,
         ),
-        onTap: () => setState(
-          () {
-            // todo: extract into viewmodel
-            subjectiveTempCheck[index] = !subjectiveTempCheck[index];
-          },
-        ),
+        onTap: () {
+          //todo: toggle selected
+        },
       ),
     );
   }
@@ -149,7 +141,4 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
     FocusScope.of(context).requestFocus(FocusNode());
     model.submit(context);
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
