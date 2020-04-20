@@ -43,8 +43,12 @@ class CheckinDetails extends StatelessWidget {
         // TODO: handle subjective temp
         _buildDetailRow('Temperature', '${checkin.temp} °F'),
         const Divider(),
-        // todo: re-encode
-        // _buildDetailRow('Symptoms', checkin.symptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
+        _buildDetailRow(
+            'Symptoms',
+            checkin.symptoms
+                .toList()
+                .map((s) => symptomLabelMap[s])
+                .join(', ')),
         Center(
           child: ProgressButton(
             feel: ProgressButtonFeel.Secondary,

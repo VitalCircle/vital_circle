@@ -33,6 +33,8 @@ class CheckinViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   double temperature;
+  String feeling;
+  String subjectiveTemp;
 
   var _selectedSymptoms = <Symptom>{};
   Set<Symptom> get selectedSymptoms => _selectedSymptoms;
@@ -42,9 +44,10 @@ class CheckinViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     if (_routeData != null && _routeData.checkin != null) {
+      feeling = _routeData.checkin.feeling;
       temperature = _routeData.checkin.temp;
-      //todo: reimplement
-      // _selectedSymptoms = _routeData.checkin.symptoms.toList();
+      subjectiveTemp = _routeData.checkin.subjectiveTemp;
+      _selectedSymptoms = _routeData.checkin.symptoms.toList();
     }
     if (_steps.isEmpty) {
       initSteps(context);
@@ -63,12 +66,11 @@ class CheckinViewModel extends ChangeNotifier {
   Checkin get getModel => _getModel();
 
   Checkin _getModel() {
-    // todo: reimplement
-    // final checkin = Checkin.fromJson(id, json)
-    /*
-    final checkin = Checkin.empty();
+    final checkin = Checkin();
+    checkin.feeling = feeling;
     checkin.temp = temperature;
-    checkin.symptoms = Symptoms.empty();
+    checkin.subjectiveTemp = subjectiveTemp;
+    checkin.symptoms = Symptoms();
     checkin.symptoms.febrile =
         _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
     checkin.symptoms.cough = _selectedSymptoms.contains(Symptom.Cough) ? 1 : 0;
@@ -94,10 +96,7 @@ class CheckinViewModel extends ChangeNotifier {
         _selectedSymptoms.contains(Symptom.NauseaVomiting) ? 1 : 0;
     checkin.symptoms.diarrhea =
         _selectedSymptoms.contains(Symptom.Diarrhea) ? 1 : 0;
-        */
 
-//todo: add timestamp
-/*
     if (_routeData != null) {
       if (_routeData.checkin != null) {
         checkin.id = _routeData.checkin.id;
@@ -106,15 +105,15 @@ class CheckinViewModel extends ChangeNotifier {
         checkin.timestamp = _routeData.date;
       }
     }
-*/
-    // return checkin;
+
+    return checkin;
   }
 
   Future submit(BuildContext context) async {
     if (_isSaving) {
       return;
     }
-    // formKey.currentState.save(); // causes an error if in multiple pages
+    formKey.currentState.save();
     _isSaving = true;
     notifyListeners();
 

@@ -9,7 +9,7 @@ part of 'checkin.model.dart';
 Checkin _$CheckinFromJson(Map<String, dynamic> json) {
   return Checkin(
     feeling: json['feeling'] as String,
-    temp: (json['temp'] as num)?.toDouble() ?? 0.0,
+    temp: (json['temp'] as num)?.toDouble(),
     subjectiveTemp: json['subjectiveTemp'] as String,
     symptoms: json['symptoms'] == null
         ? null

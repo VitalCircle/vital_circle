@@ -29,18 +29,13 @@ class CheckinListScreen extends StatelessWidget {
   }
 
   Widget _buildCheckinListItem(BuildContext context, Checkin checkin) {
-    //todo: reimplement
-
-    final _symptoms = checkin.symptoms;
-
-    // final symptoms = checkin.symptoms.toList().map((x) => symptomLabelMap[x]);
+    final symptoms = checkin.symptoms.toList().map((x) => symptomLabelMap[x]);
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(Spacers.lg),
         title: Text(DateFormat.yMMMMd().format(checkin.timestamp),
             overflow: TextOverflow.ellipsis),
-        // subtitle: Text('Symptoms: ${_symptoms.toString()}'),
-        // subtitle: Text('Symptoms: ${symptoms.join(', ')}'),
+        subtitle: Text('Symptoms: ${symptoms.join(', ')}'),
         onTap: () {
           //Navigator.pushNamed(context, RouteName.ViewCheckin, arguments: ViewCheckinScreenRouteData(checkin.id));
         },

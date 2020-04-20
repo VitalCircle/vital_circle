@@ -77,20 +77,20 @@ class Checkin {
   Map<String, dynamic> toJson() => _$CheckinToJson(this);
 
   @JsonKey(name: CheckinProperty.FEELING)
-  final String feeling;
-  @JsonKey(name: CheckinProperty.TEMP, defaultValue: 0.0)
+  String feeling;
+  @JsonKey(name: CheckinProperty.TEMP)
   //todo: is default value necessary?
-  final double temp;
+  double temp;
   @JsonKey(name: CheckinProperty.SUBJECTIVE_TEMP)
-  final String subjectiveTemp;
+  String subjectiveTemp;
   @JsonKey(name: CheckinProperty.SYMPTOMS)
-  final Symptoms symptoms;
+  Symptoms symptoms;
   @JsonKey(
       name: CheckinProperty.TIMESTAMP,
       fromJson: _datetimeFromTimestamp,
       toJson: _datetimeAsIs)
   //todo: implement default as timestamp.now?
-  final DateTime timestamp;
+  DateTime timestamp;
 
   // https://stackoverflow.com/questions/60793441/how-do-i-resolve-type-timestamp-is-not-a-subtype-of-type-string-in-type-cast
   // todo: extract into ParseUtil
@@ -128,31 +128,75 @@ class Symptoms {
   Map<String, dynamic> toJson() => _$SymptomsToJson(this);
 
   @JsonKey(name: SymptomsProperty.BODY_ACHES, defaultValue: 0)
-  final int bodyAches;
+  int bodyAches;
   @JsonKey(name: SymptomsProperty.COUGH, defaultValue: 0)
-  final int cough;
+  int cough;
   @JsonKey(name: SymptomsProperty.DIARRHEA, defaultValue: 0)
-  final int diarrhea;
+  int diarrhea;
   @JsonKey(name: SymptomsProperty.FEBRILE, defaultValue: 0)
-  final int febrile;
+  int febrile;
   @JsonKey(name: SymptomsProperty.FEELING_ILL, defaultValue: 0)
-  final int feelingIll;
+  int feelingIll;
   @JsonKey(name: SymptomsProperty.HEADACHE, defaultValue: 0)
-  final int headache;
+  int headache;
   @JsonKey(name: SymptomsProperty.NAUSEA_VOMITING, defaultValue: 0)
-  final int nauseaVomiting;
+  int nauseaVomiting;
   @JsonKey(name: SymptomsProperty.ODD_SMELL, defaultValue: 0)
-  final int oddSmell;
+  int oddSmell;
   @JsonKey(name: SymptomsProperty.ODD_TASTE, defaultValue: 0)
-  final int oddTaste;
+  int oddTaste;
   @JsonKey(name: SymptomsProperty.RUNNY_NOSE, defaultValue: 0)
-  final int runnyNose;
+  int runnyNose;
   @JsonKey(name: SymptomsProperty.SHORTNESS_OF_BREATH, defaultValue: 0)
-  final int shortnessOfBreath;
+  int shortnessOfBreath;
   @JsonKey(name: SymptomsProperty.SNEEZING, defaultValue: 0)
-  final int sneezing;
+  int sneezing;
   @JsonKey(name: SymptomsProperty.SORE_THROAT, defaultValue: 0)
-  final int soreThroat;
+  int soreThroat;
+
+  Set<Symptom> toList() {
+    final symptoms = <Symptom>{};
+    if (febrile != null && febrile > 0) {
+      symptoms.add(Symptom.Fever);
+    }
+    if (cough != null && cough > 0) {
+      symptoms.add(Symptom.Cough);
+    }
+    if (shortnessOfBreath != null && shortnessOfBreath > 0) {
+      symptoms.add(Symptom.ShortOfBreath);
+    }
+    if (feelingIll != null && feelingIll > 0) {
+      symptoms.add(Symptom.FeelingIll);
+    }
+    if (headache != null && headache > 0) {
+      symptoms.add(Symptom.Headache);
+    }
+    if (bodyAches != null && bodyAches > 0) {
+      symptoms.add(Symptom.BodyAches);
+    }
+    if (oddTaste != null && oddTaste > 0) {
+      symptoms.add(Symptom.OddTaste);
+    }
+    if (oddSmell != null && oddSmell > 0) {
+      symptoms.add(Symptom.OddSmell);
+    }
+    if (sneezing != null && sneezing > 0) {
+      symptoms.add(Symptom.Sneezing);
+    }
+    if (runnyNose != null && runnyNose > 0) {
+      symptoms.add(Symptom.RunnyNose);
+    }
+    if (nauseaVomiting != null && nauseaVomiting > 0) {
+      symptoms.add(Symptom.NauseaVomiting);
+    }
+    if (diarrhea != null && diarrhea > 0) {
+      symptoms.add(Symptom.Diarrhea);
+    }
+    if (soreThroat != null && soreThroat > 0) {
+      symptoms.add(Symptom.SoreThroat);
+    }
+    return symptoms;
+  }
 }
 
 /*
