@@ -95,7 +95,7 @@ class CheckinSymptoms extends StatelessWidget {
           title: symptomLabelMap[symptom],
           selected: model.selectedSymptoms.contains(symptom),
         ),
-        onTap: () => model.toggleSelected(symptom),
+        onTap: () => model.toggleSymptom(symptom),
       ),
     );
   }

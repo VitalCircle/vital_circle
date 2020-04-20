@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
@@ -11,12 +12,6 @@ class CheckinFeeling extends StatelessWidget {
   CheckinFeeling({@required this.onNext});
 
   final VoidCallback onNext;
-
-  final List<String> feeling = [
-    'Better than ever!',
-    'Pretty similar to yesterday.',
-    'Worse than yesterday.'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +51,9 @@ class CheckinFeeling extends StatelessWidget {
                         model,
                         'How are you feeling today?', //todo: extract prior day's symptoms
                         'Yesterday, you felt worse'),
-                    _buildItem(context, model, 0),
-                    _buildItem(context, model, 1),
-                    _buildItem(context, model, 2),
+                    _buildItem(context, model, FeelingOption.BETTER),
+                    _buildItem(context, model, FeelingOption.SIMILAR),
+                    _buildItem(context, model, FeelingOption.WORSE),
                   ],
                 ),
               ),
@@ -80,17 +75,16 @@ class CheckinFeeling extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(BuildContext context, CheckinViewModel model, int index) {
+  Widget _buildItem(
+      BuildContext context, CheckinViewModel model, String option) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         child: SelectionCard(
-          title: feeling[index],
-          selected: false,
+          title: option,
+          selected: model.feeling == option,
         ),
-        onTap: () {
-          //todo: toggle selected
-        },
+        onTap: () => model.selectFeeling(option),
       ),
     );
   }

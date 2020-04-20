@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
@@ -11,8 +12,6 @@ class CheckinTemperature extends StatelessWidget {
 
   final VoidCallback onNext;
   final VoidCallback onPrevious;
-
-  final List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
 
   @override
   Widget build(BuildContext context) {
@@ -100,26 +99,25 @@ class CheckinTemperature extends StatelessWidget {
           // crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.center,
           children: <Widget>[
-            _buildItem(context, model, 0),
-            _buildItem(context, model, 1),
-            _buildItem(context, model, 2),
+            _buildItem(context, model, SubjectiveTempOption.HOT),
+            _buildItem(context, model, SubjectiveTempOption.FINE),
+            _buildItem(context, model, SubjectiveTempOption.UNSURE),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildItem(BuildContext context, CheckinViewModel model, int index) {
+  Widget _buildItem(
+      BuildContext context, CheckinViewModel model, String option) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         child: SelectionCardSmall(
-          title: subjectiveTemp[index],
-          selected: false,
+          title: option,
+          selected: model.subjectiveTemp == option,
         ),
-        onTap: () {
-          //todo: toggle selected
-        },
+        onTap: () => model.selectSubjectiveTemp(option),
       ),
     );
   }

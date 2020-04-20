@@ -57,13 +57,69 @@ class CheckinViewModel extends ChangeNotifier {
     }
   }
 
-  void toggleSelected(Symptom symptom) {
+  void toggleSymptom(Symptom symptom) {
     if (_selectedSymptoms.contains(symptom)) {
       _selectedSymptoms.remove(symptom);
     } else {
       _selectedSymptoms.add(symptom);
     }
     notifyListeners();
+  }
+
+  void selectFeeling(String option) {
+    switch (option) {
+      case FeelingOption.BETTER:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.BETTER;
+          notifyListeners();
+          return;
+        }
+      case FeelingOption.SIMILAR:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.SIMILAR;
+          notifyListeners();
+          return;
+        }
+      case FeelingOption.WORSE:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.WORSE;
+          notifyListeners();
+          return;
+        }
+      default:
+        throw Exception('Invalid option type: $option');
+    }
+  }
+
+  void selectSubjectiveTemp(String option) {
+    switch (option) {
+      case SubjectiveTempOption.HOT:
+        {
+          option == subjectiveTemp
+              ? subjectiveTemp = null
+              : subjectiveTemp = SubjectiveTempOption.HOT;
+          notifyListeners();
+          return;
+        }
+      case SubjectiveTempOption.FINE:
+        {
+          option == subjectiveTemp
+              ? subjectiveTemp = null
+              : subjectiveTemp = SubjectiveTempOption.FINE;
+          notifyListeners();
+          return;
+        }
+      case SubjectiveTempOption.UNSURE:
+        {
+          option == subjectiveTemp
+              ? subjectiveTemp = null
+              : subjectiveTemp = SubjectiveTempOption.UNSURE;
+          notifyListeners();
+          return;
+        }
+      default:
+        throw Exception('Invalid option type: $option');
+    }
   }
 
   Checkin get getModel => _getModel();
@@ -116,7 +172,7 @@ class CheckinViewModel extends ChangeNotifier {
     if (_isSaving) {
       return;
     }
-    formKey.currentState.save();
+    // formKey.currentState.save();
     _isSaving = true;
     notifyListeners();
 

@@ -49,25 +49,20 @@ class CheckinReview extends StatelessWidget {
                       horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(context, model, 'Summary', ''),
-                    // if (model.feeling != null)
-
-                    _buildReview(
-                      'Feeling',
-                      'Pretty similar to yesterday', //todo: extract
-                    ),
-                    _buildDivider(),
-                    // if (model.temperature != null ||
-                    //     model.subjectiveTemp != null)
-                    _buildReview(
-                      'Temperature',
-                      '100.9 °F', //todo: extract
-                    ),
-                    _buildDivider(),
-                    // if (model.selectedSymptoms != null)
-                    _buildReview(
-                      'Symptoms',
-                      'Headache, vomiting, sore throat', //todo: extract
-                    ),
+                    if (model.feeling != null)
+                      _buildReview('Feeling', model.feeling),
+                    _buildDivider(), //todo: show/hide logic
+                    if (model.temperature != null)
+                      //     || model.subjectiveTemp != null)
+                      _buildReview('Temperature', '${model.temperature} °F'),
+                    _buildDivider(), //todo: show/hide logic
+                    if (model.selectedSymptoms != null)
+                      _buildReview(
+                          'Symptoms',
+                          model.selectedSymptoms
+                              .toList()
+                              .map((s) => symptomLabelMap[s])
+                              .join(', ')),
                   ],
                 ),
               ),
