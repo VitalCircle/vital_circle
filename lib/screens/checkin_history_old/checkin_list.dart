@@ -5,7 +5,8 @@ import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/utils/symptom_label.dart';
 
 class CheckinListScreen extends StatelessWidget {
-  const CheckinListScreen({@required List<Checkin> checkins}) : _checkins = checkins;
+  const CheckinListScreen({@required List<Checkin> checkins})
+      : _checkins = checkins;
 
   final List<Checkin> _checkins;
 
@@ -31,7 +32,8 @@ class CheckinListScreen extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(Spacers.lg),
-        title: Text(DateFormat.yMMMMd().format(checkin.timestamp), overflow: TextOverflow.ellipsis),
+        title: Text(DateFormat.yMMMMd().format(checkin.timestamp),
+            overflow: TextOverflow.ellipsis),
         subtitle: Text('Symptoms: ${symptoms.join(', ')}'),
         onTap: () {
           //Navigator.pushNamed(context, RouteName.ViewCheckin, arguments: ViewCheckinScreenRouteData(checkin.id));

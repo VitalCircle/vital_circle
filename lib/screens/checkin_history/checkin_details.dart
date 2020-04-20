@@ -25,7 +25,8 @@ class CheckinDetails extends StatelessWidget {
         feel: ProgressButtonFeel.Secondary,
         label: 'Add record',
         onPressed: () {
-          Navigator.of(context).popAndPushNamed(RouteName.Checkin, arguments: CheckinScreenRouteData(date, null));
+          Navigator.of(context).popAndPushNamed(RouteName.Checkin,
+              arguments: CheckinScreenRouteData(date, null));
         },
         type: ProgressButtonType.Flat,
       ),
@@ -42,14 +43,19 @@ class CheckinDetails extends StatelessWidget {
         // TODO: handle subjective temp
         _buildDetailRow('Temperature', '${checkin.temp} °F'),
         const Divider(),
-        _buildDetailRow('Symptoms', checkin.symptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
+        _buildDetailRow(
+            'Symptoms',
+            checkin.symptoms
+                .toList()
+                .map((s) => symptomLabelMap[s])
+                .join(', ')),
         Center(
           child: ProgressButton(
             feel: ProgressButtonFeel.Secondary,
             label: 'Edit record',
             onPressed: () {
-              Navigator.of(context)
-                  .popAndPushNamed(RouteName.Checkin, arguments: CheckinScreenRouteData(null, checkin));
+              Navigator.of(context).popAndPushNamed(RouteName.Checkin,
+                  arguments: CheckinScreenRouteData(null, checkin));
             },
             type: ProgressButtonType.Flat,
           ),

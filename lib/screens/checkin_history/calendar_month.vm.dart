@@ -37,8 +37,10 @@ class CalendarMonthViewModel extends ChangeNotifier {
     final endDate = DateTime(year, month + 1, 0, 23, 59, 59, 999, 999);
     _firstDayOfWeekOffset = (startDate.weekday % 7) * -1;
     _daysInMonth = endDate.day;
-    _checkinSub =
-        _checkinApi.streamCheckinsForTimeRange(user.uid, startDate, endDate).where((x) => x != null).listen((checkins) {
+    _checkinSub = _checkinApi
+        .streamCheckinsForTimeRange(user.uid, startDate, endDate)
+        .where((x) => x != null)
+        .listen((checkins) {
       _isReady = true;
       _checkinMap = _generateCheckinMap(checkins);
       notifyListeners();

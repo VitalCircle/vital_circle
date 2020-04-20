@@ -7,7 +7,8 @@ import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/services/services.dart';
-import 'package:vital_circle/routes.dart';
+
+enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms }
 
 class CheckinScreenRouteData {
   CheckinScreenRouteData(this.date, this.checkin);
@@ -30,6 +31,8 @@ class CheckinViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   double temperature;
+  String feeling;
+  String subjectiveTemp;
 
   var _selectedSymptoms = <Symptom>{};
   Set<Symptom> get selectedSymptoms => _selectedSymptoms;
@@ -39,8 +42,13 @@ class CheckinViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     if (_routeData != null && _routeData.checkin != null) {
+      feeling = _routeData.checkin.feeling;
       temperature = _routeData.checkin.temp;
+      subjectiveTemp = _routeData.checkin.subjectiveTemp;
       _selectedSymptoms = _routeData.checkin.symptoms.toList();
+    }
+    if (_steps.isEmpty) {
+      initSteps(context);
     }
   }
 
@@ -56,9 +64,11 @@ class CheckinViewModel extends ChangeNotifier {
   Checkin get getModel => _getModel();
 
   Checkin _getModel() {
-    final checkin = Checkin.empty();
+    final checkin = Checkin();
+    checkin.feeling = feeling;
     checkin.temp = temperature;
-    checkin.symptoms = Symptoms.empty();
+    checkin.subjectiveTemp = subjectiveTemp;
+    checkin.symptoms = Symptoms();
     checkin.symptoms.febrile =
         _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
     checkin.symptoms.cough = _selectedSymptoms.contains(Symptom.Cough) ? 1 : 0;
@@ -114,6 +124,7 @@ class CheckinViewModel extends ChangeNotifier {
         _checkinApi.addCheckin(user.uid, checkin);
       }
       // Navigator.of(context).pop();
+      // onDone(context);
       Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted,
           ModalRoute.withName(RouteName.Dashboard));
     } catch (_) {
@@ -121,5 +132,25 @@ class CheckinViewModel extends ChangeNotifier {
       notifyListeners();
       rethrow;
     }
+  }
+
+  // Checkin Steps
+  Set<CheckinSteps> _steps = <CheckinSteps>{};
+  Set<CheckinSteps> get steps => _steps;
+
+  Future<void> initSteps(BuildContext context) async {
+    _steps = _getSteps();
+  }
+
+  Set<CheckinSteps> _getSteps() {
+    final steps = <CheckinSteps>{};
+    steps.add(CheckinSteps.CheckinFeeling);
+    steps.add(CheckinSteps.CheckinTemperature);
+    steps.add(CheckinSteps.CheckinSymptoms);
+    return steps;
+  }
+
+  Future<void> onDone(BuildContext context) async {
+    await Navigator.pushReplacementNamed(context, RouteName.CheckinSubmitted);
   }
 }

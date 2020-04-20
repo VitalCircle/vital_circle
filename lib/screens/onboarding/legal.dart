@@ -30,12 +30,12 @@ class LegalAgreementScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 child: Text(title, style: AppTypography.h1),
-                padding: EdgeInsets.symmetric(vertical: Spacers.lg),
+                padding: const EdgeInsets.symmetric(vertical: Spacers.lg),
               ),
               Expanded(
                 child: SingleChildScrollView(child: Text(content)),
               ),
-              SizedBox(height: Spacers.lg),
+              const SizedBox(height: Spacers.lg),
               SizedBox(
                 child: ProgressButton(
                   label: 'Accept',

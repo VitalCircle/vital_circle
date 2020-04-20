@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/routes.dart';
 
 import 'checkin.vm.dart';
-import 'checkin.vm.dart';
 
-class CheckinTemperature extends StatefulWidget {
-  @override
-  _CheckinTemperatureState createState() => _CheckinTemperatureState();
-}
+class CheckinTemperature extends StatelessWidget {
+  CheckinTemperature({@required this.onNext, @required this.onPrevious});
 
-class _CheckinTemperatureState extends State<CheckinTemperature>
-    with AutomaticKeepAliveClientMixin {
-  //todo: extract into data model
-  List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
-  List<bool> subjectiveTempCheck = [false, false, false];
+  final VoidCallback onNext;
+  final VoidCallback onPrevious;
+
+  final List<String> subjectiveTemp = ['Feeling hot', 'Feeling fine', 'Unsure'];
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
       builder: (context, model, child) {
@@ -34,9 +29,7 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
       appBar: SharedAppBar(
         title: const Text('Check-in'),
         leading: BackButton(
-          onPressed: () {
-            // todo: implement checkin.onPrevious
-          },
+          onPressed: () => onPrevious(),
         ),
         actions: <Widget>[
           IconButton(
@@ -53,7 +46,11 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: Spacers.md),
-                child: _buildHeader(context, model),
+                child: checkinHeader(
+                    context,
+                    model,
+                    'What is your temperature?',
+                    'Yesterday, you recorded 100.4 °F'),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
@@ -76,20 +73,6 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
         },
       ),
     );
-  }
-
-  Widget _buildHeader(BuildContext context, CheckinViewModel model) {
-    return Column(children: [
-      Text('What is your temperature?', style: AppTypography.h2),
-      const SizedBox(height: Spacers.sm),
-      Text(
-        //todo: extract prior day's symptoms. adjust padding
-        'Yesterday, you recorded 100.4 °F',
-        style: AppTypography.bodyRegular1,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: Spacers.lg),
-    ]);
   }
 
   Widget _buildTemp(BuildContext context, CheckinViewModel model) {
@@ -132,14 +115,11 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
       child: InkWell(
         child: SelectionCardSmall(
           title: subjectiveTemp[index],
-          selected: subjectiveTempCheck[index],
+          selected: false,
         ),
-        onTap: () => setState(
-          () {
-            // todo: extract into viewmodel
-            subjectiveTempCheck[index] = !subjectiveTempCheck[index];
-          },
-        ),
+        onTap: () {
+          //todo: toggle selected
+        },
       ),
     );
   }
@@ -147,9 +127,6 @@ class _CheckinTemperatureState extends State<CheckinTemperature>
   void _continue(BuildContext context, CheckinViewModel model) {
     // dismiss keyboard
     FocusScope.of(context).requestFocus(FocusNode());
-    model.submit(context);
+    onNext();
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

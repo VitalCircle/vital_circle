@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/enums/symptoms.dart';
+import 'package:vital_circle/routes.dart';
+import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/themes/typography.dart';
 import 'package:vital_circle/utils/symptom_label.dart';
 
 import 'checkin.vm.dart';
 
-class CheckinSymptoms extends StatefulWidget {
-  @override
-  _CheckinSymptomsState createState() => _CheckinSymptomsState();
-}
+class CheckinSymptoms extends StatelessWidget {
+  const CheckinSymptoms({@required this.onNext, @required this.onPrevious});
 
-class _CheckinSymptomsState extends State<CheckinSymptoms>
-    with AutomaticKeepAliveClientMixin {
+  final VoidCallback onNext;
+  final VoidCallback onPrevious;
+
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BaseWidget<CheckinViewModel>(
       model: CheckinViewModel.of(context),
       builder: (context, model, child) {
@@ -30,15 +29,13 @@ class _CheckinSymptomsState extends State<CheckinSymptoms>
       appBar: SharedAppBar(
         title: const Text('Check-in'),
         leading: BackButton(
-          onPressed: () {
-            // todo: implement checkin.onPrevious
-          },
+          onPressed: () => onPrevious(),
         ),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () => Navigator.popUntil(
-                  context, ModalRoute.withName('/dashboard')))
+                  context, ModalRoute.withName(RouteName.Dashboard)))
         ],
       ),
       body: LayoutBuilder(
@@ -51,7 +48,12 @@ class _CheckinSymptomsState extends State<CheckinSymptoms>
                   padding: const EdgeInsets.symmetric(
                       horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
-                    _buildHeader(context, model),
+                    checkinHeader(
+                        context,
+                        model,
+                        'Please select your symptoms',
+                        // todo: extract symptoms
+                        'Yesterday, you had cough, short of breath, and body aches'),
                     ...Symptom.values
                         .map((s) => _buildSymptom(context, model, s))
                         .toList(),
@@ -81,21 +83,7 @@ class _CheckinSymptomsState extends State<CheckinSymptoms>
   void _submit(BuildContext context, CheckinViewModel model) {
     // dismiss keyboard
     FocusScope.of(context).requestFocus(FocusNode());
-    model.submit(context);
-  }
-
-  Widget _buildHeader(BuildContext context, CheckinViewModel model) {
-    return Column(children: [
-      Text('Please select your symptoms', style: AppTypography.h2),
-      const SizedBox(height: Spacers.sm),
-      Text(
-        //todo: extract prior day's symptoms. adjust padding
-        'Yesterday, you had cough, short of breath,\n and body aches',
-        style: AppTypography.bodyRegular1,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: Spacers.lg),
-    ]);
+    onNext();
   }
 
   Widget _buildSymptom(
@@ -111,7 +99,4 @@ class _CheckinSymptomsState extends State<CheckinSymptoms>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
