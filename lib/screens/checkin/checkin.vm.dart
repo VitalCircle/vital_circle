@@ -111,6 +111,10 @@ class CheckinViewModel extends ChangeNotifier {
     }
   }
 
+  bool get hasData {
+    return feeling != null || temperature != null || subjectiveTemp != null || _selectedSymptoms.isNotEmpty;
+  }
+
   Checkin get getModel => _getModel();
 
   Checkin _getModel() {
