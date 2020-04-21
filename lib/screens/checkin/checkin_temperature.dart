@@ -41,9 +41,12 @@ class CheckinTemperature extends StatelessWidget {
                     child:
                         checkinHeader(context, model, 'What is your temperature?', 'Yesterday, you recorded 100.4 °F'),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
-                    child: _buildTemp(context, model),
+                  FractionallySizedBox(
+                    widthFactor: 0.5,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: Spacers.md),
+                      child: _buildTemp(context, model),
+                    ),
                   ),
                   _buildSubjectiveTemp(context, model),
                   Padding(
@@ -65,9 +68,11 @@ class CheckinTemperature extends StatelessWidget {
 
   Widget _buildTemp(BuildContext context, CheckinViewModel model) {
     return TextFormField(
+      style: AppTypography.h1,
+      textAlign: TextAlign.center,
       decoration: const InputDecoration(
-        labelText: 'Temperature',
-        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.zero,
+        hintText: 'Temperature',
         suffix: Text('°F'),
       ),
       keyboardType: TextInputType.number,
