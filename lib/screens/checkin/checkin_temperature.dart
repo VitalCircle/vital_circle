@@ -30,28 +30,33 @@ class CheckinTemperature extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: Spacers.md),
-                child: checkinHeader(context, model, 'What is your temperature?', 'Yesterday, you recorded 100.4 °F'),
+          return SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height - Scaffold.of(context).appBarMaxHeight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: Spacers.md),
+                    child:
+                        checkinHeader(context, model, 'What is your temperature?', 'Yesterday, you recorded 100.4 °F'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
+                    child: _buildTemp(context, model),
+                  ),
+                  _buildSubjectiveTemp(context, model),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ProgressButton(
+                          label: 'Continue', onPressed: () => _continue(context), type: ProgressButtonType.Raised),
+                    ),
+                  )
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
-                child: _buildTemp(context, model),
-              ),
-              _buildSubjectiveTemp(context, model),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ProgressButton(
-                      label: 'Continue', onPressed: () => _continue(context), type: ProgressButtonType.Raised),
-                ),
-              )
-            ],
+            ),
           );
         },
       ),
