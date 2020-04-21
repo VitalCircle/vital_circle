@@ -128,7 +128,7 @@ class CalendarMonth extends StatelessWidget {
     if (checkin == null) {
       return Colors.transparent;
     }
-    if ((checkin.temp != null && checkin.temp > 100) || checkin.subjectiveTemp == 'hot') {
+    if ((checkin.temp != null && checkin.temp > 100) || checkin.subjectiveTemp == SubjectiveTempOption.HOT) {
       return AppColors.checkinBad;
     }
     return AppColors.checkinGood;
