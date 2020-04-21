@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -22,12 +23,16 @@ class DashboardViewModel extends ChangeNotifier {
   bool _isReady = false;
   bool get isReady => _isReady;
 
+  FirebaseUser _user;
+  FirebaseUser get user => _user;
+
   bool _hasCheckedInToday = false;
   bool get hasCheckedInToday => _hasCheckedInToday;
 
   Future onInit() async {
     _geoService.startPolling();
     await _subscribeToDailyCheckins();
+    _user = await _authService.user;
   }
 
   Future _subscribeToDailyCheckins() async {
@@ -36,9 +41,7 @@ class DashboardViewModel extends ChangeNotifier {
     final start = DateTime(now.year, now.month, now.day);
     final end = DateTime(now.year, now.month, now.day, 23, 59, 59, 1000, 1000);
     final user = await _authService.user;
-    _dailyCheckinSubscription = _checkinApi
-        .streamCheckinsForTimeRange(user.uid, start, end)
-        .listen((checkins) {
+    _dailyCheckinSubscription = _checkinApi.streamCheckinsForTimeRange(user.uid, start, end).listen((checkins) {
       _hasCheckedInToday = checkins.isNotEmpty;
       _isReady = true;
       notifyListeners();

@@ -42,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          _buildGreeting(),
+          _buildGreeting(model),
           const SizedBox(height: Spacers.lg),
           model.hasCheckedInToday
               ? NavigationCard(
@@ -61,7 +61,21 @@ class DashboardScreen extends StatelessWidget {
             subtitle: 'Look at your previous symptoms and edit records.',
             icon: Icons.calendar_today,
             routeName: RouteName.CheckinHistory,
-          )
+          ),
+
+          // While listed in MVP, these buttons are inactive
+          NavigationCard(
+            title: 'Check my vital circles',
+            subtitle: 'See how those around you are doing.',
+            icon: Icons.people,
+            routeName: RouteName.CheckinHistory,
+          ),
+          NavigationCard(
+            title: 'Resources',
+            subtitle: 'Helpful articles and tips.',
+            icon: Icons.info,
+            routeName: RouteName.CheckinHistory,
+          ),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
       ),
@@ -69,9 +83,9 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGreeting() {
+  Widget _buildGreeting(DashboardViewModel model) {
     return Text(
-      'Good day, Human',
+      model.user.isAnonymous ? 'Good day, stranger' : 'Good day, ${model.user.displayName.split(" ")[0]}',
       style: AppTypography.h2,
     );
   }
