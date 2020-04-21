@@ -54,7 +54,7 @@ class CalendarMonth extends StatelessWidget {
     const rowSpacer = SizedBox(height: 24);
     return Column(
       children: <Widget>[
-        Text(monthName, style: AppTypography.h1),
+        Text(monthName, style: AppTypography.h2),
         rowSpacer,
         ...weeks.intersperse(rowSpacer),
       ],
@@ -84,9 +84,15 @@ class CalendarMonth extends StatelessWidget {
 
   Widget _buildDay(CalendarMonthViewModel model, int dayIndex) {
     final day = dayIndex + 1;
+    final now = DateTime.now();
+    final date = DateTime(year, month, day);
+    final dateCompare = now.compareDate(date);
+    final isToday = dateCompare == 0;
+    final isFuture = dateCompare < 0;
     final title = day > 0 && day <= model.daysInMonth ? day.toString() : '';
     final checkin = model.checkinMap[day];
-    final dayColor = _getDayColor(day);
+    final dayBackgroundColor = isToday ? AppColors.today : Colors.transparent;
+    final dayColor = isFuture ? AppColors.disabled : AppColors.primary;
     final checkinColor = _getDayCheckinColor(checkin);
 
     return InkWell(
@@ -95,8 +101,8 @@ class CalendarMonth extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, color: dayColor),
-              child: Center(child: Text(title, style: AppTypography.calendarDay)),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: dayBackgroundColor),
+              child: Center(child: Text(title, style: AppTypography.calendarDay.copyWith(color: dayColor))),
               height: DAY_SIZE,
               width: DAY_SIZE,
             ),
@@ -109,19 +115,13 @@ class CalendarMonth extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {
-        final date = DateTime(year, month, day);
-        onSelectDay(date, checkin);
-      },
+      onTap: isFuture
+          ? null
+          : () {
+              final date = DateTime(year, month, day);
+              onSelectDay(date, checkin);
+            },
     );
-  }
-
-  Color _getDayColor(int day) {
-    final now = DateTime.now();
-    if (now.year == year && now.month == month && now.day == day) {
-      return AppColors.today;
-    }
-    return Colors.transparent;
   }
 
   Color _getDayCheckinColor(Checkin checkin) {

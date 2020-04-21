@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/themes/typography.dart';
 
-import '../../shared/shared.dart';
-import '../../themes/theme.dart';
+import 'package:vital_circle/shared/shared.dart';
+import 'package:vital_circle/themes/theme.dart';
 import 'location-agreement.vm.dart';
 
 class LocationAgreementScreen extends StatelessWidget {
@@ -22,7 +22,7 @@ class LocationAgreementScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  child: Text('Location Sharing', style: AppTypography.h1),
+                  child: Text('Location Sharing', style: AppTypography.h2),
                   padding: const EdgeInsets.symmetric(vertical: Spacers.lg),
                 ),
                 const Expanded(

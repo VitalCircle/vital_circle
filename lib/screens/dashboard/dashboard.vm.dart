@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/services.dart';
+import 'package:vital_circle/services/services.dart';
 
 class DashboardViewModel extends ChangeNotifier {
   DashboardViewModel.of(BuildContext context)
@@ -22,12 +23,16 @@ class DashboardViewModel extends ChangeNotifier {
   bool _isReady = false;
   bool get isReady => _isReady;
 
+  FirebaseUser _user;
+  FirebaseUser get user => _user;
+
   bool _hasCheckedInToday = false;
   bool get hasCheckedInToday => _hasCheckedInToday;
 
   Future onInit() async {
     _geoService.startPolling();
     await _subscribeToDailyCheckins();
+    _user = await _authService.user;
   }
 
   Future _subscribeToDailyCheckins() async {

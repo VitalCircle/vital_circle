@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/screens/checkin_history/checkin_details.dart';
-import 'package:vital_circle/themes/colors.dart';
 import 'package:vital_circle/themes/theme.dart';
 
 import 'calendar_month.dart';
@@ -50,17 +49,20 @@ class _CalendarState extends State<Calendar> {
   }
 
   void _onSelectDay(BuildContext context, DateTime date, Checkin checkin) {
-    showBottomSheet<Widget>(
+    showModalBottomSheet<Widget>(
+        isScrollControlled: true,
         context: context,
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 0.8,
+            heightFactor: 0.6,
             widthFactor: 1,
             child: Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
                 boxShadow: AppShadows.s2,
               ),
               child: CheckinDetails(checkin: checkin, date: date),

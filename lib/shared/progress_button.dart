@@ -16,6 +16,7 @@ class ProgressButton extends StatelessWidget {
     @required this.type,
     @required this.label,
     this.isFullWidth = false,
+    this.isHalfWidth = false,
     this.isProcessing = false,
     @required this.onPressed,
   });
@@ -24,6 +25,7 @@ class ProgressButton extends StatelessWidget {
   final double height;
   final String label;
   final bool isFullWidth;
+  final bool isHalfWidth;
   final bool isProcessing;
   final VoidCallback onPressed;
   final ProgressButtonType type;
@@ -33,7 +35,11 @@ class ProgressButton extends StatelessWidget {
     return SizedBox(
       child: _buildButton(context),
       height: height,
-      width: isFullWidth ? double.infinity : null,
+      // First, check to see if full width is set (takes priority)
+      width: isFullWidth
+          ? double.infinity
+          // then check to see if half width is enabled
+          : isHalfWidth ? MediaQuery.of(context).size.width / 2 : null,
     );
   }
 
@@ -100,5 +106,6 @@ class ProgressButton extends StatelessWidget {
       case ProgressButtonFeel.Secondary:
         return AppColors.secondary;
     }
+    return AppColors.disabled;
   }
 }

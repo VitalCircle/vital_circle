@@ -8,6 +8,8 @@ import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/services/services.dart';
 
+enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms, CheckinReview }
+
 class CheckinScreenRouteData {
   CheckinScreenRouteData(this.date, this.checkin);
 
@@ -29,6 +31,8 @@ class CheckinViewModel extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   double temperature;
+  String feeling;
+  String subjectiveTemp;
 
   var _selectedSymptoms = <Symptom>{};
   Set<Symptom> get selectedSymptoms => _selectedSymptoms;
@@ -38,12 +42,17 @@ class CheckinViewModel extends ChangeNotifier {
 
   void init(BuildContext context) {
     if (_routeData != null && _routeData.checkin != null) {
+      feeling = _routeData.checkin.feeling;
       temperature = _routeData.checkin.temp;
+      subjectiveTemp = _routeData.checkin.subjectiveTemp;
       _selectedSymptoms = _routeData.checkin.symptoms.toList();
+    }
+    if (_steps.isEmpty) {
+      initSteps(context);
     }
   }
 
-  void toggleSelected(Symptom symptom) {
+  void toggleSymptom(Symptom symptom) {
     if (_selectedSymptoms.contains(symptom)) {
       _selectedSymptoms.remove(symptom);
     } else {
@@ -52,10 +61,68 @@ class CheckinViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void selectFeeling(String option) {
+    switch (option) {
+      case FeelingOption.BETTER:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.BETTER;
+          notifyListeners();
+          return;
+        }
+      case FeelingOption.SIMILAR:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.SIMILAR;
+          notifyListeners();
+          return;
+        }
+      case FeelingOption.WORSE:
+        {
+          option == feeling ? feeling = null : feeling = FeelingOption.WORSE;
+          notifyListeners();
+          return;
+        }
+      default:
+        throw Exception('Invalid option type: $option');
+    }
+  }
+
+  void selectSubjectiveTemp(String option) {
+    switch (option) {
+      case SubjectiveTempOption.HOT:
+        {
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.HOT;
+          notifyListeners();
+          return;
+        }
+      case SubjectiveTempOption.FINE:
+        {
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.FINE;
+          notifyListeners();
+          return;
+        }
+      case SubjectiveTempOption.UNSURE:
+        {
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.UNSURE;
+          notifyListeners();
+          return;
+        }
+      default:
+        throw Exception('Invalid option type: $option');
+    }
+  }
+
+  bool get hasData {
+    return feeling != null || temperature != null || subjectiveTemp != null || _selectedSymptoms.isNotEmpty;
+  }
+
+  Checkin get getModel => _getModel();
+
   Checkin _getModel() {
-    final checkin = Checkin.empty();
+    final checkin = Checkin();
+    checkin.feeling = feeling;
     checkin.temp = temperature;
-    checkin.symptoms = Symptoms.empty();
+    checkin.subjectiveTemp = subjectiveTemp;
+    checkin.symptoms = Symptoms();
     checkin.symptoms.febrile = _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
     checkin.symptoms.cough = _selectedSymptoms.contains(Symptom.Cough) ? 1 : 0;
     checkin.symptoms.shortnessOfBreath = _selectedSymptoms.contains(Symptom.ShortOfBreath) ? 1 : 0;
@@ -77,6 +144,8 @@ class CheckinViewModel extends ChangeNotifier {
       } else if (_routeData.date != null) {
         checkin.timestamp = _routeData.date;
       }
+    } else {
+      checkin.timestamp = DateTime.now();
     }
 
     return checkin;
@@ -86,7 +155,7 @@ class CheckinViewModel extends ChangeNotifier {
     if (_isSaving) {
       return;
     }
-    formKey.currentState.save();
+    // formKey.currentState.save();
     _isSaving = true;
     notifyListeners();
 
@@ -98,11 +167,34 @@ class CheckinViewModel extends ChangeNotifier {
       } else {
         _checkinApi.addCheckin(user.uid, checkin);
       }
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
+      // onDone(context);
+      Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted, ModalRoute.withName(RouteName.Dashboard));
     } catch (_) {
       _isSaving = false;
       notifyListeners();
       rethrow;
     }
+  }
+
+  // Checkin Steps
+  Set<CheckinSteps> _steps = <CheckinSteps>{};
+  Set<CheckinSteps> get steps => _steps;
+
+  Future<void> initSteps(BuildContext context) async {
+    _steps = _getSteps();
+  }
+
+  Set<CheckinSteps> _getSteps() {
+    final steps = <CheckinSteps>{};
+    steps.add(CheckinSteps.CheckinFeeling);
+    steps.add(CheckinSteps.CheckinTemperature);
+    steps.add(CheckinSteps.CheckinSymptoms);
+    steps.add(CheckinSteps.CheckinReview);
+    return steps;
+  }
+
+  Future<void> onDone(BuildContext context) async {
+    await Navigator.pushReplacementNamed(context, RouteName.CheckinSubmitted);
   }
 }

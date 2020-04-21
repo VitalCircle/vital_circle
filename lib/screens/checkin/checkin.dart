@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vital_circle/enums/symptoms.dart';
+import 'package:vital_circle/screens/checkin/checkin_feeling.dart';
+import 'package:vital_circle/screens/checkin/checkin_review.dart';
+import 'package:vital_circle/screens/checkin/checkin_symptoms.dart';
+import 'package:vital_circle/screens/checkin/checkin_temperature.dart';
 import 'package:vital_circle/shared/shared.dart';
-import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/themes/typography.dart';
-import 'package:vital_circle/utils/symptom_label.dart';
 
 import 'checkin.vm.dart';
 
@@ -13,106 +13,63 @@ class CheckinScreen extends StatefulWidget {
 }
 
 class _CheckinScreenState extends State<CheckinScreen> {
+  static const _animationDuration = Duration(milliseconds: 500);
+  static const _animationCurve = Curves.easeInOut;
+  final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      onModelReady: (model) {
-        model.init(context);
-      },
-      builder: (context, model, child) {
-        return _buildScreen(context, model);
-      },
-    );
+        model: CheckinViewModel.of(context),
+        onModelReady: (model) => model.init(context),
+        builder: (context, model, child) {
+          return _buildScreen(context, model);
+        });
   }
 
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
-    return Scaffold(
-        appBar: SharedAppBar(
-          title: const Text('Check-in'),
-        ),
-        body: LayoutBuilder(builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-                minWidth: viewportConstraints.maxWidth,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: <Widget>[
-                    Form(
-                      key: model.formKey,
-                      child: _buildTemp(context, model),
-                    ),
-                    const SizedBox(height: Spacers.xl),
-                    _buildSymptoms(context, model),
-                    const Spacer(flex: 1),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ProgressButton(
-                          label: 'Submit',
-                          onPressed: () {
-                            _submit(context, model);
-                          },
-                          type: ProgressButtonType.Raised),
-                    )
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              padding: const EdgeInsets.all(16),
-            ),
-          );
-        }));
-  }
-
-  void _submit(BuildContext context, CheckinViewModel model) {
-    // dismiss keyboard
-    FocusScope.of(context).requestFocus(FocusNode());
-    model.submit(context);
-  }
-
-  Widget _buildTemp(BuildContext context, CheckinViewModel model) {
-    return TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Temperature',
-        border: OutlineInputBorder(),
-        suffix: Text('°F'),
-      ),
-      keyboardType: TextInputType.number,
-      initialValue: model.temperature?.toString(),
-      onSaved: (value) {
-        model.temperature = double.tryParse(value);
+    return WillPopScope(
+      onWillPop: () async {
+        if (_pageController.page.round() == _pageController.initialPage) {
+          return true;
+        }
+        _toPrevious();
+        return false;
       },
-      textInputAction: TextInputAction.done,
+      child: PageView(
+        controller: _pageController,
+        children: [
+          CheckinFeeling(onNext: () => _toNext(model), model: model),
+          CheckinTemperature(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+          CheckinSymptoms(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+          CheckinReview(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+        ],
+      ),
     );
   }
 
-  Widget _buildSymptoms(BuildContext context, CheckinViewModel model) {
-    return Column(children: [
-      Text('Symptoms', style: AppTypography.h2),
-      Text(
-        'Please select the symptoms that you are experiencing:',
-        style: AppTypography.bodyBold,
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: Spacers.md),
-      Wrap(
-        children: Symptom.values.map((s) => _buildSymptom(context, model, s)).toList(),
-        runSpacing: 0,
-        spacing: 12,
-      ),
-    ]);
+  Future<void> _toPrevious() async {
+    await _pageController.previousPage(
+      duration: _animationDuration,
+      curve: _animationCurve,
+    );
   }
 
-  Widget _buildSymptom(BuildContext context, CheckinViewModel model, Symptom symptom) {
-    return ChoiceChip(
-      label: Text(symptomLabelMap[symptom]),
-      onSelected: (selected) {
-        model.toggleSelected(symptom);
-      },
-      selected: model.selectedSymptoms.contains(symptom),
+  Future<void> _toNext(CheckinViewModel model) async {
+    if (_pageController.page == model.steps.length - 1) {
+      await model.submit(context);
+      // Navigator.popAndPushNamed(context, '/checkin_done');
+      return;
+    }
+    await _pageController.nextPage(
+      duration: _animationDuration,
+      curve: _animationCurve,
     );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }

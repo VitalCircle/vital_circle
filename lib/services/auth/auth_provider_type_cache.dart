@@ -1,7 +1,7 @@
 import 'package:vital_circle/constants/local_storage_key.dart';
 import 'package:vital_circle/enums/auth_provider_type.dart';
 
-import '../local_storage.service.dart';
+import 'package:vital_circle/services/local_storage.service.dart';
 
 /// Typed access to persistent storage for the last authentication provider type
 /// that was used to successfully authenticate.

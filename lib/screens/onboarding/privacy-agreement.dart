@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/shared.dart';
+import 'package:vital_circle/shared/shared.dart';
 import 'legal.dart';
 import 'privacy-agreement.vm.dart';
 

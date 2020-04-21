@@ -4,8 +4,6 @@ import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/services/services.dart';
 import 'package:vital_circle/utils/firestore_path.dart';
 
-import '../../models/index.dart';
-
 class CheckinApi {
   final _log = LogService.zone(LogZone.FIRESTORE);
 
@@ -15,7 +13,7 @@ class CheckinApi {
       _log.debug('streamCheckins', <String, dynamic>{'userId': userId, 'count': query.documents.length});
       return query.documents
           .where((doc) => doc.data != null)
-          .map((doc) => Checkin.fromFirestore(doc.documentID, doc.data))
+          .map((doc) => Checkin.fromJson(doc.documentID, doc.data))
           .toList();
     });
   }
@@ -30,7 +28,7 @@ class CheckinApi {
       _log.debug('streamCheckinsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
       return query.documents
           .where((doc) => doc.data != null)
-          .map((doc) => Checkin.fromFirestore(doc.documentID, doc.data))
+          .map((doc) => Checkin.fromJson(doc.documentID, doc.data))
           .toList();
     });
   }
@@ -41,14 +39,14 @@ class CheckinApi {
     if (!doc.exists) {
       return null;
     }
-    final checkin = Checkin.fromFirestore(doc.documentID, doc.data);
+    final checkin = Checkin.fromJson(doc.documentID, doc.data);
     _log.debug('getCheckin', <String, dynamic>{'userId': userId, 'checkinId': checkinId, 'Checkin': doc.data});
     return checkin;
   }
 
   String addCheckin(String userId, Checkin checkin) {
     final path = FirestorePath.checkinsPath(userId);
-    final data = checkin.toFirestore();
+    final data = checkin.toJson();
     final doc = Firestore.instance.collection(path).document();
     doc.setData(data);
     _log.debug('addCheckin', <String, dynamic>{'userId': userId, 'data': data});
@@ -57,7 +55,7 @@ class CheckinApi {
 
   void updateCheckin(String userId, Checkin checkin) {
     final path = FirestorePath.checkinPath(userId, checkin.id);
-    final data = checkin.toFirestore();
+    final data = checkin.toJson();
     final doc = Firestore.instance.document(path);
     doc.updateData(data);
     _log.debug('updateCheckin', <String, dynamic>{'userId': userId, 'data': data});
