@@ -97,7 +97,6 @@ class Checkin {
   String id;
 }
 
-// class _ParseTimestamp impl
 
 @JsonSerializable()
 class Symptoms {
