@@ -45,7 +45,7 @@ class StartUpService {
     return user == null ||
         user.agreements == null ||
         user.agreements.privacyPolicy == null ||
-        user.agreements.termsOfService == null ||
-        user.agreements.acceptedLocationSharing == null;
+        user.agreements.termsOfService == null;
+    //user.agreements.acceptedLocationSharing == null;
   }
 }
