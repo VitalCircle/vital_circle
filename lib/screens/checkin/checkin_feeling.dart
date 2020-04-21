@@ -9,21 +9,13 @@ import 'package:vital_circle/themes/spacers.dart';
 import 'checkin.vm.dart';
 
 class CheckinFeeling extends StatelessWidget {
-  CheckinFeeling({@required this.onNext});
+  const CheckinFeeling({@required this.onNext, @required this.model});
 
   final VoidCallback onNext;
+  final CheckinViewModel model;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      builder: (context, model, child) {
-        return _buildScreen(context, model);
-      },
-    );
-  }
-
-  Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
       appBar: SharedAppBar(
         title: const Text('Check-in'),
@@ -32,8 +24,7 @@ class CheckinFeeling extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => Navigator.popUntil(
-                  context, ModalRoute.withName(RouteName.Dashboard)))
+              onPressed: () => Navigator.popUntil(context, ModalRoute.withName(RouteName.Dashboard)))
         ],
       ),
       body: LayoutBuilder(
@@ -43,8 +34,7 @@ class CheckinFeeling extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Spacers.md, vertical: Spacers.md),
+                  padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(
                         context,
@@ -58,14 +48,11 @@ class CheckinFeeling extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Spacers.md, vertical: Spacers.lg),
+                padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
-                      label: 'Continue',
-                      onPressed: () => _continue(context, model),
-                      type: ProgressButtonType.Raised),
+                      label: 'Continue', onPressed: () => _continue(context, model), type: ProgressButtonType.Raised),
                 ),
               ),
             ],
@@ -75,8 +62,7 @@ class CheckinFeeling extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(
-      BuildContext context, CheckinViewModel model, String option) {
+  Widget _buildItem(BuildContext context, CheckinViewModel model, String option) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -90,9 +76,6 @@ class CheckinFeeling extends StatelessWidget {
   }
 
   void _continue(BuildContext context, CheckinViewModel model) {
-    // dismiss keyboard
-    // FocusScope.of(context).requestFocus(FocusNode());
     onNext();
-    // todo: implement checkin.onNext
   }
 }

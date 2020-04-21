@@ -28,24 +28,14 @@ class _CheckinScreenState extends State<CheckinScreen> {
   }
 
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
+    // TODO: handle phone back
     return PageView(
       controller: _pageController,
       children: [
-        CheckinFeeling(
-          onNext: () => _toNext(model),
-        ),
-        CheckinTemperature(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
-        CheckinSymptoms(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
-        CheckinReview(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
+        CheckinFeeling(onNext: () => _toNext(model), model: model),
+        CheckinTemperature(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+        CheckinSymptoms(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+        CheckinReview(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
       ],
     );
   }

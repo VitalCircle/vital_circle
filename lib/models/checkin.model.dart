@@ -60,7 +60,7 @@ class SubjectiveTempOption {
 // ?          Checkins SubCollection
 // * ----------------------------
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Checkin {
   Checkin({
     this.feeling,
@@ -84,17 +84,13 @@ class Checkin {
   String subjectiveTemp;
   @JsonKey(name: CheckinProperty.SYMPTOMS)
   Symptoms symptoms;
-  @JsonKey(
-      name: CheckinProperty.TIMESTAMP,
-      fromJson: _datetimeFromTimestamp,
-      toJson: _datetimeAsIs)
+  @JsonKey(name: CheckinProperty.TIMESTAMP, fromJson: _datetimeFromTimestamp, toJson: _datetimeAsIs)
   //todo: implement default as timestamp.now?
   DateTime timestamp;
 
   // https://stackoverflow.com/questions/60793441/how-do-i-resolve-type-timestamp-is-not-a-subtype-of-type-string-in-type-cast
   // todo: extract into ParseUtil
-  static DateTime _datetimeFromTimestamp(Timestamp ts) =>
-      DateTime.parse(ts.toDate().toString());
+  static DateTime _datetimeFromTimestamp(Timestamp ts) => DateTime.parse(ts.toDate().toString());
   static DateTime _datetimeAsIs(DateTime dt) => dt;
 
   // document ID for the current checkin
@@ -122,8 +118,7 @@ class Symptoms {
     this.soreThroat,
   });
 
-  factory Symptoms.fromJson(Map<String, dynamic> json) =>
-      _$SymptomsFromJson(json);
+  factory Symptoms.fromJson(Map<String, dynamic> json) => _$SymptomsFromJson(json);
   Map<String, dynamic> toJson() => _$SymptomsToJson(this);
 
   @JsonKey(name: SymptomsProperty.BODY_ACHES, defaultValue: 0)

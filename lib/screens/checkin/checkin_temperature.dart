@@ -8,22 +8,14 @@ import 'package:vital_circle/routes.dart';
 import 'checkin.vm.dart';
 
 class CheckinTemperature extends StatelessWidget {
-  CheckinTemperature({@required this.onNext, @required this.onPrevious});
+  const CheckinTemperature({@required this.onNext, @required this.onPrevious, @required this.model});
 
   final VoidCallback onNext;
   final VoidCallback onPrevious;
+  final CheckinViewModel model;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      builder: (context, model, child) {
-        return _buildScreen(context, model);
-      },
-    );
-  }
-
-  Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
       appBar: SharedAppBar(
         title: const Text('Check-in'),
@@ -33,8 +25,7 @@ class CheckinTemperature extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => Navigator.popUntil(
-                  context, ModalRoute.withName(RouteName.Dashboard)))
+              onPressed: () => Navigator.popUntil(context, ModalRoute.withName(RouteName.Dashboard)))
         ],
       ),
       body: LayoutBuilder(
@@ -45,11 +36,7 @@ class CheckinTemperature extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: Spacers.md),
-                child: checkinHeader(
-                    context,
-                    model,
-                    'What is your temperature?',
-                    'Yesterday, you recorded 100.4 °F'),
+                child: checkinHeader(context, model, 'What is your temperature?', 'Yesterday, you recorded 100.4 °F'),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Spacers.md),
@@ -57,14 +44,11 @@ class CheckinTemperature extends StatelessWidget {
               ),
               _buildSubjectiveTemp(context, model),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Spacers.md, vertical: Spacers.lg),
+                padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
-                      label: 'Continue',
-                      onPressed: () => _continue(context, model),
-                      type: ProgressButtonType.Raised),
+                      label: 'Continue', onPressed: () => _continue(context, model), type: ProgressButtonType.Raised),
                 ),
               )
             ],
@@ -82,8 +66,8 @@ class CheckinTemperature extends StatelessWidget {
         suffix: Text('°F'),
       ),
       keyboardType: TextInputType.number,
-      initialValue: '',
-      onSaved: (value) {
+      initialValue: model.temperature?.toString() ?? '',
+      onChanged: (value) {
         model.temperature = double.tryParse(value);
       },
       textInputAction: TextInputAction.done,
@@ -108,8 +92,7 @@ class CheckinTemperature extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(
-      BuildContext context, CheckinViewModel model, String option) {
+  Widget _buildItem(BuildContext context, CheckinViewModel model, String option) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
@@ -9,22 +8,14 @@ import 'package:vital_circle/utils/symptom_label.dart';
 import 'checkin.vm.dart';
 
 class CheckinReview extends StatelessWidget {
-  const CheckinReview({@required this.onNext, @required this.onPrevious});
+  const CheckinReview({@required this.onNext, @required this.onPrevious, @required this.model});
 
   final VoidCallback onNext;
   final VoidCallback onPrevious;
+  final CheckinViewModel model;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      builder: (context, model, child) {
-        return _buildScreen(context, model);
-      },
-    );
-  }
-
-  Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
       appBar: SharedAppBar(
         title: const Text('Check-in'),
@@ -34,8 +25,7 @@ class CheckinReview extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => Navigator.popUntil(
-                  context, ModalRoute.withName(RouteName.Dashboard)))
+              onPressed: () => Navigator.popUntil(context, ModalRoute.withName(RouteName.Dashboard)))
         ],
       ),
       body: LayoutBuilder(
@@ -45,8 +35,7 @@ class CheckinReview extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Spacers.md, vertical: Spacers.md),
+                  padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(context, model, 'Summary', ''),
                     if (model.feeling != null)
@@ -58,17 +47,12 @@ class CheckinReview extends StatelessWidget {
                     _buildDivider(), //todo: show/hide logic
                     if (model.selectedSymptoms != null)
                       _buildReview(
-                          'Symptoms',
-                          model.selectedSymptoms
-                              .toList()
-                              .map((s) => symptomLabelMap[s])
-                              .join(', ')),
+                          'Symptoms', model.selectedSymptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Spacers.md, vertical: Spacers.lg),
+                padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
@@ -94,8 +78,7 @@ class CheckinReview extends StatelessWidget {
 
   Widget _buildReview(String title, String subtitle) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: Spacers.md, vertical: Spacers.lg),
+      padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,

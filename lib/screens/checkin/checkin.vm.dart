@@ -8,12 +8,7 @@ import 'package:vital_circle/models/index.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/services/services.dart';
 
-enum CheckinSteps {
-  CheckinFeeling,
-  CheckinTemperature,
-  CheckinSymptoms,
-  CheckinReview
-}
+enum CheckinSteps { CheckinFeeling, CheckinTemperature, CheckinSymptoms, CheckinReview }
 
 class CheckinScreenRouteData {
   CheckinScreenRouteData(this.date, this.checkin);
@@ -95,25 +90,19 @@ class CheckinViewModel extends ChangeNotifier {
     switch (option) {
       case SubjectiveTempOption.HOT:
         {
-          option == subjectiveTemp
-              ? subjectiveTemp = null
-              : subjectiveTemp = SubjectiveTempOption.HOT;
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.HOT;
           notifyListeners();
           return;
         }
       case SubjectiveTempOption.FINE:
         {
-          option == subjectiveTemp
-              ? subjectiveTemp = null
-              : subjectiveTemp = SubjectiveTempOption.FINE;
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.FINE;
           notifyListeners();
           return;
         }
       case SubjectiveTempOption.UNSURE:
         {
-          option == subjectiveTemp
-              ? subjectiveTemp = null
-              : subjectiveTemp = SubjectiveTempOption.UNSURE;
+          option == subjectiveTemp ? subjectiveTemp = null : subjectiveTemp = SubjectiveTempOption.UNSURE;
           notifyListeners();
           return;
         }
@@ -130,31 +119,19 @@ class CheckinViewModel extends ChangeNotifier {
     checkin.temp = temperature;
     checkin.subjectiveTemp = subjectiveTemp;
     checkin.symptoms = Symptoms();
-    checkin.symptoms.febrile =
-        _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
+    checkin.symptoms.febrile = _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
     checkin.symptoms.cough = _selectedSymptoms.contains(Symptom.Cough) ? 1 : 0;
-    checkin.symptoms.shortnessOfBreath =
-        _selectedSymptoms.contains(Symptom.ShortOfBreath) ? 1 : 0;
-    checkin.symptoms.feelingIll =
-        _selectedSymptoms.contains(Symptom.FeelingIll) ? 1 : 0;
-    checkin.symptoms.headache =
-        _selectedSymptoms.contains(Symptom.Headache) ? 1 : 0;
-    checkin.symptoms.bodyAches =
-        _selectedSymptoms.contains(Symptom.BodyAches) ? 1 : 0;
-    checkin.symptoms.oddTaste =
-        _selectedSymptoms.contains(Symptom.OddTaste) ? 1 : 0;
-    checkin.symptoms.oddSmell =
-        _selectedSymptoms.contains(Symptom.OddSmell) ? 1 : 0;
-    checkin.symptoms.sneezing =
-        _selectedSymptoms.contains(Symptom.Sneezing) ? 1 : 0;
-    checkin.symptoms.runnyNose =
-        _selectedSymptoms.contains(Symptom.RunnyNose) ? 1 : 0;
-    checkin.symptoms.soreThroat =
-        _selectedSymptoms.contains(Symptom.SoreThroat) ? 1 : 0;
-    checkin.symptoms.nauseaVomiting =
-        _selectedSymptoms.contains(Symptom.NauseaVomiting) ? 1 : 0;
-    checkin.symptoms.diarrhea =
-        _selectedSymptoms.contains(Symptom.Diarrhea) ? 1 : 0;
+    checkin.symptoms.shortnessOfBreath = _selectedSymptoms.contains(Symptom.ShortOfBreath) ? 1 : 0;
+    checkin.symptoms.feelingIll = _selectedSymptoms.contains(Symptom.FeelingIll) ? 1 : 0;
+    checkin.symptoms.headache = _selectedSymptoms.contains(Symptom.Headache) ? 1 : 0;
+    checkin.symptoms.bodyAches = _selectedSymptoms.contains(Symptom.BodyAches) ? 1 : 0;
+    checkin.symptoms.oddTaste = _selectedSymptoms.contains(Symptom.OddTaste) ? 1 : 0;
+    checkin.symptoms.oddSmell = _selectedSymptoms.contains(Symptom.OddSmell) ? 1 : 0;
+    checkin.symptoms.sneezing = _selectedSymptoms.contains(Symptom.Sneezing) ? 1 : 0;
+    checkin.symptoms.runnyNose = _selectedSymptoms.contains(Symptom.RunnyNose) ? 1 : 0;
+    checkin.symptoms.soreThroat = _selectedSymptoms.contains(Symptom.SoreThroat) ? 1 : 0;
+    checkin.symptoms.nauseaVomiting = _selectedSymptoms.contains(Symptom.NauseaVomiting) ? 1 : 0;
+    checkin.symptoms.diarrhea = _selectedSymptoms.contains(Symptom.Diarrhea) ? 1 : 0;
 
     if (_routeData != null) {
       if (_routeData.checkin != null) {
@@ -163,6 +140,8 @@ class CheckinViewModel extends ChangeNotifier {
       } else if (_routeData.date != null) {
         checkin.timestamp = _routeData.date;
       }
+    } else {
+      checkin.timestamp = DateTime.now();
     }
 
     return checkin;
@@ -186,8 +165,7 @@ class CheckinViewModel extends ChangeNotifier {
       }
       // Navigator.of(context).pop();
       // onDone(context);
-      Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted,
-          ModalRoute.withName(RouteName.Dashboard));
+      Navigator.pushNamedAndRemoveUntil(context, RouteName.CheckinSubmitted, ModalRoute.withName(RouteName.Dashboard));
     } catch (_) {
       _isSaving = false;
       notifyListeners();
