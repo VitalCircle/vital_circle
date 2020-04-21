@@ -16,6 +16,7 @@ class ProgressButton extends StatelessWidget {
     @required this.type,
     @required this.label,
     this.isFullWidth = false,
+    this.isHalfWidth = false,
     this.isProcessing = false,
     @required this.onPressed,
   });
@@ -24,6 +25,7 @@ class ProgressButton extends StatelessWidget {
   final double height;
   final String label;
   final bool isFullWidth;
+  final bool isHalfWidth;
   final bool isProcessing;
   final VoidCallback onPressed;
   final ProgressButtonType type;
@@ -33,7 +35,11 @@ class ProgressButton extends StatelessWidget {
     return SizedBox(
       child: _buildButton(context),
       height: height,
-      width: isFullWidth ? double.infinity : null,
+      // First, check to see if full width is set (takes priority)
+      width: isFullWidth
+          ? double.infinity
+          // then check to see if half width is enabled
+          : isHalfWidth ? MediaQuery.of(context).size.width / 2 : null,
     );
   }
 
@@ -50,8 +56,7 @@ class ProgressButton extends StatelessWidget {
               : () {
                   onPressed();
                 },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(BUTTON_BORDER_RADIUS)),
         );
       case ProgressButtonType.Flat:
         return FlatButton(
@@ -85,16 +90,13 @@ class ProgressButton extends StatelessWidget {
   }
 
   Widget _buildProgressIndicator() {
-    final color =
-        type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
     return CircularProgressIndicator(backgroundColor: color);
   }
 
   Widget _buildLabel(BuildContext context) {
-    final color =
-        type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
-    return Text(label,
-        style: Theme.of(context).textTheme.button.copyWith(color: color));
+    final color = type == ProgressButtonType.Raised ? AppColors.textLight : _getColor();
+    return Text(label, style: Theme.of(context).textTheme.button.copyWith(color: color));
   }
 
   Color _getColor() {
