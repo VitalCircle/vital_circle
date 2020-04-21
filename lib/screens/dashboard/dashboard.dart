@@ -16,7 +16,11 @@ class DashboardScreen extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: SharedAppBar(
-            title: const Text('Vital Circle'),
+            title: 'Vital Circle',
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.business, size: 28), onPressed: () {}),
+              const SizedBox(width: Spacers.md),
+            ],
           ),
           body: Builder(builder: (BuildContext context) {
             return _buildScreen(context, model);
@@ -53,9 +57,10 @@ class DashboardScreen extends StatelessWidget {
                   title: 'Check-in',
                   subtitle: 'Log your symptoms and temperature.',
                   icon: Icons.check_circle_outline,
+                  customColor: AppColors.cardBorder,
                   routeName: RouteName.Checkin,
                 ),
-          const SizedBox(height: Spacers.md),
+          _stdSpacing(),
           NavigationCard(
             title: 'History',
             subtitle: 'Look at your previous symptoms and edit records.',
@@ -64,17 +69,17 @@ class DashboardScreen extends StatelessWidget {
           ),
 
           // While listed in MVP, these buttons are inactive
+          _stdSpacing(),
           NavigationCard(
             title: 'Check my vital circles',
             subtitle: 'See how those around you are doing.',
             icon: Icons.people,
-            routeName: RouteName.CheckinHistory,
           ),
+          _stdSpacing(),
           NavigationCard(
             title: 'Resources',
             subtitle: 'Helpful articles and tips.',
             icon: Icons.info,
-            routeName: RouteName.CheckinHistory,
           ),
         ],
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,8 +90,10 @@ class DashboardScreen extends StatelessWidget {
 
   Widget _buildGreeting(DashboardViewModel model) {
     return Text(
-      model.user.isAnonymous ? 'Good day, stranger' : 'Good day, ${model.user.displayName.split(" ")[0]}',
+      model.user.isAnonymous ? 'Good afternoon, stranger' : 'Good day, ${model.user.displayName.split(" ")[0]}',
       style: AppTypography.h2,
     );
   }
+
+  Widget _stdSpacing() => const SizedBox(height: Spacers.md);
 }

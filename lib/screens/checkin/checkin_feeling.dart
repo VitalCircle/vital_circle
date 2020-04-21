@@ -18,7 +18,7 @@ class CheckinFeeling extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(
-        title: const Text('Check-in'),
+        title: 'Check-in',
         // empty container used to hide back button
         leading: Container(),
         actions: <Widget>[

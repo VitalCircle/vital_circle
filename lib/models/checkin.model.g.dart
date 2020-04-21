@@ -29,10 +29,9 @@ Map<String, dynamic> _$CheckinToJson(Checkin instance) => <String, dynamic>{
 
 Symptoms _$SymptomsFromJson(Map<String, dynamic> json) {
   return Symptoms(
-    bodyAches: json['bodyAches'] as int ?? 0,
     cough: json['cough'] as int ?? 0,
+    bodyAches: json['bodyAches'] as int ?? 0,
     diarrhea: json['diarrhea'] as int ?? 0,
-    febrile: json['febrile'] as int ?? 0,
     feelingIll: json['feelingIll'] as int ?? 0,
     headache: json['headache'] as int ?? 0,
     nauseaVomiting: json['nauseaVomiting'] as int ?? 0,
@@ -49,7 +48,6 @@ Map<String, dynamic> _$SymptomsToJson(Symptoms instance) => <String, dynamic>{
       'bodyAches': instance.bodyAches,
       'cough': instance.cough,
       'diarrhea': instance.diarrhea,
-      'febrile': instance.febrile,
       'feelingIll': instance.feelingIll,
       'headache': instance.headache,
       'nauseaVomiting': instance.nauseaVomiting,

@@ -1,7 +1,6 @@
 import 'package:vital_circle/enums/symptoms.dart';
 
 final symptomLabelMap = <Symptom, String>{
-  Symptom.Fever: 'Fever',
   Symptom.Cough: 'Cough',
   Symptom.ShortOfBreath: 'Short of Breath',
   Symptom.FeelingIll: 'Feeling Ill',

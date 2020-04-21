@@ -19,7 +19,7 @@ class CheckinReview extends StatelessWidget {
 
     return Scaffold(
       appBar: SharedAppBar(
-        title: const Text('Check-in'),
+        title: 'Check-in',
         leading: BackButton(
           onPressed: () => onPrevious(),
         ),
@@ -39,16 +39,6 @@ class CheckinReview extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(context, model, 'Summary', ''),
-                    // if (model.feeling != null)
-                    //   _buildReview('Feeling', model.feeling),
-                    // _buildDivider(), //todo: show/hide logic
-                    // if (model.temperature != null)
-                    //   //     || model.subjectiveTemp != null)
-                    //   _buildReview('Temperature', '${model.temperature} °F'),
-                    // _buildDivider(), //todo: show/hide logic
-                    // if (model.selectedSymptoms != null)
-                    //   _buildReview(
-                    //       'Symptoms', model.selectedSymptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
                     hasData
                         ? CheckinSummary(checkin: model.getModel)
                         : const Center(child: Text('Please complete your daily check-in'))

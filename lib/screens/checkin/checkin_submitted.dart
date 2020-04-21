@@ -77,5 +77,5 @@ class CheckinSubmittedScreen extends StatelessWidget {
     );
   }
 
-  Widget _stdSpacing() => SizedBox(height: Spacers.md);
+  Widget _stdSpacing() => const SizedBox(height: Spacers.md);
 }

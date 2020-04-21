@@ -4,15 +4,12 @@ import 'package:vital_circle/themes/theme.dart';
 import 'package:vital_circle/shared/shared.dart';
 
 class NavigationCard extends StatelessWidget {
-  const NavigationCard(
-      {@required this.icon,
-      @required this.title,
-      this.subtitle,
-      this.routeName});
+  const NavigationCard({@required this.icon, @required this.title, this.subtitle, this.customColor, this.routeName});
 
   final IconData icon;
   final String title;
   final String subtitle;
+  final Color customColor;
   final String routeName;
 
   @override
@@ -26,7 +23,7 @@ class NavigationCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(icon),
+            Icon(icon, color: (customColor != null) ? customColor : null),
             const SizedBox(width: 16),
             Expanded(
               flex: 1,

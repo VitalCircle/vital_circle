@@ -19,7 +19,7 @@ class CheckinSymptoms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(
-        title: const Text('Check-in'),
+        title: 'Check-in',
         leading: BackButton(
           onPressed: () => onPrevious(),
         ),

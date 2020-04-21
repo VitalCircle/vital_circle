@@ -97,15 +97,12 @@ class Checkin {
   String id;
 }
 
-
 @JsonSerializable()
 class Symptoms {
-  // change order to decide which is displayed first
   Symptoms({
-    this.bodyAches,
     this.cough,
+    this.bodyAches,
     this.diarrhea,
-    this.febrile,
     this.feelingIll,
     this.headache,
     this.nauseaVomiting,
@@ -126,8 +123,6 @@ class Symptoms {
   int cough;
   @JsonKey(name: SymptomsProperty.DIARRHEA, defaultValue: 0)
   int diarrhea;
-  @JsonKey(name: SymptomsProperty.FEBRILE, defaultValue: 0)
-  int febrile;
   @JsonKey(name: SymptomsProperty.FEELING_ILL, defaultValue: 0)
   int feelingIll;
   @JsonKey(name: SymptomsProperty.HEADACHE, defaultValue: 0)
@@ -149,9 +144,6 @@ class Symptoms {
 
   Set<Symptom> toList() {
     final symptoms = <Symptom>{};
-    if (febrile != null && febrile > 0) {
-      symptoms.add(Symptom.Fever);
-    }
     if (cough != null && cough > 0) {
       symptoms.add(Symptom.Cough);
     }

@@ -1,15 +1,15 @@
+// change order to decide which is displayed first
 enum Symptom {
-  BodyAches,
   Cough,
-  Diarrhea,
-  FeelingIll,
-  Fever,
-  Headache,
-  NauseaVomiting,
-  OddSmell,
-  OddTaste,
-  RunnyNose,
-  ShortOfBreath,
   Sneezing,
-  SoreThroat
+  ShortOfBreath,
+  SoreThroat,
+  BodyAches,
+  Headache,
+  FeelingIll,
+  Diarrhea,
+  NauseaVomiting,
+  RunnyNose,
+  OddTaste,
+  OddSmell,
 }

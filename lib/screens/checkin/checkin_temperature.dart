@@ -18,7 +18,7 @@ class CheckinTemperature extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(
-        title: const Text('Check-in'),
+        title: 'Check-in',
         leading: BackButton(
           onPressed: () => onPrevious(),
         ),
@@ -68,7 +68,7 @@ class CheckinTemperature extends StatelessWidget {
 
   Widget _buildTemp(BuildContext context, CheckinViewModel model) {
     return TextFormField(
-      style: AppTypography.h1,
+      style: AppTypography.h2,
       textAlign: TextAlign.center,
       decoration: const InputDecoration(
         contentPadding: EdgeInsets.zero,

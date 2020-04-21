@@ -123,7 +123,6 @@ class CheckinViewModel extends ChangeNotifier {
     checkin.temp = temperature;
     checkin.subjectiveTemp = subjectiveTemp;
     checkin.symptoms = Symptoms();
-    checkin.symptoms.febrile = _selectedSymptoms.contains(Symptom.Fever) ? 1 : 0;
     checkin.symptoms.cough = _selectedSymptoms.contains(Symptom.Cough) ? 1 : 0;
     checkin.symptoms.shortnessOfBreath = _selectedSymptoms.contains(Symptom.ShortOfBreath) ? 1 : 0;
     checkin.symptoms.feelingIll = _selectedSymptoms.contains(Symptom.FeelingIll) ? 1 : 0;
