@@ -7,7 +7,7 @@ class SharedAppBar extends AppBar {
             backgroundColor: Colors.transparent,
             centerTitle: true,
             elevation: 0,
-            title: Text(title, style: AppTypography.h3),
+            title: title != null ? Text(title, style: AppTypography.h3) : null,
             actions: actions,
             leading: leading);
 }
