@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:vital_circle/enums/symptoms.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
 import 'package:vital_circle/themes/theme.dart';
-import 'package:vital_circle/utils/symptom_label.dart';
 
 import 'checkin.vm.dart';
 
 class CheckinReview extends StatelessWidget {
-  const CheckinReview({@required this.onNext, @required this.onPrevious});
+  const CheckinReview({@required this.onNext, @required this.onPrevious, @required this.model});
 
   final VoidCallback onNext;
   final VoidCallback onPrevious;
+  final CheckinViewModel model;
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<CheckinViewModel>(
-      model: CheckinViewModel.of(context),
-      builder: (context, model, child) {
-        return _buildScreen(context, model);
-      },
-    );
-  }
+    final hasData = model.hasData;
 
-  Widget _buildScreen(BuildContext context, CheckinViewModel model) {
     return Scaffold(
       appBar: SharedAppBar(
         title: const Text('Check-in'),
@@ -47,16 +39,19 @@ class CheckinReview extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(context, model, 'Summary', ''),
-                    if (model.feeling != null)
-                      _buildReview('Feeling', model.feeling),
-                    _buildDivider(), //todo: show/hide logic
-                    if (model.temperature != null)
-                      //     || model.subjectiveTemp != null)
-                      _buildReview('Temperature', '${model.temperature} °F'),
-                    _buildDivider(), //todo: show/hide logic
-                    if (model.selectedSymptoms != null)
-                      _buildReview(
-                          'Symptoms', model.selectedSymptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
+                    // if (model.feeling != null)
+                    //   _buildReview('Feeling', model.feeling),
+                    // _buildDivider(), //todo: show/hide logic
+                    // if (model.temperature != null)
+                    //   //     || model.subjectiveTemp != null)
+                    //   _buildReview('Temperature', '${model.temperature} °F'),
+                    // _buildDivider(), //todo: show/hide logic
+                    // if (model.selectedSymptoms != null)
+                    //   _buildReview(
+                    //       'Symptoms', model.selectedSymptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
+                    hasData
+                        ? CheckinSummary(checkin: model.getModel)
+                        : const Center(child: Text('Please complete your daily check-in'))
                   ],
                 ),
               ),
@@ -66,9 +61,11 @@ class CheckinReview extends StatelessWidget {
                   width: double.infinity,
                   child: ProgressButton(
                       label: 'Submit',
-                      onPressed: () {
-                        _submit(context, model);
-                      },
+                      onPressed: hasData
+                          ? () {
+                              _submit(context, model);
+                            }
+                          : null,
                       type: ProgressButtonType.Raised),
                 ),
               )

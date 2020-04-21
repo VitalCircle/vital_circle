@@ -10,8 +10,7 @@ class CheckinApi {
   Stream<List<Checkin>> streamCheckins(String userId) {
     final path = FirestorePath.checkinsPath(userId);
     return Firestore.instance.collection(path).snapshots().map((query) {
-      _log.debug('streamCheckins',
-          <String, dynamic>{'userId': userId, 'count': query.documents.length});
+      _log.debug('streamCheckins', <String, dynamic>{'userId': userId, 'count': query.documents.length});
       return query.documents
           .where((doc) => doc.data != null)
           .map((doc) => Checkin.fromJson(doc.documentID, doc.data))
@@ -19,17 +18,14 @@ class CheckinApi {
     });
   }
 
-  Stream<List<Checkin>> streamCheckinsForTimeRange(
-      String userId, DateTime start, DateTime end) {
+  Stream<List<Checkin>> streamCheckinsForTimeRange(String userId, DateTime start, DateTime end) {
     final path = FirestorePath.checkinsPath(userId);
     return Firestore.instance
         .collection(path)
-        .where(CheckinProperty.TIMESTAMP,
-            isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end)
+        .where(CheckinProperty.TIMESTAMP, isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end)
         .snapshots()
         .map((query) {
-      _log.debug('streamCheckinsForTimeRange',
-          <String, dynamic>{'userId': userId, 'count': query.documents.length});
+      _log.debug('streamCheckinsForTimeRange', <String, dynamic>{'userId': userId, 'count': query.documents.length});
       return query.documents
           .where((doc) => doc.data != null)
           .map((doc) => Checkin.fromJson(doc.documentID, doc.data))
@@ -44,11 +40,7 @@ class CheckinApi {
       return null;
     }
     final checkin = Checkin.fromJson(doc.documentID, doc.data);
-    _log.debug('getCheckin', <String, dynamic>{
-      'userId': userId,
-      'checkinId': checkinId,
-      'Checkin': doc.data
-    });
+    _log.debug('getCheckin', <String, dynamic>{'userId': userId, 'checkinId': checkinId, 'Checkin': doc.data});
     return checkin;
   }
 
@@ -66,7 +58,6 @@ class CheckinApi {
     final data = checkin.toJson();
     final doc = Firestore.instance.document(path);
     doc.updateData(data);
-    _log.debug(
-        'updateCheckin', <String, dynamic>{'userId': userId, 'data': data});
+    _log.debug('updateCheckin', <String, dynamic>{'userId': userId, 'data': data});
   }
 }

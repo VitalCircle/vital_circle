@@ -22,7 +22,7 @@ Map<String, dynamic> _$CheckinToJson(Checkin instance) => <String, dynamic>{
       'feeling': instance.feeling,
       'temp': instance.temp,
       'subjectiveTemp': instance.subjectiveTemp,
-      'symptoms': instance.symptoms,
+      'symptoms': instance.symptoms?.toJson(),
       'timestamp': Checkin._datetimeAsIs(instance.timestamp),
       'id': instance.id,
     };

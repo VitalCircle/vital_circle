@@ -28,25 +28,23 @@ class _CheckinScreenState extends State<CheckinScreen> {
   }
 
   Widget _buildScreen(BuildContext context, CheckinViewModel model) {
-    return PageView(
-      controller: _pageController,
-      children: [
-        CheckinFeeling(
-          onNext: () => _toNext(model),
-        ),
-        CheckinTemperature(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
-        CheckinSymptoms(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
-        CheckinReview(
-          onNext: () => _toNext(model),
-          onPrevious: () => _toPrevious(),
-        ),
-      ],
+    return WillPopScope(
+      onWillPop: () async {
+        if (_pageController.page.round() == _pageController.initialPage) {
+          return true;
+        }
+        _toPrevious();
+        return false;
+      },
+      child: PageView(
+        controller: _pageController,
+        children: [
+          CheckinFeeling(onNext: () => _toNext(model), model: model),
+          CheckinTemperature(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+          CheckinSymptoms(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+          CheckinReview(onNext: () => _toNext(model), onPrevious: () => _toPrevious(), model: model),
+        ],
+      ),
     );
   }
 

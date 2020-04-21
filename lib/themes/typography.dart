@@ -52,7 +52,6 @@ class AppTypography {
   );
 
   static const TextStyle calendarDay = TextStyle(
-    color: AppColors.primary,
     fontFamily: 'HKGrotesk',
     fontSize: 16,
     fontWeight: FontWeight.w600,
