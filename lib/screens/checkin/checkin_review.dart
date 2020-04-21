@@ -34,8 +34,7 @@ class CheckinReview extends StatelessWidget {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () => Navigator.popUntil(
-                  context, ModalRoute.withName(RouteName.Dashboard)))
+              onPressed: () => Navigator.popUntil(context, ModalRoute.withName(RouteName.Dashboard)))
         ],
       ),
       body: LayoutBuilder(
@@ -45,8 +44,7 @@ class CheckinReview extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Spacers.md, vertical: Spacers.md),
+                  padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.md),
                   children: <Widget>[
                     checkinHeader(context, model, 'Summary', ''),
                     if (model.feeling != null)
@@ -58,17 +56,12 @@ class CheckinReview extends StatelessWidget {
                     _buildDivider(), //todo: show/hide logic
                     if (model.selectedSymptoms != null)
                       _buildReview(
-                          'Symptoms',
-                          model.selectedSymptoms
-                              .toList()
-                              .map((s) => symptomLabelMap[s])
-                              .join(', ')),
+                          'Symptoms', model.selectedSymptoms.toList().map((s) => symptomLabelMap[s]).join(', ')),
                   ],
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Spacers.md, vertical: Spacers.lg),
+                padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
@@ -94,13 +87,12 @@ class CheckinReview extends StatelessWidget {
 
   Widget _buildReview(String title, String subtitle) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: Spacers.md, vertical: Spacers.lg),
+      padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(title, style: AppTypography.h2),
+          Text(title, style: AppTypography.h3),
           SizedBox(height: Spacers.sm),
           Text(subtitle),
         ],

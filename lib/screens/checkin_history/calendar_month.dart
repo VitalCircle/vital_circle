@@ -54,7 +54,7 @@ class CalendarMonth extends StatelessWidget {
     const rowSpacer = SizedBox(height: 24);
     return Column(
       children: <Widget>[
-        Text(monthName, style: AppTypography.h1),
+        Text(monthName, style: AppTypography.h2),
         rowSpacer,
         ...weeks.intersperse(rowSpacer),
       ],

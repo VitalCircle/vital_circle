@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:vital_circle/screens/checkin/checkin.vm.dart';
 import 'package:vital_circle/themes/theme.dart';
 
-Widget checkinHeader(BuildContext context, CheckinViewModel model,
-    String titleText, String subtitleText) {
+Widget checkinHeader(BuildContext context, CheckinViewModel model, String titleText, String subtitleText) {
   return Column(children: [
-    Text(titleText, style: AppTypography.h2),
+    Text(titleText, style: AppTypography.h3),
     const SizedBox(height: Spacers.sm),
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: Spacers.md),

@@ -5,11 +5,18 @@ class AppTypography {
   static const TextStyle h1 = TextStyle(
     color: AppColors.primary,
     fontFamily: 'LeagueSpartan',
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: FontWeight.bold,
   );
 
   static const TextStyle h2 = TextStyle(
+    color: AppColors.primary,
+    fontFamily: 'LeagueSpartan',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle h3 = TextStyle(
     color: AppColors.primary,
     fontFamily: 'LeagueSpartan',
     fontSize: 16,

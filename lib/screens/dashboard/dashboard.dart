@@ -72,7 +72,7 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildGreeting() {
     return Text(
       'Good day, Human',
-      style: AppTypography.h1,
+      style: AppTypography.h2,
     );
   }
 }

@@ -9,10 +9,7 @@ const LOREM_IPSUM =
 
 class LegalAgreementScreen extends StatelessWidget {
   const LegalAgreementScreen(
-      {@required this.title,
-      @required this.content,
-      @required this.onAccept,
-      @required this.isProcessing});
+      {@required this.title, @required this.content, @required this.onAccept, @required this.isProcessing});
 
   final String title;
   final String content;
@@ -29,7 +26,7 @@ class LegalAgreementScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                child: Text(title, style: AppTypography.h1),
+                child: Text(title, style: AppTypography.h2),
                 padding: const EdgeInsets.symmetric(vertical: Spacers.lg),
               ),
               Expanded(

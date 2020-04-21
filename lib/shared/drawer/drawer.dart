@@ -50,7 +50,7 @@ class DrawerWidget extends StatelessWidget {
       accountName: const Text('Anonymous'),
       accountEmail: const Text(''),
       currentAccountPicture: CircleAvatar(
-        child: Text('A', style: AppTypography.h1.copyWith(color: AppColors.textLight)),
+        child: Text('A', style: AppTypography.h2.copyWith(color: AppColors.textLight)),
       ),
     );
   }

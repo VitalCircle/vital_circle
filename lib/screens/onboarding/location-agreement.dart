@@ -22,13 +22,11 @@ class LocationAgreementScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  child: Text('Location Sharing', style: AppTypography.h1),
+                  child: Text('Location Sharing', style: AppTypography.h2),
                   padding: const EdgeInsets.symmetric(vertical: Spacers.lg),
                 ),
                 const Expanded(
-                    child: Center(
-                        child: Text(
-                            'TODO: some graphic and text explaining why to share their location.'))),
+                    child: Center(child: Text('TODO: some graphic and text explaining why to share their location.'))),
                 const SizedBox(height: Spacers.md),
                 Row(
                   children: <Widget>[
