@@ -51,8 +51,8 @@ class CheckinFeeling extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: Spacers.md, vertical: Spacers.lg),
                 child: SizedBox(
                   width: double.infinity,
-                  child: ProgressButton(
-                      label: 'Continue', onPressed: () => _continue(context, model), type: ProgressButtonType.Raised),
+                  child:
+                      ProgressButton(label: 'Continue', onPressed: () => _continue(), type: ProgressButtonType.Raised),
                 ),
               ),
             ],
@@ -66,16 +66,18 @@ class CheckinFeeling extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        child: SelectionCard(
-          title: option,
-          selected: model.feeling == option,
-        ),
-        onTap: () => model.selectFeeling(option),
-      ),
+          child: SelectionCard(
+            title: option,
+            selected: model.feeling == option,
+          ),
+          onTap: () {
+            model.selectFeeling(option);
+            _continue();
+          }),
     );
   }
 
-  void _continue(BuildContext context, CheckinViewModel model) {
+  void _continue() {
     onNext();
   }
 }

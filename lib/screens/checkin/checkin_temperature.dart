@@ -48,7 +48,7 @@ class CheckinTemperature extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: ProgressButton(
-                      label: 'Continue', onPressed: () => _continue(context, model), type: ProgressButtonType.Raised),
+                      label: 'Continue', onPressed: () => _continue(context), type: ProgressButtonType.Raised),
                 ),
               )
             ],
@@ -68,7 +68,11 @@ class CheckinTemperature extends StatelessWidget {
       keyboardType: TextInputType.number,
       initialValue: model.temperature?.toString() ?? '',
       onChanged: (value) {
+        model.subjectiveTemp = null;
         model.temperature = double.tryParse(value);
+      },
+      onFieldSubmitted: (value) {
+        _continue(context);
       },
       textInputAction: TextInputAction.done,
     );
@@ -96,16 +100,19 @@ class CheckinTemperature extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        child: SelectionCardSmall(
-          title: option,
-          selected: model.subjectiveTemp == option,
-        ),
-        onTap: () => model.selectSubjectiveTemp(option),
-      ),
+          child: SelectionCardSmall(
+            title: option,
+            selected: model.subjectiveTemp == option,
+          ),
+          onTap: () {
+            model.selectSubjectiveTemp(option);
+            model.temperature = null;
+            _continue(context);
+          }),
     );
   }
 
-  void _continue(BuildContext context, CheckinViewModel model) {
+  void _continue(BuildContext context) {
     // dismiss keyboard
     FocusScope.of(context).requestFocus(FocusNode());
     onNext();
