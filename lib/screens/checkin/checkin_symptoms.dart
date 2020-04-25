@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vital_circle/enums/symptoms.dart';
+import 'package:vital_circle/models/icon.model.dart';
 import 'package:vital_circle/routes.dart';
 import 'package:vital_circle/shared/checkin/checkin_header.dart';
 import 'package:vital_circle/shared/shared.dart';
@@ -44,7 +45,11 @@ class CheckinSymptoms extends StatelessWidget {
                         'Please select your symptoms',
                         // todo: extract symptoms
                         'Yesterday, you had cough, short of breath, and body aches'),
-                    ...Symptom.values.map((s) => _buildSymptom(context, model, s)).toList(),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: <Widget>[...Symptom.values.map((s) => _buildSymptom(context, model, s)).toList()],
+                    ),
                   ],
                 ),
               ),
@@ -75,11 +80,12 @@ class CheckinSymptoms extends StatelessWidget {
 
   Widget _buildSymptom(BuildContext context, CheckinViewModel model, Symptom symptom) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
       child: InkWell(
-        child: SelectionCard(
+        child: SelectionCardSmall(
           title: symptomLabelMap[symptom],
           selected: model.selectedSymptoms.contains(symptom),
+          icon: IconProperty().getIconFromSymptom(symptom),
         ),
         onTap: () => model.toggleSymptom(symptom),
       ),

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vital_circle/enums/subjective_temp.dart';
 import 'package:vital_circle/enums/symptoms.dart';
 
 part 'checkin.model.g.dart';
@@ -54,6 +55,18 @@ class SubjectiveTempOption {
   static const HOT = 'Feeling hot';
   static const FINE = 'Feeling fine';
   static const UNSURE = 'Unsure';
+}
+
+String getSubjectiveTempTitle(SubjectiveTemp subjectiveTemp) {
+  switch (subjectiveTemp) {
+    case SubjectiveTemp.hot:
+      return SubjectiveTempOption.HOT;
+    case SubjectiveTemp.fine:
+      return SubjectiveTempOption.FINE;
+    case SubjectiveTemp.unsure:
+      return SubjectiveTempOption.UNSURE;
+  }
+  return SubjectiveTempOption.UNSURE;
 }
 
 // * ----------------------------

@@ -15,6 +15,9 @@ class AppColors {
   // Button
   static const Color buttonDisabled = disabled;
 
+  // Disabled Icon
+  static const Color iconDisabled = Color(0xFF9FA9AD);
+
   // Calendar
   static const Color today = Color(0xFFCFD8DC);
   static const Color checkinGood = primary;
