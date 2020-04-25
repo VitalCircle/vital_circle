@@ -30,9 +30,7 @@ class SelectionCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          selected
-              ? Icon(Icons.check_circle)
-              : Icon(Icons.panorama_fish_eye, color: AppColors.cardBorder),
+          selected ? Icon(Icons.check_circle) : Icon(Icons.panorama_fish_eye, color: AppColors.cardBorder),
         ],
       ),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
@@ -41,10 +39,11 @@ class SelectionCard extends StatelessWidget {
 }
 
 class SelectionCardSmall extends StatelessWidget {
-  const SelectionCardSmall({@required this.title, this.selected = false});
+  const SelectionCardSmall({@required this.title, @required this.icon, this.selected = false});
 
   final String title;
   final bool selected;
+  final Image icon;
 
   @override
   Widget build(BuildContext context) {
@@ -53,23 +52,32 @@ class SelectionCardSmall extends StatelessWidget {
         border: Border.all(color: AppColors.cardBorder),
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(title, style: AppTypography.bodyRegular1),
-              const SizedBox(height: 4),
-              // if (subtitle != null) WrappedText(child: Text(subtitle)),
-            ],
-          ),
-          const SizedBox(width: 16),
-          selected
-              ? Icon(Icons.check_circle)
-              : Icon(Icons.panorama_fish_eye, color: AppColors.cardBorder),
-        ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * .35,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            ImageIcon(
+              icon.image,
+              color: selected ? null : AppColors.iconDisabled,
+            ),
+            Flexible(
+              child: Text(
+                title,
+                style: AppTypography.bodyRegular1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            selected
+                ? Icon(Icons.check_circle)
+                : Icon(
+                    Icons.panorama_fish_eye,
+                    color: AppColors.cardBorder,
+                  ),
+          ],
+        ),
       ),
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
     );
